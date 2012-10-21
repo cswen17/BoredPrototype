@@ -50,7 +50,11 @@
 			<p>(e.g. UC Merson Courtyard)</p>
   		</div>
 		
-		
+		<div class="field">
+    		<strong><%= f.label :"URL" %></strong>
+    		<%= f.text_field :url %>
+			<p>(e.g. http://www.teudu.org)  </p>
+  		</div>
 
   		<div class="field">
     		<strong><%= f.label :start_time, 'Start time (EST)' %></strong>

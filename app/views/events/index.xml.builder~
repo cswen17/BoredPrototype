@@ -12,15 +12,7 @@ xml.events do
 
       xml.location(event_obj.location)
       xml.image(event_obj.flyer)
-
-      mycat = "Error: No Category Matched"
-      EventsHelper::all_categories.each	do |c|
-      if c.second.to_s == event_obj.categories
-           mycat = c.first
-        end
-      end
-
-      xml.categories(mycat)
+      xml.categories(event_obj.categories)
 
       xml.cancelled(event_obj.cancelled)
     end

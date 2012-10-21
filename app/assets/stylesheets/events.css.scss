@@ -56,9 +56,10 @@ $event_expanded_zindex: 900;
 	 font-size: 17px; 
 	 font-weight: bold;
 	 padding: 8px;
+	 margin-left: -5px;
 	 letter-spacing: 1px;
 	 border: 0px dotted #888;
-	 border-width: 0px 0px 0px 1px;
+	 border-width: 0px 1px 0px 0px;
 	 &:hover {
 		background-color: #8C0F2E;
 		color: white;

@@ -22,7 +22,7 @@
 		<div class="events-col-info">
 			<h2>Click an event to see details &rarr;</h2>
 			<div class="info-main">
-			<p id="info-organization"></p>
+				<p id="info-organization"></p>
 		    	<h2 id="info-title"></h2>
 		
 		    	<p id="info-date"></p>
