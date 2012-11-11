@@ -32,7 +32,15 @@ var App = {
 
 var full = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // All categories
 
+var displayEvents = false;
+
+
 function updateInfo(node) {
+  var eventsBar = $('.events-col-info');
+  if (!displayEvents) {
+      displayEvents = true;
+      eventsBar.toggle("slow");
+  }
   var infoBar = $('.info-main');
   $('#info-title', infoBar).html($('.event-title', node).html());
   $('#info-desc', infoBar).html($('.event-desc', node).html());
@@ -47,7 +55,6 @@ $(function() {
     updateInfo(this);
 	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
   });
-
 
   var i = 1; 
 
@@ -125,6 +132,7 @@ function init() {
 // Toggle button i 
 function toggleonClick(i){
     buttonoff(0);
+    show_div();
     refresh_cat();
     cat = '.cat-' + (i).toString();
     if ( $(cat).css('display') == "none" 
