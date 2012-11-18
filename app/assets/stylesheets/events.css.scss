@@ -30,10 +30,17 @@ $event_expanded_zindex: 900;
 	 border: 2px solid black;
 }
 
-
+/* I changed the margin-left here
+ * from 275px to 75px because the
+ * events were floating too far to
+ * the right. 
+ */
 #eventscontainer { 
-	margin-left: 275px;
+	margin-left: 75px;
+    margin-right: -75px;
 	padding-left: 25px;
+    height: 600px;
+    width: 800px;
 	#event {
 	float: left;
 	}
@@ -72,39 +79,50 @@ $event_expanded_zindex: 900;
 	}
 }
 
-.events-col-info {
-	float: left;
+.events-col-info { 
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 75%;
+    float: right;
+    margin-right: -60px;
 	font-family: 'News Cycle';
 	padding: 15px;
-	background: rgba(0,0,0,0.65);
-	width: 250px;
+/*	background:  rgba(0,0,0,0.65);*/
+    background-image:url('chalkboard-black.jpg');
+	width: 350px;
+    height: 400px;
 	padding-right: 20px;
 	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 	
-	> h2 {
-		color: white;
-		border-bottom: 1px dotted #FFF;
-		padding-bottom: 8px;
-		margin-bottom: 15px;
-	}
-	
-	.info-main {
-    	color: #FFF;
-		line-height: 1.42em;
+    > h2 {
+	    color: white;
+	    border-bottom: 1px dotted #FFF;
+	    padding-bottom: 8px;
+	    margin-bottom: 15px;
+    }
 
-		h2 {
-			font-size: 2em;
-			line-height: 1.03em;
-			margin-bottom: 11px; }
-		#info-desc {
-      		margin-bottom: 1em; }
-		#info-date {
-      		font-weight: bold; }
-		#info-location {
-			margin-bottom: 1em; }
+    /* Dangerous, I think. Think of a more stable way to do this
+     * later 
+     */	
+    >div /*#info-main*/ {
+        color: #FFF;
+	    line-height: 1.42em;
+
+	    h2 {
+		    font-size: 2em;
+		    line-height: 1.03em;
+		    margin-bottom: 11px; }
+	    p #info-desc {
+      	    margin-bottom: 1em; }
+	    p #info-date {
+      	    font-weight: bold; }
+	    p #info-location {
+		    margin-bottom: 1em; }
 	}
+    
 }
 
 .event {
