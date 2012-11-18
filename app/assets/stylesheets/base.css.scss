@@ -13,9 +13,11 @@ body {
   overflow: scroll;
   height: 100%;
   min-height: 100%;
-  background: #F0F0F0 url('/images/bg.png');
+  background: #F0F0F0 url('/images/shattered2.png');
+  background-repeat: repeat;
+
   color: #111;
-  font-family: 'Helvetica Neue', 'Helvetica', arial, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 15px;
   line-height: 1em;
   margin: 0 auto -4em;
@@ -30,7 +32,6 @@ hr{
 
 form{
 	width: 800px;
-
 }
 
 .pageText{
@@ -58,21 +59,30 @@ form{
 .header {
 
 	color: #ffffff;
-	background-color: #000000;
+	background: rgb(69,72,77); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+
 	z-index: 5;
 	width: 100%;
-	text-align: right;
-	padding: 5px 0px 5px 0px;
-
+	text-align: center;
+	padding: 5px 0px 10px 0px;
+	
 	#image {
 	    display: inline;
 	    text-align:left;
-	    padding-right: 40%;
+	    padding-right: 5%;
 	}
 
 	#hMenu {
 		color: #ffffff;
-		letter-spacing: 1px;
+		letter-spacing: 2px;
 		display: inline;
 		font-size: 12px;
 		padding-right:15px;
