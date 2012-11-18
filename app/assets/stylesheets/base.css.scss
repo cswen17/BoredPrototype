@@ -13,12 +13,13 @@ body {
   overflow: scroll;
   height: 100%;
   min-height: 100%;
-  background: #F0F0F0 url(/images/bg.png);
+  background: #F0F0F0 url('/images/bg.png');
   color: #111;
   font-family: 'Helvetica Neue', 'Helvetica', arial, sans-serif;
   font-size: 15px;
   line-height: 1em;
   margin: 0 auto -4em;
+  .displayOff {}
 }
 
 hr{
