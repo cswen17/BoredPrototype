@@ -32,23 +32,59 @@ var App = {
 
 var full = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // All categories
 
+/* We use a boolean variable displayEvents to indicate whether
+ * we should toggle the div events-col-info or not. In [updateInfo]
+ * we toggle the div events-col-info, and in the anonymous function,
+ * we have an event handler $('.event').click() that calls 
+ * [updateInfo]. 
+ */
+var displayEvents = false;
+
 function updateInfo(node) {
+  /* Here is the code I added. It checks if displayEvents is false,
+   * and toggles the div events-col-info if so. It then sets displayEvents
+   * to true, to avoid toggling it continuously.(lines 48-52) 
+   */
+  var eventsBar = $('.events-col-info');
+  if (!displayEvents) {
+      displayEvents = true;
+      eventsBar.toggle("slow");
+  }
   var infoBar = $('.info-main');
   $('#info-title', infoBar).html($('.event-title', node).html());
   $('#info-desc', infoBar).html($('.event-desc', node).html());
   $('#info-location', infoBar).html($('.event-location', node).html());
   $('#info-date', infoBar).html($('.event-date', node).html());
   $('#info-organization', infoBar).html($('.event-organization', node).html());
+};
+
+/* Note: This function does not work. 
+ * [hideInfo] toggles the div events-col-info if displayEvents is true.
+ * It was intended for the following feature:
+ * If we click on an event flyer, we see its details in events-col-info.
+ * If we click on the body, we hide all the details and resume browsing
+ * flyers.
+ * It is called on line 125.
+ */
+function hideInfo(node) {
+    var eventsCol = $('.events-col-info');
+    if (displayEvents) {
+        displayEvents = false;
+        eventsCol.hide("slow");
+    }
 }
 
 $(function() {
   $('.datepicker').datepicker();
-  $('.event').click(function(){
+  $('.event').click(function(){    
     updateInfo(this);
 	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
   });
-
-
+  $('#eventscontainer').siblings().click(function(){
+      hideInfo(this);
+      $('html, body').animate({ scrollTop: 0}, "fast", "swing");
+  });
+   
   var i = 1; 
 
   init();
@@ -91,6 +127,9 @@ $(function() {
   $('li.catname-9').click(function(e){
 	  toggleonClick(9);
       });
+  $('body').click(function(e){
+      hideInfo(this);
+  });
 });
 
 $('.field input').focus(function(){
@@ -125,6 +164,7 @@ function init() {
 // Toggle button i 
 function toggleonClick(i){
     buttonoff(0);
+    show_div();
     refresh_cat();
     cat = '.cat-' + (i).toString();
     if ( $(cat).css('display') == "none" 
@@ -184,25 +224,3 @@ function hide_all() {
 	}
 }
 
-var show_categores = new Array(); //DELETE ME
-show_categories = [1,2,3,4]; //DELETE ME
-
-//Takes an array of categories, cats. Displays only events with those categories,
-//  and hides all others.
-function show_only_cats(cats){
-	hide_all();
-	
-	for(var x in cats){
-		show_cat(x);
-	}
-}
-
-function hide_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','none');
-}
-
-function show_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','inline');
-}
