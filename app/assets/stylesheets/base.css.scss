@@ -6,8 +6,10 @@ $animation_length: 0.5s;
 $info_column_width: 300px;
 $header_height: 500px;
 
-html { height: 100%; 
-       min-width: 1200px;}
+html { 
+    height: 100%; 
+    /*min-width: 1200px;*/
+}
 
 body {
   overflow: scroll;

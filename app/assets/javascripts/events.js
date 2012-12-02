@@ -39,6 +39,7 @@ var full = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // All categories
  * [updateInfo]. 
  */
 var displayEvents = false;
+var ANIMATION_LENGTH = 300;
 
 function updateInfo(node) {
   /* Here is the code I added. It checks if displayEvents is false,
@@ -51,9 +52,11 @@ function updateInfo(node) {
       displayEvents = true;
       var $windowWidth = $(window).width();
       var $newRight = $windowWidth.toString()+"px";
-      var $newECW = Math.floor(($windowWidth - 350)).toString() + "px"; 
-      $eventsBar.animate({"right": "-350px"}, 300);
-      $('body').animate({"margin-right": "350px"}, 300);
+      var $newECW = Math.floor(($windowWidth - 355)).toString() + "px";
+      var $newLeft = ($windowWidth - 350).toString() + "px"; 
+      $('body').animate({"margin-right": "355px"}, ANIMATION_LENGTH);
+      $eventsBar.removeClass("right");
+      $eventsBar.animate({"left": $newLeft}, ANIMATION_LENGTH);
       $('#eventscontainer').css("width", $newECW);
   }
   /* This is the original code. events-col-info used to be visible, but the
@@ -78,8 +81,8 @@ function hideInfo(node) {
     var $eventsCol = $('.events-col-info');
     if (displayEvents) {
         displayEvents = false;
-        var $newRight1 = "-700px";
-        $eventsCol.animate({"right": $newRight1}, 300);
+        var $newLeft1 = "1700px";
+        $eventsCol.animate({"left": $newLeft1}, 300);
         $('body').animate({"margin-right": "0px"}, 100);
         $('#eventscontainer').css("width", "100%");
     }
@@ -138,11 +141,6 @@ $(function() {
   $('li.catname-9').click(function(e){
 	  toggleonClick(9);
       });
-  $(window).resize(function(){
-    var $windowWidth = $(window).width();
-    var $newBodyWidth = $windowWidth - 350;
-    $('body').css("margin-right", "350px"); 
-  });
 });
 
 $('.field input').focus(function(){
