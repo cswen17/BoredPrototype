@@ -4,6 +4,21 @@
 	<% @organizationsEvents.each do |organization| %>
 		<li><h2><%= organization.name %></h2>
 			<% if !organization.events.nil? %>
+
+			<div class="events-col-info">
+			  <h2>&larr; Click an event to see details</h2>
+			  <div class="info-main">
+			    <p id="info-organization"></p>
+			    <h2 id="info-title"></h2>
+			    
+			    <p id="info-date"></p>
+			    <p id="info-location"></p>
+
+			    <p id="info-desc"></p>
+			  </div>
+			</div>
+
+
 				<div>
 				<% organization.events.each do |event| %>
 				<div id="event"><%= render event  %></div>
