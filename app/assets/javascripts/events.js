@@ -81,7 +81,7 @@ function hideInfo(node) {
     var $eventsCol = $('.events-col-info');
     if (displayEvents) {
         displayEvents = false;
-        var $newLeft1 = "1700px";
+        var $newLeft1 = "9999px";
         $eventsCol.animate({"left": $newLeft1}, 300);
         $('body').animate({"margin-right": "0px"}, 100);
         $('#eventscontainer').css("width", "100%");
