@@ -36,11 +36,11 @@ $event_expanded_zindex: 900;
  * the right. 
  */
 #eventscontainer { 
-	margin-left: 75px;
-    margin-right: -75px;
-	padding-left: 25px;
+	/* margin-left: 75px;*/
+    /* margin-right: 75px;*/
+	/* padding-left: 25px;*/
     height: 600px;
-    width: 800px;
+    width: 100%;
 	#event {
 	float: left;
 	}
@@ -55,7 +55,7 @@ $event_expanded_zindex: 900;
 	list-style-type: none;
 	padding-bottom: 20px;
 	text-align: center;
-	min-width: 1000px;
+	/* min-width: 1000px;*/
 	li {
 	 display: inline-table;
 	 text-align: center;
@@ -80,19 +80,18 @@ $event_expanded_zindex: 900;
 }
 
 .events-col-info { 
-    display: none;
+/*  display: none; */
     position: fixed;
-    top: 30%;
-    left: 75%;
+    top: 0%;
+    right: -700px;
     float: right;
-    margin-right: -60px;
-	font-family: 'News Cycle';
-	padding: 15px;
+	margin-right: 25%;
+    font-family: 'News Cycle';
+	padding: 20px;
 /*	background:  rgba(0,0,0,0.65);*/
     background-image:url('chalkboard-black.jpg');
 	width: 350px;
-    height: 400px;
-	padding-right: 20px;
+    height: 100%;
 	-moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -103,7 +102,7 @@ $event_expanded_zindex: 900;
 	    padding-bottom: 8px;
 	    margin-bottom: 15px;
     }
-
+    
     /* Dangerous, I think. Think of a more stable way to do this
      * later 
      */	
@@ -122,7 +121,9 @@ $event_expanded_zindex: 900;
 	    p #info-location {
 		    margin-bottom: 1em; }
 	}
-    
+    /* The following selector is to set the animation for sliding in the 
+     * events-col-info container. It represents the end state of the slide.
+     */
 }
 
 .event {

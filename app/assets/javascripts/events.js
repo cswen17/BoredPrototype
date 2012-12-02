@@ -43,13 +43,23 @@ var displayEvents = false;
 function updateInfo(node) {
   /* Here is the code I added. It checks if displayEvents is false,
    * and toggles the div events-col-info if so. It then sets displayEvents
-   * to true, to avoid toggling it continuously.(lines 48-52) 
+   * to true, to avoid toggling it continuously. It also shifts the rest of
+   * the page to the left. 
    */
-  var eventsBar = $('.events-col-info');
+  var $eventsBar = $('.events-col-info');
   if (!displayEvents) {
       displayEvents = true;
-      eventsBar.toggle("slow");
+      var $windowWidth = $(window).width();
+      var $newRight = $windowWidth.toString()+"px";
+      var $newECW = Math.floor(($windowWidth - 350)).toString() + "px"; 
+      $eventsBar.animate({"right": "-350px"}, 300);
+      $('body').animate({"margin-right": "350px"}, 300);
+      $('#eventscontainer').css("width", $newECW);
   }
+  /* This is the original code. events-col-info used to be visible, but the
+   * information was not displayed until the user clicked on an event, so this
+   * code was intended to load the event information into events-col-info.
+   */
   var infoBar = $('.info-main');
   $('#info-title', infoBar).html($('.event-title', node).html());
   $('#info-desc', infoBar).html($('.event-desc', node).html());
@@ -58,19 +68,20 @@ function updateInfo(node) {
   $('#info-organization', infoBar).html($('.event-organization', node).html());
 };
 
-/* Note: This function does not work. 
- * [hideInfo] toggles the div events-col-info if displayEvents is true.
+/* [hideInfo] toggles the div events-col-info if displayEvents is true.
  * It was intended for the following feature:
  * If we click on an event flyer, we see its details in events-col-info.
- * If we click on the body, we hide all the details and resume browsing
- * flyers.
- * It is called on line 125.
+ * If we click on the div again, we hide all the details and resume browsing
+ * flyers. We also shift the rest of the page back to its original layout
  */
 function hideInfo(node) {
-    var eventsCol = $('.events-col-info');
+    var $eventsCol = $('.events-col-info');
     if (displayEvents) {
         displayEvents = false;
-        eventsCol.hide("slow");
+        var $newRight1 = "-700px";
+        $eventsCol.animate({"right": $newRight1}, 300);
+        $('body').animate({"margin-right": "0px"}, 100);
+        $('#eventscontainer').css("width", "100%");
     }
 }
 
@@ -80,7 +91,7 @@ $(function() {
     updateInfo(this);
 	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
   });
-  $('#eventscontainer').siblings().click(function(){
+  $('.events-col-info').click(function(){
       hideInfo(this);
       $('html, body').animate({ scrollTop: 0}, "fast", "swing");
   });
@@ -93,7 +104,7 @@ $(function() {
   });
 
   $('li.catname-1').click(function(e){
-	  toggleonClick(1);
+      toggleonClick(1);
       });
 
   $('li.catname-2').click(function(e){
@@ -127,8 +138,10 @@ $(function() {
   $('li.catname-9').click(function(e){
 	  toggleonClick(9);
       });
-  $('body').click(function(e){
-      hideInfo(this);
+  $(window).resize(function(){
+    var $windowWidth = $(window).width();
+    var $newBodyWidth = $windowWidth - 350;
+    $('body').css("margin-right", "350px"); 
   });
 });
 
@@ -164,18 +177,18 @@ function init() {
 // Toggle button i 
 function toggleonClick(i){
     buttonoff(0);
-    show_div();
     refresh_cat();
-    cat = '.cat-' + (i).toString();
-    if ( $(cat).css('display') == "none" 
-	|| $(".catname-" + (i).toString()).css('color') != 'rgb(255, 255, 255)'){
-	buttonon(i);
-	show_cat(i);
+    var cat = '.cat-' + (i).toString();
+    if ( $(cat).css('display') == 'none' 
+        || $('.catname-'+(i).toString()).css('color') != 'rgb(255, 255, 255)')
+    {
+	    buttonon(i);
+	    show_cat(i);
     } 
     else{
-	buttonoff(i);
-	hide_cat(i);
-	refresh_cat();
+	   buttonoff(i);
+	   hide_cat(i);
+	   refresh_cat();
     }
 }
 
@@ -185,7 +198,7 @@ function toggleAll() {
 	var empty = new Array();
 	if($(".catname-0").css('color') == 'rgb(255, 255, 255)') {
 		buttonoff(0);
-        	show_only_cats(empty);
+        show_only_cats(empty);
 	}
 	else {
 		buttonon(0);
@@ -199,9 +212,10 @@ function refresh_cat() {
     var i = 1; 
     hide_all();
     for(i = 1; i <= hashCategories.length; i++) {
-	if($(".catname-" + (i).toString()).css('color') == "rgb(255, 255, 255)") {
-		show_cat(i);
-	}
+	    if($(".catname-" + (i).toString()).css('color') == 
+            "rgb(255, 255, 255)") {
+		    show_cat(i);
+	    }
     }
 }
 
@@ -222,5 +236,27 @@ function hide_all() {
 	{
 		hide_cat(hashCategories[cur_cat][1]);
 	}
+}
+
+var show_categores = new Array(); //DELETE ME
+show_categories = [1, 2, 3, 4]; //DELETE ME
+
+//Takes an array of categories, cats. Displays only events with those 
+//categories and hides all others.
+function show_only_cats(cats){
+    hide_all();
+    for(var x in cats){
+        show_cat(x);
+    }
+}
+
+function hide_cat(n){
+    cat_string = ".cat-"+n;
+    $(cat_string).css('display','none');
+}
+
+function show_cat(n){
+    cat_string = ".cat-"+n;
+    $(cat_string).css('display','inline');
 }
 
