@@ -41,8 +41,6 @@ class Event < ActiveRecord::Base
   
   #### PUBLIC METHODS ####
 
-
-
   def approval_status
     if self.approval_rating == 0
       "needs_approval"

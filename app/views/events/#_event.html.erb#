@@ -1,11 +1,26 @@
+
 <div id="event-<%= event.id %>" class="event <%= get_cat_classes(event.categories) %><%= event.date_class_string %>">
   <div class="event-info hidden">
     <h4 class="event-title"><%= event.name %></h4>
     <p class="event-date"><%= event.get_datetime_from_time_string(event.start_time).strftime('%B %e, %l:%M %P') %> - <br/><%= event.get_datetime_from_time_string(event.end_time).strftime('%B %e, %l:%M %P') %></p>
     <p class="event-location"><%= event.location %></p>
     <p class="event-desc"><%= event.description %></p>
-	<p class="event-organization"><%= event.organization.name %></p>
-xc  </div>
+	<p class="event-organization">
+	  <% if !event.organization.url.nil? && !event.organization.url.empty? %>
+	  <a href=<%= event.organization.url%> ><%= event.organization.name %></a>
+	  <% end %>
+	</p>
+	
+	<% if !event.url.nil? && !event.url.empty?%>
+	<%if event.url.start_with?('http://') || event.url.start_with?('https://')%>
+    <p class="event-url">Click <a href=<%= event.url %> >here</a> for event link.</p>
+    <% else %>
+    <p class="event-url">Click <a href=<%='http://' + event.url %> >here</a> for event link.</p>
+    <% end %>
+    <% else %>
+    <p class="event-url"></p>
+    <% end %>
+  </div>
   
     <% if signed_in? and event.can_modify?(current_user) %>
 		<div class="modify-tools">

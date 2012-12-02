@@ -5,7 +5,7 @@
     <p class="event-location"><%= event.location %></p>
     <p class="event-desc"><%= event.description %></p>
 	<p class="event-organization"><%= event.organization.name %></p>
-xc  </div>
+  </div>
   
     <% if signed_in? and event.can_modify?(current_user) %>
 		<div class="modify-tools">
