@@ -77,6 +77,8 @@ form{
 	    display: inline;
 	    text-align:left;
 	    padding-right: 5%;
+	    position:relative;
+	    top: 4px;
 	}
 
 	#hMenu {
@@ -161,6 +163,7 @@ form{
 .container {
 	margin: 0 auto 0 auto;
 	width: 90%;
+	
 	min-height: 80%;
 	position:relative;
 	padding-top: 25px;
