@@ -18,7 +18,13 @@
 	<br />
 
 
-	<!--<div class="rightCol">	        -->
+	<div id="eventscontainer">
+      <% @events.each do |event| %>
+        <div id ="event"><%= render event %></div>
+      <% end %>
+    </div>
+                               
+    <!--<div class="rightCol">-->
 		<div class="events-col-info"> 
 		<h2>&larr; Click an event to see details</h2> 
 			<div class="info-main">
@@ -34,11 +40,6 @@
 
 	<!--</div>-->
 	<% end %>
-	<div id="eventscontainer">
-		<% @events.each do |event| %>
-		<div id ="event"><%= render event %></div>
-		<% end %>
-	</div>
 
 
 </div>
