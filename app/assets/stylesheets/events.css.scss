@@ -38,7 +38,8 @@ $event_expanded_zindex: 900;
 #eventscontainer { 
 
     height: 100%;
-    width: 100%;
+    width: 1200px;
+    overflow: hidden;
 	#event {
 	float: left;
 	}
@@ -58,17 +59,17 @@ $event_expanded_zindex: 900;
 	 display: inline-table;
 	 text-align: center;
 	 width: 100px;
-	 font-size: 17px; 
+	 font-size: 11px; 
 	 font-weight: bold;
-	 padding: 8px;
+	 padding: 5px;
 	 margin-left: -5px;
 	 letter-spacing: 1px;
-	 border: 0px dotted #888;
+	 border: /*0px dotted #888;*/ none;
 	 border-width: 0px 1px 0px 0px;
 	 &:hover {
-		background-color: #8C0F2E;
+		background-color: #2ABED8;
 		color: white;
-		text-shadow: 0px 1px 1px #000;
+		text-shadow: /* 0px 1px 1px #000; */ none;
 		cursor: pointer; }
 	}
 
@@ -78,34 +79,33 @@ $event_expanded_zindex: 900;
 }
 
 .events-col-info { 
-/*  display: none; */
+    overflow: hidden;
     position: fixed;
-    top: 0%;
-    left: 3000px;
-    float: right;
-	margin-right: 25%;
+    border: 5px dashed;
+    border-radius: 25px;
+    left: 280px;
+    top: 140px;
+    z-index: 6;
+/*  display: none; */
     font-family: 'News Cycle';
 	padding: 20px;
-/*	background:  rgba(0,0,0,0.65);*/
-    background-image:url('chalkboard-black.jpg');
-	width: 350px;
-    height: 100%;
+	background: #56A0EA;
+/*    background-image:url('chalkboard-black.jpg'); */
+	width: 630px;
+    height: 200px;
 	-moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 	
     > h2 {
-	    color: white;
-	    border-bottom: 1px dotted #FFF;
+	    color: black;
+	    border-bottom: 1px dotted #000;
 	    padding-bottom: 8px;
 	    margin-bottom: 15px;
     }
     
-    /* Dangerous, I think. Think of a more stable way to do this
-     * later 
-     */	
     >div /*#info-main*/ {
-        color: #FFF;
+        color: #000;
 	    line-height: 1.42em;
 
 	    h2 {
@@ -119,9 +119,6 @@ $event_expanded_zindex: 900;
 	    p #info-location {
 		    margin-bottom: 1em; }
 	}
-    /* The following selector is to set the animation for sliding in the 
-     * events-col-info container. It represents the end state of the slide.
-     */
 }
 
 .event {
@@ -349,4 +346,27 @@ ul#user-events li{
 
 .delete-link,.delete-link:visited{
 	color: #8C0F2E !important;
+}
+
+/* Experimentation */
+#rightscroll {
+ z-index: 7;
+ position: fixed;
+ height: 40%;
+ width: 5%;
+ background: #80B2FF;
+ border-radius: 5px;
+ top: 30%;
+ left: 95%;
+}
+
+#leftscroll {
+ z-index: 7;
+ position: fixed;
+ height: 40%;
+ width: 5%;
+ background: #80B2FF;
+ border-radius: 5px;
+ top: 30%;
+ left: 0%;
 }
