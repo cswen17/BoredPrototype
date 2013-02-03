@@ -15,17 +15,17 @@ xml.events do
 
       mycat = Array.new
       count = 0
-      EventsHelper::all_categories.each do |c|
-        event_obj.categories.split(",").each do |cat|
-           if c.second.to_s == cat
+
+      EventsHelper::all_categories.each	do |c|
+      	event_obj.categories.split(",").each do |cat|
+           if c.second.to_s == cat	     
               mycat.insert(count, c.first)
-              count += 1
-           end
+	      count += 1
+	   end
         end
       end
 
-      xml.categories(mycat.join(","))
-
+      xml.categories(mycat.join(","));
       xml.cancelled(event_obj.cancelled)
     end
   end

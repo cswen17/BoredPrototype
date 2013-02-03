@@ -1,4 +1,0 @@
-
-<div class = "footer">
-  <%=link_to "About", about_path %> | To Edit an event, email the Moderator at (email) | Copyright acm@cmu 2012 %>
-</div>
