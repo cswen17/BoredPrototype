@@ -13,14 +13,18 @@ xml.events do
       xml.location(event_obj.location)
       xml.image(event_obj.flyer)
 
-      mycat = "Error: No Category Matched"
-      EventsHelper::all_categories.each	do |c|
-      if c.second.to_s == event_obj.categories
-           mycat = c.first
+      mycat = Array.new
+      count = 0
+      EventsHelper::all_categories.each do |c|
+        event_obj.categories.split(",").each do |cat|
+           if c.second.to_s == cat
+              mycat.insert(count, c.first)
+              count += 1
+           end
         end
       end
 
-      xml.categories(mycat)
+      xml.categories(mycat.join(","))
 
       xml.cancelled(event_obj.cancelled)
     end
