@@ -223,7 +223,7 @@ class Event < ActiveRecord::Base
     end
 
     # This block checks if the start time is greater than the end time
-    if (Time.strptime(self.start_time, "%Y-%d-%m %H:%M") > Time.strptime(self.end_time, "%Y-%d-%m %H:%M"))
+    if (self.start_time > self.end_time)
       errors.add :start_time, "should be before the end time."
       validEvent = false
     end
@@ -264,12 +264,18 @@ class Event < ActiveRecord::Base
       validEvent = false
     end
 
-    # This block checks if there are any duplicate events
-    if (Event.exists?(:location => self.location, :start_time => self.start_time, :end_time => self.end_time))
-      errors.add :location, "invalid: Cannot be a duplicate event."
-      validEvent = false
+    # This block checks if there are any duplicate events when submitting a new event
+    if(self.id == nil) 
+      if (Event.exists?(:location => self.location, :start_time => self.start_time, :end_time => self.end_time))
+        errors.add :location, "invalid: Cannot be a duplicate event."
+        validEvent = false
+      end
+    else
+      if (Event.where("location = ? AND start_time = ? AND end_time = ? AND NOT id = ?", self.location, self.start_time, self.end_time, self.id).length >= 1)
+        errors.add :location, "invalid: Created a duplicate event via editing"
+      end
     end
-	
+
     # This block checks to make sure that the organization
     # matches the specified user
     if !can_modify?(self.user)
@@ -290,7 +296,10 @@ class Event < ActiveRecord::Base
     else
       return true
     end
-  end  
+  end
+  
+  
+  
   
   # We can probably get away with letting the user upload something crappy...it is their choice after all
   def dimensions_fine?
