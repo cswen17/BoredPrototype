@@ -223,10 +223,11 @@ class Event < ActiveRecord::Base
     end
 
     # This block checks if the start time is greater than the end time
-    if (self.start_time > self.end_time)
-      errors.add :start_time, "should be before the end time."
-      validEvent = false
-    end
+# #if (Time.strptime(self.start_time, "%Y-%d-%m %H:%M") > Time.strptime(self.end_time, "%Y-%d-%m %H:%M")) 
+#    if (self.start_time > self.end_time)
+#       errors.add :start_time, "should be before the end time."
+#       validEvent = false
+#     end
 
     # This block checks if the name field exists
     if (self.name.nil?)
