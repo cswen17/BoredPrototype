@@ -1,10 +1,37 @@
-def import_gcal(calendar_id)
+#! /usr/bin/ruby
+require 'rubygems'
+require 'yaml'
+require 'google/api_client'
 
-  require 'rubygems'
-  require 'yaml'
-  require 'google/api_client'
+calendars = []
 
-#  calendar_id = '64usuav4123o6ea6gptm75efdc@group.calendar.google.com'
+temp_cal = {}
+
+#org_name must be an organization name in Teudu
+temp_cal['org_name'] = 'AB Films'
+temp_cal['id'] = '64usuav4123o6ea6gptm75efdc@group.calendar.google.com'
+temp_cal['default_description'] = 'An AB Films Movie'
+temp_cal['default_cat'] = EventsHelper.category_hash['Movies'].to_s
+
+calendars << temp_cal
+
+temp_cal = {}
+temp_cal['org_name'] = 'ACM@CMU'
+temp_cal['id'] = '4k7vn521n3ok8vrb8k8niegohk@group.calendar.google.com'
+temp_cal['default_description'] = 'An event hosted by the Association for Computing Machinery'
+temp_cal['default_cat'] = EventsHelper.category_hash['Professional'].to_s + ',' + 
+                          EventsHelper.category_hash['Academic'].to_s
+
+calendars << temp_cal
+
+#calendars = ['64usuav4123o6ea6gptm75efdc@group.calendar.google.com', #AB Films
+#             '4k7vn521n3ok8vrb8k8niegohk@group.calendar.google.com']
+
+ROBOT_USERID = User.where(:first_name => 'Robot').first.id
+ROBOT_ORGID = Organization.where(:name => 'Robot').first.id
+
+def import_gcal(cal)
+  #  calendar_id = '64usuav4123o6ea6gptm75efdc@group.calendar.google.com'
 
   oauth_yaml = YAML.load_file('/Users/aveshsingh/.google-api.yaml')
   client = Google::APIClient.new
@@ -23,20 +50,21 @@ def import_gcal(calendar_id)
   cur_utc_time = Time.now.utc.strftime("%Y-%m-%dT%H:%M:00.0z")
 
   result = client.execute(:api_method => service.events.list,
-                          :parameters => {'calendarId' => calendar_id,
-                                          'timeMin' => cur_utc_time})
+                          :parameters => {'calendarId' => cal['id'],
+                            'timeMin' => cur_utc_time})
 
-  @to_import = (JSON.parse result.data.to_json)["items"] #TODO: Remove @ sign. Only needed for irb loading
+  @to_import = (JSON.parse result.data.to_json)["items"] 
 
   @to_import.each do |cur_event|
     event = Event.new
     event.name=cur_event["summary"]
+
     if cur_event["description"] != nil
       event.description = cur_event["description"]
       event.summary = cur_event["description"]
     else
-      event.description = "An AB Films Movie"
-      event.summary = "An AB Films Movie"
+      event.description = cal['default_description']
+      event.summary = cal['default_description']
     end
 
     if cur_event["start"] == nil
@@ -51,22 +79,36 @@ def import_gcal(calendar_id)
 
     event.start_time=start_time.strftime("%Y-%d-%m %H:%M")
     event.end_time=Time.parse(cur_event["end"]["dateTime"] || cur_event["end"]["date"]).strftime("%Y-%d-%m %H:%M")
-    event.categories = "6" #CHANGE ME!
+    event.categories = cal['default_cat']
     event.location = cur_event["location"] || 'Unknown'
-    event.organization_id = "3" #CHANGE ME!
-    event.user = User.first #CHANGE ME!
 
-    if (event.start_time != nil && event.end_time != nil) 
-      event.add_event_start_time; #sets event_start field
-      event.add_event_end_time; #sets event_end field
+    if Organization.where(:name => cal['org_name']) 
+      
+      if(Organization.where(:name => cal['org_name']).first != nil)
+        event.organization_id = Organization.where(:name => cal['org_name']).first.id
+      else
+        event.organization_id =  ROBOT_ORGID
+      end
+
+      event.user = User.find(ROBOT_USERID)
+
+      if (event.start_time != nil && event.end_time != nil) 
+        event.add_event_start_time; #sets event_start field
+        event.add_event_end_time; #sets event_end field
+      end
+
+      puts event.check_invariants
+      puts event.errors
+      event.save
+    else
+      puts 'Organization with name ' + cal['org_name'] + ' does not exist.'
     end
 
-    puts event.check_invariants
-#    require 'debugger'; debugger
-    puts event.errors
-    event.save
   end
-
 end
 
-#load 'lib/tasks/import_gcal.rb'
+  #load 'lib/tasks/import_gcal.rb'
+
+  for cal in calendars do
+    import_gcal(cal)
+  end

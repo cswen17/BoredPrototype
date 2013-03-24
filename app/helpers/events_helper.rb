@@ -19,6 +19,10 @@ module EventsHelper
   "Service" => 9
   }
 
+  def self.category_hash
+    @@category_hash
+  end
+
   def self.all_categories
     categories = []
     @@category_hash.each do |c|
