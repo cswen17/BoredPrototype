@@ -24,9 +24,6 @@ temp_cal['default_cat'] = EventsHelper.category_hash['Professional'].to_s + ',' 
 
 calendars << temp_cal
 
-#calendars = ['64usuav4123o6ea6gptm75efdc@group.calendar.google.com', #AB Films
-#             '4k7vn521n3ok8vrb8k8niegohk@group.calendar.google.com']
-
 ROBOT_USERID = User.where(:first_name => 'Robot').first.id
 ROBOT_ORGID = Organization.where(:name => 'Robot').first.id
 
@@ -91,6 +88,14 @@ def import_gcal(cal)
       end
 
       event.user = User.find(ROBOT_USERID)
+
+#      Add Robot User to organization if it hasn't already been added
+      if(OrganizationUser.where(:user_id => ROBOT_USERID, :organization_id => event.organization_id).size == 0)
+        o = OrganizationUser.new
+        o.user_id = ROBOT_USERID
+        o.organization_id = event.organization_id
+        o.save
+      end
 
       if (event.start_time != nil && event.end_time != nil) 
         event.add_event_start_time; #sets event_start field
