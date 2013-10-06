@@ -2,6 +2,15 @@
 require 'rubygems'
 require 'yaml'
 require 'google/api_client'
+require 'time'
+
+# This file grabs data from Google Calendars and adds it to Teudu. The input calendars are defined in the calendars array.
+# Instructions to run:
+
+# rails console
+# load 'lib/tasksimport_gcal.rb'
+
+# Email aveshcsingh@gmail.com with questions.
 
 calendars = []
 
@@ -19,6 +28,15 @@ temp_cal = {}
 temp_cal['org_name'] = 'ACM@CMU'
 temp_cal['id'] = '4k7vn521n3ok8vrb8k8niegohk@group.calendar.google.com'
 temp_cal['default_description'] = 'An event hosted by the Association for Computing Machinery'
+temp_cal['default_cat'] = EventsHelper.category_hash['Professional'].to_s + ',' + 
+                          EventsHelper.category_hash['Academic'].to_s
+
+calendars << temp_cal
+
+temp_cal = {}
+temp_cal['org_name'] = 'SCS'
+temp_cal['id'] = 'ljnh4ir0p343c9n8taet8tqgto@group.calendar.google.com'
+temp_cal['default_description'] = 'An SCS Event'
 temp_cal['default_cat'] = EventsHelper.category_hash['Professional'].to_s + ',' + 
                           EventsHelper.category_hash['Academic'].to_s
 
