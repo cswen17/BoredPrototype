@@ -30,7 +30,7 @@ ROBOT_ORGID = Organization.where(:name => 'Robot').first.id
 def import_gcal(cal)
   #  calendar_id = '64usuav4123o6ea6gptm75efdc@group.calendar.google.com'
 
-  oauth_yaml = YAML.load_file('/Users/aveshsingh/.google-api.yaml')
+  oauth_yaml = YAML.load_file('/var/www/teudu/.google-api.yaml')
   client = Google::APIClient.new
   client.authorization.client_id = oauth_yaml["client_id"]
   client.authorization.client_secret = oauth_yaml["client_secret"]
