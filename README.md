@@ -9,22 +9,22 @@ Deploying
 To deploy, ssh into our server and restart Apache2, as follows:
 
 ssh root@teudu.andrew.cmu.edu
-# Ask Connie, Vilcya, Stephanie, or Avesh for password
+- Ask Connie, Vilcya, Stephanie, or Avesh for password
 
-#Go to web site directory (/var/www/teudu)
-cd /var/www/teudu
+Go to web site directory (/var/www/teudu)
+- cd /var/www/teudu
 
-#Pull from repo
-git pull origin master
+Pull from repo
+- git pull origin master
 
 bundle install --path vendor/bundle  
 
-# Clean all assets
-bundle exec rake assets:clean
-bundle exec rake assets:precompile
+ Clean all assets
+- bundle exec rake assets:clean
+- bundle exec rake assets:precompile
 
-#Restart the server
-sudo /etc/init.d apache2 restart
+Restart the server
+- sudo /etc/init.d apache2 restart
 
 
 Database
