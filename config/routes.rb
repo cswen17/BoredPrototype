@@ -1,4 +1,6 @@
 Teudu::Application.routes.draw do
+  get "test/show"
+
   resources :organizations
 
   resources :users
