@@ -30,22 +30,19 @@ $event_expanded_zindex: 900;
 	 border: 2px solid black;
 }
 
-/* I changed the margin-left here
- * from 275px to 75px because the
- * events were floating too far to
- * the right. 
- */
 #eventscontainer { 
 
-    height: 100%;
-    width: 1200px;
-    overflow: hidden;
+    //height: 100%;
+    //width: 704px;
+    //width: 1200px;
+    //overflow: hidden;
+    position:fixed;
+    top:0px;
+    left:320px;
 	#event {
 	float: left;
 	}
 }
-
-
 
 .category-list {
 	.expanded {
@@ -162,7 +159,13 @@ h1 {
 		font-weight: bold;
 		border-bottom: 1px dashed #777;
 		width: 100%; padding: 10px 0px 18px 0px;
-		margin-bottom: 25px; }
+		margin-bottom: 25px; 
+}
+
+#sidebar {
+    width:320px;
+    height:600px;
+}
 
 /* CREATE AN EVENT */
 

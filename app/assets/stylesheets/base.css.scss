@@ -16,7 +16,7 @@ body {
   height: 100%;
   min-height: 110%;
   background: #FFFFFF /*url('/images/backgroundshatter.png'); */;
-  position: relative;
+//  position: relative;
   color: #111;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 15px;
@@ -161,11 +161,15 @@ form{
 
 
 .container {
-	margin: 0 auto 0 auto;
-	width: 90%;
-	
-	min-height: 80%;
-	position:relative;
+	// margin: 0 auto 0 auto;
+	//width: 90%;
+    width: 704px;
+    position:fixed;
+    left:320px;
+    top:0px;
+	//min-height: 80%;
+	//position:relative;
+    float:right;
 	padding-top: 25px;
 }
 
