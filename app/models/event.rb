@@ -3,7 +3,18 @@ include ActionView::Helpers::DateHelper
 class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
-  validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
+  validates_presence_of :name, 
+                        :description,  
+                        :summary, 
+                        :location, 
+                        :start_time, 
+                        :end_time, 
+                        :categories, 
+                        :approval_rating, 
+                        :event_start, 
+                        :event_end, 
+                        :user, 
+                        :organization
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
   ### validates_format_of :name, :location, :with => /^[a-zA-Z0-9 !.,#\*<>@&:"$\-\\\/']*$/
@@ -267,7 +278,11 @@ class Event < ActiveRecord::Base
     end
 
     # This block checks if there are any duplicate events
-    if (Event.where("location = ? AND start_time = ? AND end_time = ? AND NOT id = ?", self.location, self.start_time, self.end_time, self.id).length >= 1)
+    if (Event.where("location = ? AND start_time = ? AND end_time = ? AND NOT id = ?", 
+                    self.location, 
+                    self.start_time, 
+                    self.end_time, 
+                    self.id).length >= 1)
       errors.add :location, "invalid: Cannot be a duplicate event."
       validEvent = false
     end

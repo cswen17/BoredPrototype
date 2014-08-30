@@ -11,6 +11,27 @@
         </div>
 
     </div>
+
+    <div class="events-hotfeed">
+        <div class="category-header events-hotfeed-header">
+            Event Details
+        </div>
+        <div class="events-col-info">
+            <!--<h2>&larr; Click an event to see details</h2>-->
+			<div class="info-main">
+				<p id="info-organization"></p>
+		    	<h2 id="info-title"></h2>
+		
+		    	<p id="info-date"></p>
+		    	<p id="info-location"></p>
+		
+				<p id="info-desc"></p>
+		  	</div>
+		</div>
+    </div>
+
+    <div class="categories-pullup">
+        <div class="category-list category-header">Categories</div>
         <ul id="category-list" class="category-list">
                 <li class="catname-0">All</li>
                 <% EventsHelper::all_categories.each do |c| %>
@@ -19,7 +40,7 @@
                     </li>
                 <% end %>
         </ul>
-
+    </div>
 </div>
 
 <div class="container">	
@@ -33,22 +54,6 @@
         <div id ="event"><%= render event %></div>
       <% end %>
     </div>
-                               
-    <!--<div class="rightCol">-->
-<!--		<div class="events-col-info"> 
-		<h2>&larr; Click an event to see details</h2> 
-			<div class="info-main">
-				<p id="info-organization"></p>
-		    	<h2 id="info-title"></h2>
-		
-		    	<p id="info-date"></p>
-		    	<p id="info-location"></p>
-		
-				<p id="info-desc"></p>
-		  	</div>
-		</div>
-        -->
-	<!--</div>-->
 	<% end %>
 
 
