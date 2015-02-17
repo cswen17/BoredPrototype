@@ -7,14 +7,29 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 include ActionView::Helpers::TextHelper
 require 'faker'
+I18n.reload!
 
 File.open("db/seed_data.txt").read.each_line do |image|
   name = Faker::Lorem.sentence(num = 2)
+  summary = Faker::Lorem.sentence(num = 5)
   description = Faker::Lorem.sentence
   location = Faker::Address.city
   start_time = Time.now + ((5+rand(5)) * 60 * 60 * 24)
   end_time = start_time + ((5+rand(5)) * 60 * 60 * 24)
   flyer = image
   categories = [rand(3)+1, rand(6)+4].join(", ")
-  Event.create!(:name => truncate(name, :length => 15, :omission => '!'), :description => description, :location => location, :start_time => start_time, :end_time => end_time, :flyer => flyer, :categories => categories) 
+  Event.create!(
+	:name => truncate(name, :length => 15, :omission => '!'), 
+	:summary => summary,
+	:description => description, 
+	:location => location, 
+	:start_time => start_time, 
+	:end_time => end_time, 
+	:event_start => start_time,
+	:event_end => end_time,
+	:flyer => flyer, 
+	:categories => categories,
+	:organization_id => 1,
+	:user_id => 1
+	) 
 end

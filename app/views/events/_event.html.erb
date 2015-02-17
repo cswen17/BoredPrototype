@@ -7,7 +7,13 @@
     <p class="event-desc"><%= event.description %></p>
 	<p class="event-organization">
 	  <% if !event.organization.url.nil? && !event.organization.url.empty? %>
-	  <a href=<%= event.organization.url%> ><%= event.organization.name %></a>
+	  <!-- Sorry for this awful inline style. There's no css rule for anchor tags
+	       that are children of .event-info, so if we have a url here then
+           it shows up as underlined black text. But the rest of the text is
+           white, so we need to blend in. todo: fix the stylesheet later -->
+	  <a href=<%= event.organization.url%> style="color:white; text-decoration:none;">
+        <%= event.organization.name %>
+      </a>
 	  <% end %>
 	</p>
 	
@@ -22,13 +28,7 @@
 	<% end %>
   </div>
   
-    <% if signed_in? and event.can_modify?(current_user) %>
-		<div class="modify-tools">
-	<a class="edit-link" href="<%= edit_event_path(event) %>">Edit</a>
-	<%= link_to "Delete", event_path(event), :confirm => "Are you sure you want to delete #{event.name}?", :method => :delete,:class=> "delete-link" %>
-  </div>
-  <% end %>
-  
+ 
   <p class="event-category"><%= event.categories %></p>
 
   

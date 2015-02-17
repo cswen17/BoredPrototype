@@ -84,7 +84,12 @@ class Event < ActiveRecord::Base
   end
 
   def get_datetime_from_time_string(str)
-    DateTime.strptime(str, '%Y-%d-%m %H:%M') rescue Time.now
+	begin
+    	DateTime.strptime(str, '%Y-%m-%d %H:%M:%S') 
+	rescue => e
+		logger.warn("Get DateTime from Time String Error: #{e} of #{str}")
+		Time.now
+	end
   end
 
 

@@ -1,10 +1,9 @@
 Teudu::Application.routes.draw do
-  get "test/show"
 
   resources :organizations
 
   resources :users
-  #resources :sessions, :only => [:create, :destroy]
+  #resources :only => [:create, :destroy]
   
   get "approval/approve"
 
@@ -12,14 +11,6 @@ Teudu::Application.routes.draw do
   match 'events/my' => 'events#my'
   resources :events
 
-  match 'sessions', :to => 'sessions#create'
-  match 'logout', :to => 'sessions#destroy'
-  
-  match 'login' => redirect('/auth/pubcookie')
-
-  match '/auth/pubcookie/callback', :to => 'sessions#create'
-  match '/auth/:provider/callback', :to => 'sessions#create'
-  
   match 'approval' => 'approval#index'
   match 'about', :to => 'pages#about'
 

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_filter :login_required, :only => [:new, :my, :create, :edit, :update, :destroy, :approve, :decline]
+#	before_filter login_required, :only => [:new, :my, :create, :edit, :update, :destroy, :approve, :decline]
   # GET /events
   # GET /events.json
   # GET /events.xml
@@ -14,7 +14,8 @@ class EventsController < ApplicationController
   end
   
   def my
-	@organizationsEvents= Organization.for_user(current_user).includes(:events)
+#	@organizationsEvents= Organization.for_user(current_user).includes(:events)
+	@events = Event.current_approved
 	
 	respond_to do |format|
       format.html # index.html.erb
