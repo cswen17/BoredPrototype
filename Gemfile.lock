@@ -57,6 +57,8 @@ GEM
     factory_girl_rails (3.6.0)
       factory_girl (~> 3.6.0)
       railties (>= 3.0.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     google-api-client (0.6.4)
@@ -174,10 +176,10 @@ PLATFORMS
 DEPENDENCIES
   debugger
   factory_girl_rails (~> 3.0)
+  faker
   google-api-client
   jquery-rails
   oa-pubcookie (~> 0.1.0)
-  omniauth (~> 1.1.0)
   paperclip (~> 2.4)
   rails (= 3.1.0)
   sass-rails (~> 3.1.0)
