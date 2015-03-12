@@ -9,9 +9,7 @@ include ActionView::Helpers::TextHelper
 require 'faker'
 I18n.reload!
 
-x = 0
 File.open("db/seed_data.txt").read.each_line do |image|
-  x += 1
   name = Faker::Lorem.sentence(num = 2)
   summary = Faker::Lorem.sentence(num = 5)
   description = Faker::Lorem.sentence
@@ -21,7 +19,6 @@ File.open("db/seed_data.txt").read.each_line do |image|
   flyer = image
   categories = [rand(3)+1, rand(6)+4].join(", ")
   Event.create!(
-  :id => x,
 	:name => truncate(name, :length => 15, :omission => '!'), 
 	:summary => summary,
 	:description => description, 
