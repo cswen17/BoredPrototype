@@ -42,13 +42,6 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.2)
       climate_control (>= 0.0.3, < 1.0)
-    columnize (0.3.6)
-    debugger (1.6.2)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.3)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
     extlib (0.9.16)
@@ -174,7 +167,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debugger
   factory_girl_rails (~> 3.0)
   faker
   google-api-client
