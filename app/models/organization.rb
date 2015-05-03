@@ -1,6 +1,5 @@
 class Organization < ActiveRecord::Base
 	has_many :events
-	#has_and_belongs_to_many :users
 	has_many :organization_users
 	has_many :users, :through => :organization_users
 	validates_presence_of :name
