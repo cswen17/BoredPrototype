@@ -11,3 +11,4 @@ db/schema.rb
 .ruby-version
 gem
 vendor
+*~

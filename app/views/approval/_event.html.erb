@@ -8,7 +8,7 @@
 				<a class="edit-link" href="<%= edit_event_path(event) %>">Edit</a></h2>
 		</div>
 		<div class="rightBox">
-			<% if event.approval_rating == -1 %>
+	   	  <% if event.approval_rating == -1 %>
 		    <%= link_to 'Approve', :controller => "events", :action => "approve", :id => event.id %>
 		  <% elsif event.approval_rating == 0 %>
 		    <%= link_to 'Approve', :controller => "events", :action => "approve", :id => event.id %>
