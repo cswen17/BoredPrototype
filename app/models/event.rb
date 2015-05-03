@@ -6,7 +6,6 @@ class Event < ActiveRecord::Base
   validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
-  ### validates_format_of :name, :location, :with => /^[a-zA-Z0-9 !.,#\*<>@&:"$\-\\\/']*$/
 
   before_save :add_event_times
 
@@ -25,10 +24,6 @@ class Event < ActiveRecord::Base
 
   #### PAPERCLIP ####
   has_attached_file :flyer
-
-  #validates_attachment :flyer,
-  #:content_type => { :content_type => 'image/png', 'image/jpg' },
-  #:size => { :in => 0..2000.kilobytes }
   
   validates_attachment_content_type :flyer, :content_type => /^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$/, :message => 'must be of the following formats: jpeg, png, or gif '
   validates_attachment_size :flyer, :in => 0..500.kilobytes , :message => 'must be at maximum 500 kb'
@@ -118,8 +113,6 @@ class Event < ActiveRecord::Base
     if self.start_time.nil?
       return Time.now.strftime('%m/%d/%Y')
     else
-      #puts "AHHHHHHHHHHHHHHHHH"
-      #puts self.start_time
       old_date = DateTime.strptime(self.start_time, '%Y-%d-%m %H:%M') rescue Time.now
       old_date.strftime('%m/%d/%Y')
     end
@@ -129,8 +122,6 @@ class Event < ActiveRecord::Base
     if self.end_time.nil?
       return Time.now.strftime('%m/%d/%Y')
     else
-      #puts "AHHHHHHHHHHHHHHHHH"
-      #puts self.end_time
       old_date = DateTime.strptime(self.end_time, '%Y-%d-%m %H:%M') rescue Time.now
       old_date.strftime('%m/%d/%Y')
     end
@@ -227,13 +218,6 @@ class Event < ActiveRecord::Base
       validEvent = false
     end
 
-    # This block checks if the start time is greater than the end time
-# #if (Time.strptime(self.start_time, "%Y-%d-%m %H:%M") > Time.strptime(self.end_time, "%Y-%d-%m %H:%M")) 
-#    if (self.start_time > self.end_time)
-#       errors.add :start_time, "should be before the end time."
-#       validEvent = false
-#     end
-
     # This block checks if the name field exists
     if (self.name.nil?)
       errors.add :name, "should not be empty."
@@ -303,9 +287,6 @@ class Event < ActiveRecord::Base
       return true
     end
   end
-  
-  
-  
   
   # We can probably get away with letting the user upload something crappy...it is their choice after all
   def dimensions_fine?

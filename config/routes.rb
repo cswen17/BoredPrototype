@@ -1,4 +1,5 @@
 Teudu::Application.routes.draw do
+  # See how all your routes lay out with "rake routes"
 
   resources :organizations
 
@@ -20,5 +21,4 @@ Teudu::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => 'events#index'
 
-  # See how all your routes lay out with "rake routes"
 end
