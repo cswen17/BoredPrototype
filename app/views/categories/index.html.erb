@@ -1,0 +1,16 @@
+<h3>Make a new category</h3>
+<%= form_for :category, url: categories_path do |f| %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %><br />
+  <%= f.submit %>
+<% end %>
+<h3>List existing categories</h3>
+<% @categories.each do |c| %>
+    <div>
+    <p class="info-label inline">
+      <%=c.name %>
+      <%=button_to 'Delete', category_path(c), method: :delete, form_class: "inline" %>
+    </p>
+    </div>
+<% end %>
+

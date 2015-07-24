@@ -13,8 +13,8 @@ class EventsController < ApplicationController
   end
   
   def my
-	@events = Event.current_approved
-	
+	@events = Event.find(:all, :conditions => ['user_id = ?', current_user.id])
+
 	respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
@@ -119,7 +119,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if event.errors.empty? and event.save 
-		flash[:notice] = "Successfully created event #{event.name}."
+		flash[:notice] = "Successfully updated #{event.name}."
         format.html { redirect_to :action => 'my' }
         format.json { render json: event, status: :created, location: event }
       else

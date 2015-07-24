@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
     def render_error(exception)
         # the exception's backtrace is logged to
         # BoredPrototype/logs/production.log
-	logger.debug exception.backtrace
-	render	:text => "Exception #{exception}"
+        logger.debug exception.backtrace
+        render	:text => "Exception #{exception}"
     end
+
+    def current_user
+        @current_user ||= User.find_by_andrew_id('admin')
+    end
+    helper_method :current_user
 end

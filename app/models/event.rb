@@ -3,6 +3,9 @@ include ActionView::Helpers::DateHelper
 class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
+
+  has_many   :category
+
   validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
@@ -196,11 +199,10 @@ class Event < ActiveRecord::Base
   #
   # the current invariants for events are as follows:
   # 1. The start and end date and time are not empty
-  # 2. The number of catagories is <= 2
-  # 3. The number of categories is > 0
-  # 4. The start time is before or equal to the end time
-  # 5. All of the variables exist
-  # 6. There is not a duplicate event in the database
+  # 2. The number of categories is > 0
+  # 3. The start time is before or equal to the end time
+  # 4. All of the variables exist
+  # 5. There is not a duplicate event in the database
   #
   # Note: If you edit this function, please edit the spec above as well
   def check_invariants
@@ -212,12 +214,6 @@ class Event < ActiveRecord::Base
       validEvent = false
     end
     
-    # This block checks if the number of categories is > 2
-    if !categories.nil? and categories.split(',').size > 2
-      errors.add :categories, "section should only have one or two categories selected."
-      validEvent = false
-    end
-
     # This block checks if the name field exists
     if (self.name.nil?)
       errors.add :name, "should not be empty."
