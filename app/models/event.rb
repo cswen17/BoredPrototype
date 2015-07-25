@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
 
-  has_many   :category
+  has_and_belongs_to_many   :categories
 
   validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
   validates_size_of :location, :maximum => 100

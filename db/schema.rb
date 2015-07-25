@@ -11,12 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150530121946) do
+ActiveRecord::Schema.define(:version => 20150725163954) do
 
   create_table "categories", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+  end
+
+  create_table "categories_events", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "event_id"
   end
 
   create_table "events", :force => true do |t|
@@ -29,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20150530121946) do
     t.datetime "event_end"
     t.string   "flyer"
     t.integer  "pattern"
-    t.string   "categories"
     t.integer  "approval_rating",    :default => 100
     t.string   "approver_id"
     t.string   "flyer_file_name"
