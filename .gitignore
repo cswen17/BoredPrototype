@@ -9,5 +9,6 @@ public/system/*
 db/schema.rb
 .ruby-gemset
 .ruby-version
+gem
 vendor
 *~
