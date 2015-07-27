@@ -1,6 +1,6 @@
 <%= form_for @event, :html => { :multipart => true } do |f| %>
 	<div class="instructions">
-	<p><strong>Note: All fields except flyer are required and you must select a category or two.</strong></p>
+	<p><strong>Note: All fields except flyer are required.</strong></p>
 	<p>We strongly encourage you to submit a flyer to make your event stand out!</p>
 	<p>Flyer size must be at least 300 x 400 (w x h) and cannot exceed 500 kb in file size</p>
 	</div>
@@ -79,15 +79,19 @@
 </fieldset>
 
 <div class="field event-categories">
-	<strong><%= f.label :categories %></strong> (Choose up to 2)<br/>
+	<strong>Categories</strong><br/>
 	<ul>
-		<% EventsHelper::all_categories.each do |c| %>
-  			<% check_id = get_check_id(c[0]) %>
+        <% @categories.each do |c| %>
+          <%=label_tag c.name, c.name, class: "cat-button" %>
+          <%=check_box_tag "event[categories][]", c.name, @event.categories.exists?(:name => c.name), {:class => 'cat-check', :id => c.name } %>
+        <% end %>
+		<!-- # EventsHelper::all_categories.each do |c| 
+  			 # check_id = get_check_id(c[0]) 
   			<li class="cat-radio">
-    			<%= label_tag check_id, c[0], { :class => 'cat-button'} %>
-				<%= check_box_tag "event[categories][]", c[1], @event.in_category?(c[1].to_s()), {:class=>'cat-check', :id => check_id }%>
+    			 # label_tag check_id, c[0], { :class => 'cat-button'} 
+				 # check_box_tag "event[categories][]", c[1], @event.in_category?(c[1].to_s()), {:class=>'cat-check', :id => check_id }
   			</li>
-		<% end %>
+         end -->
 	</ul>
 </div>
 

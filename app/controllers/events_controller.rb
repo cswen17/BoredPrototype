@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     @events = Event.current_approved
+    @categories = Category.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,6 +38,7 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
+    @categories = Category.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,6 +48,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @categories = Category.all
     @event = Event.find(params[:id])
 	if !@event.can_modify?(current_user)
 		raise Exceptions::AccessDeniedException
@@ -55,12 +58,11 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    categories = params[:event].delete("categories")
     @event = Event.new(params[:event])
 	@event.user = current_user
 
-    #@event.save
-    
-    editEvent(@event, params)
+    editEvent(@event, params, categories)
   end
 
   # PUT /events/1
@@ -84,25 +86,26 @@ class EventsController < ApplicationController
     #@event.location = params[:event][:location]
     #@event.categories = params[:event][:categories]
 	#@event.organization_id = params[:event][:organization_id]
+    updated_categories = params[:event].delete("categories")
 	@event.update_attributes(params[:event])
 	
     @event.event_start = params[:event][:event_start]
     @event.event_end = params[:event][:event_end]
 	
-	
-	
-	
-
-    editEvent(@event, params)
+    editEvent(@event, params, updated_categories)
 	
   end
 
   # This event takes in an initialized event (event) and a list of parameters (params),
   # checks the invariants of the event, and then either creates it if it is
   # valid or returns an error if it is not.
-  def editEvent(event, params)
-    if (!params[:event][:categories].nil?)
-      event.categories = params[:event][:categories].join(",")
+  def editEvent(event, params, category_names)
+    if !category_names.nil?
+      event.categories.clear
+      category_names.each do |category_name|
+        category = Category.find_by_name(category_name) 
+        event.categories << category
+      end
     end
     
     if (!params[:event][:start_time].nil? and !params['start_time_date'].nil?)

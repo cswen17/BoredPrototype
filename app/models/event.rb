@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
 
   has_and_belongs_to_many   :categories
 
-  validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
+  validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :approval_rating, :event_start, :event_end, :user, :organization
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
 
@@ -141,15 +141,6 @@ class Event < ActiveRecord::Base
     self.approval_rating = -1
 	self.save!
   end
-  
-  def in_category?(cat)
-	if(!self.categories.nil?)
-		return EventsHelper::cat_to_array(self.categories).include?(cat)
-	else
-		return false
-	end
-  end
-  
   
   #event timebins
   def is_today?

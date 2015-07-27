@@ -1,5 +1,5 @@
 
-<div id="event-<%= event.id %>" class="event <%= get_cat_classes(event.categories) %><%= event.date_class_string %>">
+<div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %><%= event.date_class_string %>">
   <div class="event-info hidden">
     <h4 class="event-title"><%= event.name %></h4>
     <p class="event-date"><%= event.get_datetime_from_time_string(event.start_time).strftime('%B %e, %l:%M %P') %> - <br/><%= event.get_datetime_from_time_string(event.end_time).strftime('%B %e, %l:%M %P') %></p>
@@ -27,6 +27,6 @@
 	<p class="event-url"></p>
 	<% end %>
   </div>
-  <p class="event-category"><%= event.categories %></p>
+  <p class="event-category"><%= event.categories.join(', ') %></p>
   <div style="background-image: url(<%= event.flyer %>);" class="thumbnail"></div>
 </div>

@@ -8,7 +8,10 @@
 <% @categories.each do |c| %>
     <div>
     <p class="info-label inline">
-      <%=c.name %>
+    <%=c.name %>
+      <% c.events.each do |e| %>
+          <div style="background-color:#ffff22;"><%=e.name %></div>
+      <% end %>
       <%=button_to 'Delete', category_path(c), method: :delete, form_class: "inline" %>
     </p>
     </div>

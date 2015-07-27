@@ -1,9 +1,3 @@
-<script>
-var hashCategories = new Array();
-
-hashCategories = <%= categories_javascript()%>;
-</script>
-
 <div class="container">	
     <% if Event.all.empty? then %>
         <div class="paragraphtext"> Sorry, there are currently no events. Make a new event by clicking "Create an event" in the menu. <br /></div>
@@ -11,9 +5,9 @@ hashCategories = <%= categories_javascript()%>;
 
         <ul id="category-list" class="category-list">
         <li class="catname-0">All</li>
-        <% EventsHelper::all_categories.each do |c| %>
-            <li class = <%= "catname-" + c[1].to_s %> ><%= c[0] %></li>
-    <% end %>
+        <% @categories.each do |c| %>
+            <li class = <%= "catname-" + c.id.to_s %> ><%= c.name %></li>
+        <% end %>
     </ul>
     <br />
 
