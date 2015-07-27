@@ -1,6 +1,7 @@
 FactoryGirl.define do
   
   factory :organization do
+    id 234
     name "Ruby"
   end
   

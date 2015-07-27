@@ -3,7 +3,7 @@ require 'test_helper'
 class OrganizationsControllerTest < ActionController::TestCase
   fixtures :organizations
   setup do
-    @organization = organizations(:one)
+    @organization = FactoryGirl.build(:organization)
   end
 
   test "should get index" do
@@ -26,23 +26,24 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test "should show organization" do
-    get :show, id: @organization.to_param
+    get :show, id: @organization.id
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @organization.to_param
+    get :edit, id: @organization.id
     assert_response :success
   end
 
   test "should update organization" do
-    put :update, id: @organization.to_param, organization: @organization.attributes
+    put :update, id: @organization.id, organization: @organization.attributes
     assert_redirected_to organization_path(assigns(:organization))
   end
 
   test "should destroy organization" do
+    organization_to_destroy = organizations(:one)
     assert_difference('Organization.count', -1) do
-      delete :destroy, id: @organization.to_param
+      delete :destroy, id: organization_to_destroy.to_param
     end
 
     assert_redirected_to organizations_path
