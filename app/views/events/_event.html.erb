@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+=======
+
+<div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %><%= event.date_class_string %>">
+  <div class="event-info hidden">
+    <h4 class="event-title"><%= event.name %></h4>
+    <p class="event-date"><%= event.get_datetime_from_time_string(event.start_time).strftime('%B %e, %l:%M %P') %> - <br/><%= event.get_datetime_from_time_string(event.end_time).strftime('%B %e, %l:%M %P') %></p>
+    <p class="event-location"><%= event.location %></p>
+    <p class="event-desc"><%= event.description %></p>
+	<p class="event-organization">
+	  <% if !event.organization.url.nil? && !event.organization.url.empty? %>
+	  <!-- Sorry for this awful inline style. There's no css rule for anchor tags
+	       that are children of .event-info, so if we have a url here then
+           it shows up as underlined black text. But the rest of the text is
+           white, so we need to blend in. todo: fix the stylesheet later -->
+	  <a href=<%= event.organization.url%> style="color:white; text-decoration:none;">
+        <%= event.organization.name %>
+      </a>
+	  <% end %>
+	</p>
+	
+	<% if !event.url.nil? && !event.url.empty?%>
+		<%if event.url.start_with?('http://') || event.url.start_with?('https://')%>
+			<p class="event-url">Click <a href=<%= event.url %> >here</a> for event link.</p>
+		<% else %>
+			<p class="event-url">Click <a href=<%='http://' + event.url %> >here</a> for event link.</p>
+		<% end %>
+	<% else %>
+	<p class="event-url"></p>
+	<% end %>
+  </div>
+  <p class="event-category"><%= event.categories.join(', ') %></p>
+  <div style="background-image: url(<%= event.flyer %>);" class="thumbnail"></div>
+</div>
+>>>>>>> cleanup
