@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
+  fixtures :events
   setup do
     @event = events(:one)
   end

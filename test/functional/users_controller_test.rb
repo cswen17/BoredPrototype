@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  fixtures :users
   setup do
     @user = users(:one)
   end
