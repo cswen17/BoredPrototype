@@ -12,6 +12,7 @@ xml.events do
 
       xml.location(event_obj.location)
       xml.image(event_obj.flyer)
+<<<<<<< HEAD
 
       mycat = Array.new
       count = 0
@@ -26,6 +27,17 @@ xml.events do
       end
 
       xml.categories(mycat.join(","));
+=======
+    
+      mycat = "Error: No Category Matched"
+      EventsHelper::all_categories.each do |c|
+        if c.second.to_s == event_obj.categories
+      	   mycat = c.first
+	end
+      end
+
+      xml.categories(mycat)
+>>>>>>> 2a9467c0e197a85ca44dd621fe9b8a06ea959899
       xml.cancelled(event_obj.cancelled)
     end
   end

@@ -1,0 +1,64 @@
+/***************
+   Variables
+ ***************/
+
+$mat-blue:#2a36b1;
+$mat-orange:#ff9800;
+$black:#000000;
+$dark-gray:rgba(0, 0, 0, 0.6);
+$gray:rgba(0, 0, 0, 0.4);
+$light-gray:rgba(0, 0, 0, 0.2);
+$white:#ffffff;
+
+$padding-size:16px;
+
+$front:64;
+$middle:16;
+$back:4;
+
+$box-shadow-dimensions:0 2px 5px rgba(0, 0, 0, 0.26);
+
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+.mat-card-container {
+  box-shadow:$box-shadow-dimensions;
+  margin:4px;
+  height:300px;
+  width:352px;
+  font-family:'Roboto', sans-serif;
+}
+
+.mat-card-pic {
+  z-index:$back;
+  background-size:cover;
+  height:200px;
+}
+
+.mat-card-scrim {
+  z-index:$middle;
+  background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.1) 95%, rgba(0, 0, 0, 0.2) 99%);
+}
+
+.mat-card-info {
+  color:$gray;
+  font-size:14px;
+  padding:$padding-size;
+}
+
+.mat-card-title {
+  color:$white;
+  font-family:'Roboto Slab', serif;
+  font-size:24px;
+  padding:$padding-size;
+}
+
+.mat-card-button-primary {
+  color:$mat-orange;
+  padding:$padding-size;
+}
+
+.mat-card-button-secondary {
+  color:$dark-gray;
+  padding:$padding-size;
+}

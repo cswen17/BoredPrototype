@@ -1,0 +1,15 @@
+/*************
+  Variables
+ *************/
+
+$header-height:64px;
+$mat-blue:#2a36b1;
+
+.mat-header {
+  background-color:$mat-blue;
+  height:$header-height;
+  left:0;
+  right:0;
+  top:0;
+  position:fixed;
+}

@@ -5,6 +5,7 @@
     <p class="event-date"><%= event.get_datetime_from_time_string(event.start_time).strftime('%B %e, %l:%M %P') %> - <br/><%= event.get_datetime_from_time_string(event.end_time).strftime('%B %e, %l:%M %P') %></p>
     <p class="event-location"><%= event.location %></p>
     <p class="event-desc"><%= event.description %></p>
+<<<<<<< HEAD
 	<p class="event-organization">
 	  <% if !event.organization.url.nil? && !event.organization.url.empty? %>
 	  <!-- Sorry for this awful inline style. There's no css rule for anchor tags
@@ -26,6 +27,15 @@
 	<% else %>
 	<p class="event-url"></p>
 	<% end %>
+=======
+	<p class="event-organization"><%= event.organization.name %></p>
+xc  </div>
+  
+    <% if signed_in? and event.can_modify?(current_user) %>
+		<div class="modify-tools">
+	<a class="edit-link" href="<%= edit_event_path(event) %>">Edit</a>
+	<%= link_to "Delete", event_path(event), :confirm => "Are you sure you want to delete #{event.name}?", :method => :delete,:class=> "delete-link" %>
+>>>>>>> 2a9467c0e197a85ca44dd621fe9b8a06ea959899
   </div>
   
  

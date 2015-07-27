@@ -16,12 +16,12 @@
 }
 
 $border_color: #CCC;
-$mobile_width: 240px;
 
 $event_width: 200px;
 $event_height: 200px;
 $event_caption_offset: -27px;
 $event_expanded_zindex: 900;
+
 
 
 #noevent {
@@ -30,87 +30,84 @@ $event_expanded_zindex: 900;
 	 border: 2px solid black;
 }
 
+/* I changed the margin-left here
+ * from 275px to 75px because the
+ * events were floating too far to
+ * the right. 
+ */
 #eventscontainer { 
-
-    //height: 100%;
-    //width: 704px;
-    //width: 1200px;
-    //overflow: hidden;
-    position:fixed;
-    top:0px;
-    left:$mobile_width;
+	/* margin-left: 75px;*/
+    /* margin-right: 75px;*/
+	/* padding-left: 25px;*/
+    height: 600px;
+    width: 100%;
 	#event {
 	float: left;
 	}
 }
 
-.category-header {
-    font-size:18px;
-    //font-weight:bold;
-    //letter-spacing:1px;
-    //text-align:center;
-    padding:11px;
-    color:white;
-    background: #75acff; /* Old browsers */
-background: -moz-linear-gradient(top, #75acff 20%, #516d8e 98%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(20%,#75acff), color-stop(98%,#516d8e)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #75acff 20%,#516d8e 98%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #75acff 20%,#516d8e 98%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #75acff 20%,#516d8e 98%); /* IE10+ */
-background: linear-gradient(to bottom, #75acff 20%,#516d8e 98%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75acff', endColorstr='#516d8e',GradientType=0 ); /* IE6-9 */
-}
+
 
 .category-list {
 	.expanded {
 
 	}
 	list-style-type: none;
-//	padding-bottom: 20px;
-	//text-align: center;
+	padding-bottom: 20px;
+	text-align: center;
+	/* min-width: 1000px;*/
 	li {
-     border-bottom:1px solid #ccc;
-     display: block;
-	 //text-align: center;
-	 font-size: 18px; 
-	 //font-weight: bold;
-	 padding: 11px;
-	 //margin-left: -5px;
-	 //letter-spacing: 1px;
-	 //border-width: 0px 1px 0px 0px;
+	 display: inline-table;
+	 text-align: center;
+	 width: 100px;
+	 font-size: 17px; 
+	 font-weight: bold;
+	 padding: 8px;
+	 margin-left: -5px;
+	 letter-spacing: 1px;
+	 border: 0px dotted #888;
+	 border-width: 0px 1px 0px 0px;
 	 &:hover {
-		background-color: #2ABED8;
+		background-color: #8C0F2E;
 		color: white;
-		text-shadow: /* 0px 1px 1px #000; */ none;
+		text-shadow: 0px 1px 1px #000;
 		cursor: pointer; }
 	}
 
 	.catname-0 {
-		//border: 0px;
+		border: 0px;
 	}
 }
 
 .events-col-info { 
-    overflow: hidden;
+/*  display: none; */
+    position: fixed;
+    top: 0%;
+    left: 3000px;
+    float: right;
+	margin-right: 25%;
+    font-family: 'News Cycle';
 	padding: 20px;
-    font-size:18px;
-//	background: #56A0EA;
-/*    background-image:url('chalkboard-black.jpg'); */
-//	width: 630px;
-    height: 200px;
+/*	background:  rgba(0,0,0,0.65);*/
+    background-image:url('chalkboard-black.jpg');
+	width: 350px;
+    height: 100%;
 	-moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 	
     > h2 {
-	    color: black;
-	    border-bottom: 1px dotted #000;
+	    color: white;
+	    border-bottom: 1px dotted #FFF;
 	    padding-bottom: 8px;
 	    margin-bottom: 15px;
     }
     
+    /* Dangerous, I think. Think of a more stable way to do this
+     * later 
+     */	
     >div /*#info-main*/ {
-        color: #000;
+        color: #FFF;
 	    line-height: 1.42em;
 
 	    h2 {
@@ -124,6 +121,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75acff', end
 	    p #info-location {
 		    margin-bottom: 1em; }
 	}
+    /* The following selector is to set the animation for sliding in the 
+     * events-col-info container. It represents the end state of the slide.
+     */
 }
 
 .event {
@@ -167,14 +167,7 @@ h1 {
 		font-weight: bold;
 		border-bottom: 1px dashed #777;
 		width: 100%; padding: 10px 0px 18px 0px;
-		margin-bottom: 25px; 
-}
-
-#sidebar {
-    width:$mobile_width;
-    //height:100%;
- //   border:1px solid black;
-}
+		margin-bottom: 25px; }
 
 /* CREATE AN EVENT */
 
@@ -240,20 +233,20 @@ h1 {
 		&:enabled {
 			padding: 10px 25px;
 			font-family: 'Helvetica Neue', Arial, sans-serif;
-			color: #eff0f0; font-size: 24px;
+			color: white; font-size: 24px;
 			font-weight: bold;
 			border: 0px;
 			-webkit-border-radius: 6px;
 			text-shadow: 0px 1px 3px #333;
 			box-shadow: 0px 2px 3px #222; 
-			background: #00ade8;
-			background: -moz-linear-gradient(top,  #00ade8 0%, #0087b5 100%);
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00ade8), color-stop(100%,#0087b5));
-			background: -webkit-linear-gradient(top,  #00ade8 0%, #0087b5 100%);
-			background: -o-linear-gradient(top,  #00ade8 0%,#0087b5 100%);
-			background: -ms-linear-gradient(top,  #00ade8 0%,#0087b5 100%);
-			background: linear-gradient(top,  #00ade8 0%,#0087b5 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ade8', endColorstr='#0087b5',GradientType=0 );
+			background: #8C0F2E;
+			background: -moz-linear-gradient(top,  #8C0F2E 0%, #5f0F2E 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8C0F2E), color-stop(100%,#5f0F2E));
+			background: -webkit-linear-gradient(top,  #8C0F2E 0%, #5f0F2E 100%);
+			background: -o-linear-gradient(top,  #8C0F2E 0%,#5f0F2E 100%);
+			background: -ms-linear-gradient(top,  #8C0F2E 0%,#5f0F2E 100%);
+			background: linear-gradient(top,  #8C0F2E 0%,#5f0F2E 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8C0F2E', endColorstr='#5f0F2E',GradientType=0 );
 			
 		}
 	}
@@ -286,7 +279,7 @@ margin-top: 5px;
   width: 90px;
   font-weight: bold;
   margin-bottom: 5px;
-  border-left: 4px solid #00ade8;
+  border-left: 4px solid #8C0F2E;
   font-size: 13px;
   border-bottom: 1px solid #CCC;
   
@@ -358,27 +351,4 @@ ul#user-events li{
 
 .delete-link,.delete-link:visited{
 	color: #8C0F2E !important;
-}
-
-/* Experimentation */
-#rightscroll {
- z-index: 7;
- position: fixed;
- height: 40%;
- width: 5%;
- background: #80B2FF;
- border-radius: 5px;
- top: 30%;
- left: 95%;
-}
-
-#leftscroll {
- z-index: 7;
- position: fixed;
- height: 40%;
- width: 5%;
- background: #80B2FF;
- border-radius: 5px;
- top: 30%;
- left: 0%;
 }

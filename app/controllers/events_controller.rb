@@ -49,9 +49,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-	if !@event.can_modify?(current_user)
-		raise Exceptions::AccessDeniedException
-	end
+    raise Exceptions::AccessDeniedException if cannot_modify
   end
 
   # POST /events
@@ -70,9 +68,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
 
-	if !@event.can_modify?(current_user)
-		raise Exceptions::AccessDeniedException
-	end
+	raise Exceptions::AccessDeniedException if cannot_modify
 	
     # Note: this block is designed to zero out the categories,
     # start and end times, and put the rest of the variables
@@ -136,9 +132,8 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
 	
-	if !@event.can_modify?(current_user)
-		raise Exceptions::AccessDeniedException
-	end
+    raise Exceptions::AccessDeniedException if cannot_modify
+
     name = @event.name
 	@event.destroy
 
@@ -148,6 +143,10 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url }
       format.json { head :ok }
     end
+  end
+
+  def cannot_modify
+    !@event.can_modify?(current_user)
   end
 
   def approve

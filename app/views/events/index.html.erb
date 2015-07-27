@@ -4,23 +4,20 @@
 	hashCategories = <%= categories_javascript()%>;
 </script>
 
-<div class="container">	
-  	<% if Event.all.empty? then %>
-	<div class="paragraphtext"> Sorry, there are currently no events. Make a new event by clicking "Create an event" in the menu. <br /></div>
-	<% else %>
+<div id="sidebar">
+    <div class="header">
+        <div id="image">
+            <a href="/"><img src="/images/bluelogo.png" alt="" /></a>
+        </div>
 
-	<ul id="category-list" class="category-list">
-			<li class="catname-0">All</li>
-			<% EventsHelper::all_categories.each do |c| %>
-		    	<li class = <%= "catname-" + c[1].to_s %> ><%= c[0] %></li>
-		  	<% end %>
-	</ul>
-	<br />
+    </div>
 
-
-	<!--<div class="leftCol">	        -->
-		<div class="events-col-info">
-			<h2>Click an event to see details &rarr;</h2>
+    <div class="events-hotfeed">
+        <div class="category-header events-hotfeed-header">
+            Event Details
+        </div>
+        <div class="events-col-info">
+            <!--<h2>&larr; Click an event to see details</h2>-->
 			<div class="info-main">
 			<p id="info-organization"></p>
 		    	<h2 id="info-title"></h2>
@@ -32,14 +29,33 @@
 				<p id="info-url"></p>
 		  	</div>
 		</div>
+    </div>
 
-	<!--</div>-->
+    <div class="categories-pullup">
+        <div class="category-list category-header">Categories</div>
+        <ul id="category-list" class="category-list">
+                <li class="catname-0">All</li>
+                <% EventsHelper::all_categories.each do |c| %>
+                    <li class = <%= "catname-" + c[1].to_s %> >
+                    <%= c[0] %>
+                    </li>
+                <% end %>
+        </ul>
+    </div>
+</div>
+
+<div class="container">	
+  	<% if Event.all.empty? then %>
+	<div class="paragraphtext"> Sorry, there are currently no events. Make a new event by clicking "Create an event" in the menu. <br /></div>
+	<% else %>
+
+	<br />
+   	<div id="eventscontainer">
+      <% @events.each do |event| %>
+        <div id ="event"><%= render event %></div>
+      <% end %>
+    </div>
 	<% end %>
-	<div id="eventscontainer">
-		<% @events.each do |event| %>
-		<div id ="event"><%= render event %></div>
-		<% end %>
-	</div>
 
 
 </div>

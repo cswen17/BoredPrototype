@@ -3,7 +3,18 @@ include ActionView::Helpers::DateHelper
 class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
-  validates_presence_of :name, :description,  :summary, :location, :start_time, :end_time, :categories, :approval_rating, :event_start, :event_end, :user, :organization
+  validates_presence_of :name, 
+                        :description,  
+                        :summary, 
+                        :location, 
+                        :start_time, 
+                        :end_time, 
+                        :categories, 
+                        :approval_rating, 
+                        :event_start, 
+                        :event_end, 
+                        :user, 
+                        :organization
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
   ### validates_format_of :name, :location, :with => /^[a-zA-Z0-9 !.,#\*<>@&:"$\-\\\/']*$/
@@ -40,6 +51,8 @@ class Event < ActiveRecord::Base
   include EventsHelper
   
   #### PUBLIC METHODS ####
+
+
 
   def approval_status
     if self.approval_rating == 0
@@ -270,6 +283,7 @@ class Event < ActiveRecord::Base
       validEvent = false
     end
 
+<<<<<<< HEAD
     # This block checks if there are any duplicate events when submitting a new event
     if(self.id == nil) 
       if (Event.exists?(:location => self.location, :start_time => self.start_time, :end_time => self.end_time))
@@ -280,6 +294,16 @@ class Event < ActiveRecord::Base
       if (Event.where("location = ? AND start_time = ? AND end_time = ? AND NOT id = ?", self.location, self.start_time, self.end_time, self.id).length >= 1)
         errors.add :location, "invalid: Created a duplicate event via editing"
       end
+=======
+    # This block checks if there are any duplicate events
+    if (Event.where("location = ? AND start_time = ? AND end_time = ? AND NOT id = ?", 
+                    self.location, 
+                    self.start_time, 
+                    self.end_time, 
+                    self.id).length >= 1)
+      errors.add :location, "invalid: Cannot be a duplicate event."
+      validEvent = false
+>>>>>>> 2a9467c0e197a85ca44dd621fe9b8a06ea959899
     end
 
     # This block checks to make sure that the organization

@@ -14,8 +14,14 @@ group :assets do
   gem 'uglifier'
 end
 
+gem 'coffee-script'
 gem 'jquery-rails'
 gem 'paperclip', '~>2.4'
+<<<<<<< HEAD
+=======
+gem 'omniauth', '~>1.1.0'
+gem 'kaminari'
+>>>>>>> 2a9467c0e197a85ca44dd621fe9b8a06ea959899
 #gem "oa-pubcookie", :git => 'git://github.com/alexcrichton/oa-pubcookie.git'
 gem "oa-pubcookie", "~> 0.1.0"
 

@@ -33,23 +33,28 @@ var App = {
 var full = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // All categories
 
 function updateInfo(node) {
+  $('.events-col-info').animate({height: '400px'}, 500);
+  
   var infoBar = $('.info-main');
   $('#info-title', infoBar).html($('.event-title', node).html());
   $('#info-desc', infoBar).html($('.event-desc', node).html());
   $('#info-location', infoBar).html($('.event-location', node).html());
   $('#info-date', infoBar).html($('.event-date', node).html());
   $('#info-organization', infoBar).html($('.event-organization', node).html());
+<<<<<<< HEAD
   $('#info-url', infoBar).html($('.event-url', node).html());
 }
+=======
+};
+>>>>>>> 2a9467c0e197a85ca44dd621fe9b8a06ea959899
 
 $(function() {
   $('.datepicker').datepicker();
-  $('.event').click(function(){
+  $('.event').click(function(){    
     updateInfo(this);
 	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
   });
-
-
+   
   var i = 1; 
 
   init();
@@ -58,7 +63,8 @@ $(function() {
   });
 
   $('li.catname-1').click(function(e){
-	  toggleonClick(1);
+      toggleonClick(1);
+      bubble(e);
       });
 
   $('li.catname-2').click(function(e){
@@ -107,7 +113,7 @@ function buttonoff(i) {
 }
 
 function buttonon(i) {
-    $(".catname-" + (i).toString()).css('background-color', '#8C0F2E');
+    $(".catname-" + (i).toString()).css('background-color', '#80B2FF');
     $(".catname-" + (i).toString()).css('color', 'white');
 }
 
@@ -127,16 +133,17 @@ function init() {
 function toggleonClick(i){
     buttonoff(0);
     refresh_cat();
-    cat = '.cat-' + (i).toString();
-    if ( $(cat).css('display') == "none" 
-	|| $(".catname-" + (i).toString()).css('color') != 'rgb(255, 255, 255)'){
-	buttonon(i);
-	show_cat(i);
+    var cat = '.cat-' + (i).toString();
+    if ( $(cat).css('display') == 'none' 
+        || $('.catname-'+(i).toString()).css('color') != 'rgb(255, 255, 255)')
+    {
+	    buttonon(i);
+	    show_cat(i);
     } 
     else{
-	buttonoff(i);
-	hide_cat(i);
-	refresh_cat();
+	   buttonoff(i);
+	   hide_cat(i);
+	   refresh_cat();
     }
 }
 
@@ -146,7 +153,7 @@ function toggleAll() {
 	var empty = new Array();
 	if($(".catname-0").css('color') == 'rgb(255, 255, 255)') {
 		buttonoff(0);
-        	show_only_cats(empty);
+        show_only_cats(empty);
 	}
 	else {
 		buttonon(0);
@@ -160,9 +167,10 @@ function refresh_cat() {
     var i = 1; 
     hide_all();
     for(i = 1; i <= hashCategories.length; i++) {
-	if($(".catname-" + (i).toString()).css('color') == "rgb(255, 255, 255)") {
-		show_cat(i);
-	}
+	    if($(".catname-" + (i).toString()).css('color') == 
+            "rgb(255, 255, 255)") {
+		    show_cat(i);
+	    }
     }
 }
 
@@ -186,24 +194,28 @@ function hide_all() {
 }
 
 var show_categores = new Array(); //DELETE ME
-show_categories = [1,2,3,4]; //DELETE ME
+show_categories = [1, 2, 3, 4]; //DELETE ME
 
-//Takes an array of categories, cats. Displays only events with those categories,
-//  and hides all others.
+//Takes an array of categories, cats. Displays only events with those 
+//categories and hides all others.
 function show_only_cats(cats){
-	hide_all();
-	
-	for(var x in cats){
-		show_cat(x);
-	}
+    hide_all();
+    for(var x in cats){
+        show_cat(x);
+    }
 }
 
 function hide_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','none');
+    cat_string = ".cat-"+n;
+    $(cat_string).css('display','none');
 }
 
 function show_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','inline');
+    cat_string = ".cat-"+n;
+    $(cat_string).css('display','inline');
+}
+
+/* Experimentation */
+function bubble(evt){
+    
 }
