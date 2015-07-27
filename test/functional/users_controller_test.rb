@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  # Thank you so much to:
+  # stackoverflow.com/questions/523771/
+  # why-are-my-fixture-objects-not-available-in-my-rails-testunit-test
+  # for helping me put the following line here to get the tests to work
   fixtures :users
   setup do
     @user = users(:one)
