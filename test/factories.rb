@@ -17,12 +17,12 @@ FactoryGirl.define do
   end
   
   factory :user do
+    id 36
     first_name "David"
     last_name "Black"
 	andrew_id "dblack"
-    active true
   end
-  
+
   factory :events_organizations do
 	association :event
 	association :organization

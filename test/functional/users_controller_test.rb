@@ -7,7 +7,7 @@ class UsersControllerTest < ActionController::TestCase
   # for helping me put the following line here to get the tests to work
   fixtures :users
   setup do
-    @user = users(:one)
+    @user = FactoryGirl.build(:user)
   end
 
   test "should get index" do
@@ -30,23 +30,27 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user" do
-    get :show, id: @user.to_param
+    get :show, id: @user.id
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @user.to_param
+    get :edit, id: @user.id
     assert_response :success
   end
 
   test "should update user" do
-    put :update, id: @user.to_param, user: @user.attributes
+    # Original name was David, we'll update it to Bob
+    @user.first_name = "Bob"
+    put :update, id: @user.id, user: @user.attributes
     assert_redirected_to user_path(assigns(:user))
+    puts @user.first_name 
   end
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete :destroy, id: @user.to_param
+      user_to_destroy = users(:one)
+      delete :destroy, id: user_to_destroy.to_param
     end
 
     assert_redirected_to users_path
