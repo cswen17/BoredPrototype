@@ -1,7 +1,0 @@
-Welcome to Teudu.
-
-Teudu is a free web application that is designed to help you organize and find out about events.  On the main page, you can filter the events in our database by date, time, and category.  Then you can click on a specific event to view details about it.
-
-You can also create your own event.  By clicking on the Create an event link at the top of the page you can create an event with a variety of different characteristics, including the name, description, location, time and date, and the categories the event belongs to.  If you do decide to create an event, it will have to be approved by a moderator first, so it will not show up on the home page immediately.  If you wish to edit your event, please add a new event, and then email the moderator at <email here> and ask him to delete the old event.
-
-Teudu was created in part by the ACM JV Apps Team.  To learn more, visit our website at http://acmatcmu.org/.
