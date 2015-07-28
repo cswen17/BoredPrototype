@@ -41,10 +41,10 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should update user" do
     # Original name was David, we'll update it to Bob
-    @user.first_name = "Bob"
-    put :update, id: @user.id, user: @user.attributes
+    user_to_update = users(:one)
+    user_to_update.first_name = "Bob"
+    put :update, id: user_to_update.id, user: user_to_update.attributes
     assert_redirected_to user_path(assigns(:user))
-    puts @user.first_name 
   end
 
   test "should destroy user" do

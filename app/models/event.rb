@@ -200,7 +200,7 @@ class Event < ActiveRecord::Base
     validEvent = true
 
     # This block checks if the start and end times are empty
-    if :start_time_date.empty? or :end_time_date.empty?
+    if :start_time.empty? or :end_time.empty?
       errors.add :start_time, "should be added."
       validEvent = false
     end
@@ -266,7 +266,7 @@ class Event < ActiveRecord::Base
   private
 
   def check_empty_dates
-    if :start_time_date.empty? or :end_time_date.empty?
+    if :start_time.empty? or :end_time.empty?
       flash[:error] = 'You must give a date'
       errors.add :start_time, :message => "You need to input a date"
       return false

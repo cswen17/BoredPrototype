@@ -36,7 +36,13 @@ class OrganizationsControllerTest < ActionController::TestCase
   end
 
   test "should update organization" do
-    put :update, id: @organization.id, organization: @organization.attributes
+    existing_organization_to_update = organizations(:one)
+    existing_organization_to_update.name = "ACM at CMUUUUUU"
+    put(
+      :update, 
+      id: existing_organization_to_update,
+      organization: existing_organization_to_update.attributes
+    )
     assert_redirected_to organization_path(assigns(:organization))
   end
 

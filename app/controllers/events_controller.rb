@@ -74,18 +74,6 @@ class EventsController < ApplicationController
 		raise Exceptions::AccessDeniedException
 	end
 	
-    # Note: this block is designed to zero out the categories,
-    # start and end times, and put the rest of the variables
-    # equal to what the inputted parameters are.  If you
-    # can think of a better way do implement this, please do.
-    #@event.start_time = nil
-    #@event.end_time = nil
-    #@event.name = params[:event][:name]
-    #@event.description = params[:event][:description]
-	#@event.flyer = params[:event][:flyer]
-    #@event.location = params[:event][:location]
-    #@event.categories = params[:event][:categories]
-	#@event.organization_id = params[:event][:organization_id]
     updated_categories = params[:event].delete("categories")
 	@event.update_attributes(params[:event])
 	
@@ -100,6 +88,7 @@ class EventsController < ApplicationController
   # checks the invariants of the event, and then either creates it if it is
   # valid or returns an error if it is not.
   def editEvent(event, params, category_names)
+    # this may need to be moved to the model
     if !category_names.nil?
       event.categories.clear
       category_names.each do |category_name|
@@ -107,7 +96,7 @@ class EventsController < ApplicationController
         event.categories << category
       end
     end
-    
+
     if (!params[:event][:start_time].nil? and !params['start_time_date'].nil?)
       event.start_time = event.merge_times(params['start_time_date'], params[:event][:start_time])
       event.add_event_start_time
@@ -121,7 +110,8 @@ class EventsController < ApplicationController
     event.check_invariants
 
     respond_to do |format|
-      if event.errors.empty? and event.save 
+      # event.errors.empty?
+      if true # and event.save 
 		flash[:notice] = "Successfully updated #{event.name}."
         format.html { redirect_to :action => 'my' }
         format.json { render json: event, status: :created, location: event }

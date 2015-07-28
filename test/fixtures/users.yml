@@ -15,3 +15,12 @@ two:
   last_name: Carnegie
   andrew_id: acarnegie
   moderator: false
+
+# Include fixtures :users wherever you're testing a method
+# that checks against current_user, so that the helper method
+# current_user will find this admin user.
+admin:
+  first_name: Joe
+  last_name: User
+  andrew_id: admin
+  moderator: true

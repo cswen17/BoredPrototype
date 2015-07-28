@@ -1,19 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 602
   name: Petting Zoo
   description: Cute fluffly animals
   location: CFA Lawn
   start_time: 2011-09-11 16:57:37
   end_time: 2011-09-12 18:00:01
+  event_start: 2011-09-11T16:57:37.00
+  event_end: 2011-09-12T18:00:01.00
   flyer: imgur.com/ptngZo0
   pattern: 1
+  approval_rating: 100
 
 two:
+  id: 42
   name: Winter Gala
   description: Adventure rooms and awesome raffles
   location: Jared L Cohon UC
   start_time: 2016-01-20 16:57:37
   end_time: 2016-01-20 23:30:00
+  event_start: 2016-01-20T16:57:37.00
+  event_end: 2016-01-20T23:30:00.00
   flyer: s3.aws.cdn.b1ah1337
   pattern: 1
+  approval_rating: 100

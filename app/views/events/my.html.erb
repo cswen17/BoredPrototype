@@ -9,7 +9,7 @@
                 <%= link_to 'edit', controller: 'events', action: 'edit', id: e.id %>
                 </p>
                 <p class="action-link inline">
-                <%= link_to 'delete', controller: 'events', action: 'destroy', id: e.id %>
+                <%= button_to 'delete', event_path(e), method: :delete %>
                 </p>
                 <p class="action-link inline">
                 <%= link_to 'view', controller: 'events', action: 'show', id: e.id %>
