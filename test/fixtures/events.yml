@@ -5,8 +5,8 @@ one:
   name: Petting Zoo
   description: Cute fluffly animals
   location: CFA Lawn
-  start_time: 2011-09-11 16:57:37
-  end_time: 2011-09-12 18:00:01
+  start_time: null # 2011-09-11 16:57:37
+  end_time: null # 2011-09-12 18:00:01
   event_start: 2011-09-11T16:57:37.00
   event_end: 2011-09-12T18:00:01.00
   flyer: imgur.com/ptngZo0
