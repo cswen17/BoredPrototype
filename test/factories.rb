@@ -23,8 +23,6 @@ FactoryGirl.define do
 	location "Merson Courtyard"
 	event_start 2.weeks.from_now
 	event_end (2.weeks.from_now + 1.hours).to_datetime
-	start_time 2.weeks.from_now.to_datetime.to_s
-	end_time (2.weeks.from_now + 1.hours).to_datetime.to_s
 	summary "Happens in our backyard"
     approval_rating 100
   end

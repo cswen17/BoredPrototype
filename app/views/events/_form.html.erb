@@ -57,23 +57,15 @@
   		</div>
 
   		<div class="field">
-    		<strong><%= f.label :start_time, 'Start time (EST)' %></strong>
-    		<%= text_field_tag 'start_time_date', @event.edit_start_date, :class => 'datepicker' %>
-			<% if @event.start_time.nil? %>
-			<%= f.select(:start_time, options_for_select(Event::EVENT_TIMES, closest_half_hour(1))) %>
-			<% else %>
-			<%= f.select(:start_time, options_for_select(Event::EVENT_TIMES, DateTime.strptime(@event.start_time, "%Y-%d-%m %H:%M").strftime("%H:%M"))) %>
-			<% end %>
+    		<strong><%= f.label :event_start, 'Start time (EST)' %></strong>
+    		<%= text_field_tag 'event_start', @event.edit_event_start, :class => 'datepicker' %>
+            <%= f.select(:event_start, options_for_select(Event::EVENT_TIMES, @event.option_event_start)) %>
   		</div>
 
   		<div class="field">
-    		<strong><%= f.label :end_time, 'End time (EST)' %></strong>
-    		<%= text_field_tag 'end_time_date', @event.edit_end_date, :class => 'datepicker' %>
-			<% if @event.end_time.nil? %>
-    			<%= f.select(:end_time, options_for_select(Event::EVENT_TIMES, closest_half_hour(3))) %>
-			<% else %>
-			<%= f.select(:end_time, options_for_select(Event::EVENT_TIMES, DateTime.strptime(@event.end_time, "%Y-%d-%m %H:%M").strftime("%H:%M"))) %>
-			<% end %>
+    		<strong><%= f.label :event_end, 'End time (EST)' %></strong>
+    		<%= text_field_tag 'event_end', @event.edit_event_end, :class => 'datepicker' %>
+            <%= f.select(:event_end, options_for_select(Event::EVENT_TIMES, @event.option_event_end)) %>
   		</div>
 
 </fieldset>

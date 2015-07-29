@@ -2,7 +2,7 @@
 <div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %><%= event.date_class_string %>">
   <div class="event-info hidden">
     <h4 class="event-title"><%= event.name %></h4>
-    <p class="event-date"><%= event.get_datetime_from_time_string(event.start_time).strftime('%B %e, %l:%M %P') %> - <br/><%= event.get_datetime_from_time_string(event.end_time).strftime('%B %e, %l:%M %P') %></p>
+    <p class="event-date"><%= event.event_start.strftime('%B %e, %l:%M %P') %> - <br/><%= event.event_end.strftime('%B %e, %l:%M %P') %></p>
     <p class="event-location"><%= event.location %></p>
     <p class="event-desc"><%= event.description %></p>
 	<p class="event-organization">

@@ -8,16 +8,16 @@ class Event < ActiveRecord::Base
 
   validates_presence_of(
     :name, :description,  :summary, :location,
-    :start_time, :end_time, :event_start, :event_end,
+    :event_start, :event_end,
     :approval_rating, :user, :organization
   )
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
 
-  before_save :add_event_times
+  # before_save :add_event_times
 
   #### SCOPES ####
-  scope :all, order("start_time ASC")
+  scope :all, order("event_start ASC")
   scope :upcoming, where("event_end >= ?",
                          Time.current.strftime("%Y-%m-%d %H:%M"))
   scope :approved, where("approval_rating = ?", 100)
@@ -66,24 +66,36 @@ class Event < ActiveRecord::Base
 	!in_user.organizations.where("id = ?", self.organization.id).empty?
   end
 
-  # Parses an event's time and returns it as an array of Datetime objects
-  # "year-month-day hour-minute"
-  # This is in 24-hour time, separated by a %
-  # "year-month-day hour-minute%year-month-day hour-minute"
-  def get_start_times
-    times = []
-    self.start_time.split('%').each do |t|
-      times.push(DateTime.strptime(t, '%m-%d-%Y %H:%M'))
-    end
-    times
+  def option_event_start
+    default_time_option(self.event_start)
   end
 
-  def get_end_times
-    times = []
-    self.end_time.split('%').each do |t|
-      times.push(DateTime.strptime(t, '%m-%d-%Y %H:%M'))
+  def option_event_end
+    default_time_option(self.event_end)
+  end
+
+  def default_time_option(optional_hour_minute)
+    if optional_hour_minute.nil?
+      return closest_half_hour(minute_offset=1)
+    else
+      return Time.now.strftime('%H:%M')
     end
-    times
+  end
+
+  def edit_event_start
+    default_date_text(self.event_start)
+  end
+
+  def edit_event_end
+    default_date_text(self.event_end)
+  end
+
+  def default_date_text(optional_datetime)
+    if optional_datetime.nil?
+      return Time.now.strftime('%m/%d/%Y')
+    else
+      return optional_datetime.strftime('%m/%d/%Y')
+    end
   end
 
   def get_datetime_from_time_string(str)
@@ -99,42 +111,6 @@ class Event < ActiveRecord::Base
   def merge_times(date, time)
     return "" + date.split('/').reverse.join('-') + " " + time
   end
-
-  def add_event_times
-    puts self.start_time
-    puts self.end_time
-    self.event_start = get_datetime_from_time_string(self.start_time)
-    self.event_end = get_datetime_from_time_string(self.end_time)
-  end
-
-  def add_event_start_time
-    puts self.start_time
-    self.event_start = get_datetime_from_time_string(self.start_time)
-  end
-
-  def add_event_end_time
-    puts self.end_time
-    self.event_end = get_datetime_from_time_string(self.end_time)
-  end
-
-  def edit_start_date
-    if self.start_time.nil?
-      return Time.now.strftime('%m/%d/%Y')
-    else
-      old_date = DateTime.strptime(self.start_time, '%Y-%d-%m %H:%M') rescue Time.now
-      old_date.strftime('%m/%d/%Y')
-    end
-  end
-
-  def edit_end_date
-    if self.end_time.nil?
-      return Time.now.strftime('%m/%d/%Y')
-    else
-      old_date = DateTime.strptime(self.end_time, '%Y-%d-%m %H:%M') rescue Time.now
-      old_date.strftime('%m/%d/%Y')
-    end
-  end
-  
 
   # Approval
   def approve_event
@@ -188,16 +164,6 @@ class Event < ActiveRecord::Base
 	s
   end
 
-  def check_empty_dates
-    if :start_time.empty? or :end_time.empty?
-      flash[:error] = 'You must give a date'
-      errors.add :start_time, :message => "You need to input a date"
-      return false
-    else
-      return true
-    end
-  end
-  
   # We can probably get away with letting the user upload something crappy...it is their choice after all
   def dimensions_fine?
 	  temp_file = flyer.queued_for_write[:original]
