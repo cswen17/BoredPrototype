@@ -14,8 +14,6 @@ class Event < ActiveRecord::Base
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300
 
-  # before_save :add_event_times
-
   #### SCOPES ####
   scope :all, order("event_start ASC")
   scope :upcoming, where("event_end >= ?",
@@ -63,22 +61,22 @@ class Event < ActiveRecord::Base
 		return true
 	end
 
-	!in_user.organizations.where("id = ?", self.organization.id).empty?
+	!in_user.organizations.where('id = ?', self.organization.id).empty?
   end
 
   def option_event_start
-    default_time_option(self.event_start)
+    default_time_option(self.event_start, 1)
   end
 
   def option_event_end
-    default_time_option(self.event_end)
+    default_time_option(self.event_end, 3)
   end
 
-  def default_time_option(optional_hour_minute)
+  def default_time_option(optional_hour_minute, offset)
     if optional_hour_minute.nil?
-      return closest_half_hour(minute_offset=1)
+      return closest_half_hour(minute_offset=offset)
     else
-      return Time.now.strftime('%H:%M')
+      return optional_hour_minute.strftime('%H:%M')
     end
   end
 
@@ -98,21 +96,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def get_datetime_from_time_string(str)
-	begin
-    	DateTime.strptime(str, '%Y-%m-%d %H:%M:%S') 
-	rescue => e
-		logger.warn("Get DateTime from Time String Error: #{e} of #{str}")
-		Time.now
-	end
-  end
-
-
-  def merge_times(date, time)
-    return "" + date.split('/').reverse.join('-') + " " + time
-  end
-
-  # Approval
   def approve_event
     self.approval_rating = 100
 	self.save!
@@ -123,47 +106,6 @@ class Event < ActiveRecord::Base
 	self.save!
   end
   
-  #event timebins
-  def is_today?
-	self.event_start.day === (Date.today.day) and is_this_week? and is_this_year?
-  end
-  
-  def is_tomorrow?
-	self.event_start.day === (Date.today.day + 1)
-  end
-  
-  def is_this_week?
-	self.event_start.to_date.cweek === Date.today.cweek
-  end
-  
-  def is_next_week?
-	self.event_start.to_date.cweek === (Date.today.cweek + 1)
-  end
-  
-  def is_this_month?
-	self.event_start.month == Date.today.month and is_this_year?
-  end
-  
-  def is_next_month?
-	self.event_start.month == (Date.today.month + 1) and is_this_year?
-  end
-  
-  def is_this_year?
-	self.event_start.year == Date.today.year
-  end
-  
-  def date_class_string
-	s = ""
-	s = " today" if is_today?
-	s = s + " tomorrow" if is_tomorrow?
-	s = s + " this_week" if is_this_week?
-	s = s + " next_week" if is_next_week?
-	s = s + " this_month" if is_this_month?
-	s = s + " next_month" if is_next_month?
-	s = s + " this_year" if is_this_year?
-	s
-  end
-
   # We can probably get away with letting the user upload something crappy...it is their choice after all
   def dimensions_fine?
 	  temp_file = flyer.queued_for_write[:original]

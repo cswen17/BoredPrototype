@@ -5,8 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
+  id: 1
   name: ACM
   url: acmatcmu.org
 two: 
+  id: 2
   name: Activities Board
   url: activitiesboard.org
+three:
+  id: 3
+  name: Nonexistent
+  url: thisisiatest.com

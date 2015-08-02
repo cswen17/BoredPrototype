@@ -5,12 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
+  id: 1
   first_name: Joe
   last_name: User
   andrew_id: joeuser
   moderator: true
 
 two: 
+  id: 2
   first_name: Andrew
   last_name: Carnegie
   andrew_id: acarnegie

@@ -1,5 +1,5 @@
 
-<div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %><%= event.date_class_string %>">
+<div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %>">
   <div class="event-info hidden">
     <h4 class="event-title"><%= event.name %></h4>
     <p class="event-date"><%= event.event_start.strftime('%B %e, %l:%M %P') %> - <br/><%= event.event_end.strftime('%B %e, %l:%M %P') %></p>

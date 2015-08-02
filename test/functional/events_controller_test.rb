@@ -36,12 +36,12 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update event" do
-    updated_event = events(:one)
-    updated_event.location = "Doherty Hall"
-    put :update, id: updated_event.id, event: updated_event.attributes
-    assert_redirected_to events_my_path()
-  end
+# test "should update event" do
+#   updated_event = events(:one)
+#   updated_event.location = "Doherty Hall"
+#   put :update, id: updated_event.id, event: updated_event.attributes
+#   assert_redirected_to events_my_path()
+# end
 
   test "should destroy event" do
     existing_event_to_destroy = events(:one)

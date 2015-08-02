@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150728210450) do
+ActiveRecord::Schema.define(:version => 20150729231808) do
 
   create_table "categories", :force => true do |t|
     t.datetime "created_at"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(:version => 20150728210450) do
     t.string   "name",                                  :null => false
     t.text     "description",                           :null => false
     t.string   "location",                              :null => false
-    t.string   "end_time",                              :null => false
     t.datetime "event_start"
     t.datetime "event_end"
     t.string   "flyer"
