@@ -1,16 +1,17 @@
 <div class="container">	
     <% if Event.all.empty? then %>
-        <div class="paragraphtext"> Sorry, there are currently no events. Make a new event by clicking "Create an event" in the menu. <br /></div>
+    <div class="paragraphtext">
+        Sorry, there are currently no events.
+        Make a new event by clicking "Create an event" 
+        in the menu.
+    </div>
     <% else %>
-
-        <ul id="category-list" class="category-list">
+    <ul id="category-list" class="category-list">
         <li class="catname-0">All</li>
         <% @categories.each do |c| %>
-            <li class = <%= "catname-" + c.id.to_s %> ><%= c.name %></li>
+        <li class = <%= "catname-" + c.id.to_s %> ><%= c.name %></li>
         <% end %>
     </ul>
-    <br />
-
 
     <div class="events-col-info">
         <h2>Click an event to see details &rarr;</h2>
@@ -25,13 +26,11 @@
             <p id="info-url"></p>
         </div>
     </div>
+    <% end %>
 
-<% end %>
     <div id="eventscontainer">
         <% @events.each do |event| %>
             <div id ="event"><%= render event %></div>
         <% end %>
     </div>
-
-
 </div>
