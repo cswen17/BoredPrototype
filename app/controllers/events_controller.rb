@@ -127,6 +127,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def approval
+    @events = Event.all
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def approve
     @event = Event.find(params[:id])
 	
