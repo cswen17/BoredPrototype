@@ -3,9 +3,6 @@ class CategoriesController < ApplicationController
         @categories = Category.all()
     end
 
-    def new
-    end
-
     def create
         @category = Category.new(params[:category])
         result = @category.save()
@@ -15,7 +12,6 @@ class CategoriesController < ApplicationController
     def destroy
         @category = Category.find(params[:id])
         @category.destroy()
-        puts "Got here"
 
         redirect_to categories_path
     end

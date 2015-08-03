@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   validates_presence_of(
     :name, :description,  :summary, :location,
     :event_start, :event_end,
-    :approval_rating, :user, :organization
+    :approval_rating, :user 
   )
   validates_size_of :location, :maximum => 100
   validates_size_of :summary, :maximum => 300

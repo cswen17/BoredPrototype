@@ -58,14 +58,12 @@
 
   		<div class="field">
     		<strong><%= f.label :event_start, 'Start time (EST)' %></strong>
-    		<%= text_field_tag 'event_start', @event.edit_event_start, :class => 'datepicker' %>
-            <%= f.select(:event_start, options_for_select(Event::EVENT_TIMES, @event.option_event_start)) %>
+            <%= f.datetime_select :event_start %>
   		</div>
 
   		<div class="field">
     		<strong><%= f.label :event_end, 'End time (EST)' %></strong>
-    		<%= text_field_tag 'event_end', @event.edit_event_end, :class => 'datepicker' %>
-            <%= f.select(:event_end, options_for_select(Event::EVENT_TIMES, @event.option_event_end)) %>
+            <%= f.datetime_select :event_end %>
   		</div>
 
 </fieldset>

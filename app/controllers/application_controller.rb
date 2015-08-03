@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
         # the exception's backtrace is logged to
         # BoredPrototype/logs/production.log
         logger.debug exception.backtrace
-        render	:text => "Exception #{exception}"
+        render	:text => "Exception #{exception}, backtrace #{exception.backtrace}"
     end
 
     def current_user

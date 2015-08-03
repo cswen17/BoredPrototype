@@ -8,11 +8,17 @@ one:
   event_start: 2011-09-11 16:57:37
   event_end: 2011-09-12 18:00:01
   flyer: imgur.com/ptngZo0
+  flyer_file_name: zoo.png
+  flyer_content_type: image/jpg
+  flyer_file_size: 5569
+  flyer_updated_at: 2011-09-10 06:00:00
   pattern: 1
   approval_rating: 100
   summary: Adorable times infinity
   user_id: 1
   organization_id: 1
+  url: facebook.com/pettingzoo
+  approver_id: 1
 
 two:
   id: 42
@@ -22,11 +28,17 @@ two:
   event_start: 2016-01-20 16:57:37
   event_end: 2016-01-20 23:30:00
   flyer: s3.aws.cdn.b1ah1337
+  flyer_file_name: blah.jpg
+  flyer_content_type: image/jpg
+  flyer_file_size: 2222
+  flyer_updated_at: 2015-08-01 22:30:00
   pattern: 1
   approval_rating: 100
   summary: Party of the year
   user_id: 1
   organization_id: 1
+  url: cmu.edu/wintergala
+  approver_id: 1
 
 needs_approval:
   id: 3
@@ -36,8 +48,14 @@ needs_approval:
   event_start: 2015-07-30 14:29:00
   event_end: 2015-07-31 08:00:00
   flyer: home/acarnegie/images/approve_me.jpg
+  flyer_file_name: approve_me.jpg
+  flyer_content_type: image/jpg
+  flyer_file_size: 100
+  flyer_updated_at: 2015-07-16 12:00:00
   pattern: 1
   approval_rating: 0
   summary: Approval of the year
   user_id: 1
   organization_id: 1
+  url: approve.me
+  approver_id: 1

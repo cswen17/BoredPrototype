@@ -18,13 +18,13 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-# test "should create event" do
-#   assert_difference('Event.count') do
-#     post :create, event: @event.attributes
-#   end
+  test "should create event" do
+    assert_difference('Event.count') do
+      post :create, event: @event.attributes
+    end
 
-#   assert_redirected_to event_path(assigns(:event))
-# end
+    assert_redirected_to events_my_path()
+  end
 
   test "should show event" do
     get :show, id: @event.id
@@ -36,12 +36,13 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-# test "should update event" do
-#   updated_event = events(:one)
-#   updated_event.location = "Doherty Hall"
-#   put :update, id: updated_event.id, event: updated_event.attributes
-#   assert_redirected_to events_my_path()
-# end
+  test "should update event" do
+    updated_event = events(:one)
+    updated_event.location = "Doherty Hall"
+
+    response = put :update, id: updated_event.id, event: updated_event.attributes 
+    assert_redirected_to events_my_path()
+  end
 
   test "should destroy event" do
     existing_event_to_destroy = events(:one)
@@ -49,6 +50,6 @@ class EventsControllerTest < ActionController::TestCase
       delete :destroy, id: existing_event_to_destroy.id
     end
 
-    assert_redirected_to events_path
+    assert_redirected_to events_my_path
   end
 end

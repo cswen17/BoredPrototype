@@ -4,11 +4,9 @@
   
   <ul id="hMenu">
     <li><%= link_to "Home", root_url %></li> 
-    <% if current_user.moderator %>
-        <li><%= link_to "My Events", events_my_url %></li>
-        <li><%= link_to "Create an Event", new_event_url %></li>
-        <li><%= link_to "Manage Categories", categories_url %></li>
-    <% end %>
+    <li><%= link_to "My Events", events_my_url %></li>
+    <li><%= link_to "Create an Event", new_event_url %></li>
+    <li><%= link_to "Manage Categories", categories_url %></li>
  </ul>	
 		
 </div>

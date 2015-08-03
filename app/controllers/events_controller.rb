@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     @events = Event.current_approved
-    @categories = Category.all
+    @categories = Category.all or []
 
     respond_to do |format|
       format.html # index.html.erb
@@ -38,7 +38,7 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     @event = Event.new
-    @categories = Category.all
+    @categories = Category.all or []
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,7 +48,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @categories = Category.all
+    @categories = Category.all or []
     @event = Event.find(params[:id])
 	if !@event.can_modify?(current_user)
 		raise Exceptions::AccessDeniedException
@@ -77,9 +77,6 @@ class EventsController < ApplicationController
     updated_categories = params[:event].delete("categories")
 	@event.update_attributes(params[:event])
 	
-    @event.event_start = params[:event][:event_start]
-    @event.event_end = params[:event][:event_end]
-	
     editEvent(@event, params, updated_categories)
 	
   end
@@ -97,16 +94,6 @@ class EventsController < ApplicationController
       end
     end
 
-#   if (!params[:event][:start_time].nil? and !params['start_time_date'].nil?)
-#     event.start_time = event.merge_times(params['start_time_date'], params[:event][:start_time])
-#     event.add_event_start_time
-#   end
-
-#   if (!params[:event][:end_time].nil? and !params['end_time_date'].nil?)
-#     event.end_time = event.merge_times(params['end_time_date'], params[:event][:end_time])
-#     event.add_event_end_time
-#   end
-
     respond_to do |format|
       # event.errors.empty?
       if event.save 
@@ -114,6 +101,7 @@ class EventsController < ApplicationController
         format.html { redirect_to :action => 'my' }
         format.json { render json: event, status: :created, location: event }
       else
+        @categories = Category.all or []
         format.html { render action: "new" }
         format.json { render json: event.errors, status: :unprocessable_entity }
       end
@@ -134,7 +122,7 @@ class EventsController < ApplicationController
 	flash[:notice] = "Successfully deleted event #{name}."
 	
     respond_to do |format|
-      format.html { redirect_to events_url }
+      format.html { redirect_to events_my_url }
       format.json { head :ok }
     end
   end
