@@ -52,4 +52,26 @@ class EventsControllerTest < ActionController::TestCase
 
     assert_redirected_to events_my_path
   end
+
+  test "should get approval" do
+    get :approval
+
+    assert_not_nil assigns(:events)
+  end
+
+  test "should approve event" do
+    event_to_approve = events(:one)
+    get :approve, id: event_to_approve.id
+
+    assert_not_nil assigns(:event)
+    assert_redirected_to approval_url
+  end
+
+  test "should decline event" do
+    event_to_decline = events(:one)
+    get :decline, id: event_to_decline.id
+
+    assert_not_nil assigns(:event)
+    assert_redirected_to approval_url
+  end
 end
