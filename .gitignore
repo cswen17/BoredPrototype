@@ -6,6 +6,7 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 public/system/*
+public/flyers/*
 db/schema.rb
 .ruby-gemset
 .ruby-version

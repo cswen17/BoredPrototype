@@ -1,3 +1,5 @@
+require 'net/http'
+require 'dropbox_sdk'
 class EventsController < ApplicationController
   # GET /events
   # GET /events.json
@@ -62,6 +64,16 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
 	@event.user = current_user
 
+    uploaded_flyer = params[:event].delete(:flyer)
+    flyer_buf = ''
+    uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
+
+    original = uploaded_flyer.original_filename
+    response = dropbox_client().put_file(original, flyer_buf)
+    logger.info response
+    params[:event][:flyer_url] = original
+
+
     editEvent(@event, params, categories)
   end
 
@@ -73,7 +85,16 @@ class EventsController < ApplicationController
 	if !@event.can_modify?(current_user)
 		raise Exceptions::AccessDeniedException
 	end
-	
+
+	uploaded_flyer = params[:event][:flyer]
+    flyer_buf = ''
+    uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
+
+    original = uploaded_flyer.original_filename
+    response = dropbox_client().put_file(original, flyer_buf)
+    logger.info response
+    params[:event][:flyer_url] = original
+
     updated_categories = params[:event].delete("categories")
 	@event.update_attributes(params[:event])
 	
@@ -85,7 +106,9 @@ class EventsController < ApplicationController
   # checks the invariants of the event, and then either creates it if it is
   # valid or returns an error if it is not.
   def editEvent(event, params, category_names)
-    # this may need to be moved to the model
+    # this category stuff is ratchet and makes a lot of database queries
+    # which is bad for performance. We need to figure out the right way
+    # to do this in rails, which may be automatic in some way :/
     if !category_names.nil?
       event.categories.clear
       category_names.each do |category_name|
@@ -128,6 +151,9 @@ class EventsController < ApplicationController
   end
 
   def approval
+    # This controller action is only for rendering the APPROVAL
+    # dashboard for moderators. It doesn't do anything but fetch
+    # a template from the app/views/events/ directory
     @events = Event.all
     respond_to do |format|
       format.html

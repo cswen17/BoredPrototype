@@ -21,6 +21,8 @@ gem "oa-pubcookie", "~> 0.1.0"
 
 gem "google-api-client" #For importing GCal data
 
+gem "dropbox-sdk" #For storing event flyers to dropbox
+
 # Deploy with to Heroku for testing
 # Use postgres for database as Heroku doesn't support sqlite3
 group :production do

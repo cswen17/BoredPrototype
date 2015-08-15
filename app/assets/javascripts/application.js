@@ -10,4 +10,4 @@
 //= require jquery.ui
 //= require jquery.ui.datepicker
 
-//= require events
+//= require events/events

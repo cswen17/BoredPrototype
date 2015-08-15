@@ -49,6 +49,12 @@ $(function() {
 	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
   });
 
+  var $flyerUpload = $('#flyer-upload')
+
+  var onFlyerUpload = function onFlyerUpload(fileList) {
+    // TODO: Finish this
+  }
+
 
   var i = 1; 
 
