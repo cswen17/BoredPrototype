@@ -64,7 +64,7 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
 	@event.user = current_user
 
-    uploaded_flyer = params[:event].delete(:flyer)
+    uploaded_flyer = params[:event].delete(:flyer_url)
     flyer_buf = ''
     uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
 
@@ -86,7 +86,7 @@ class EventsController < ApplicationController
 		raise Exceptions::AccessDeniedException
 	end
 
-	uploaded_flyer = params[:event][:flyer]
+	uploaded_flyer = params[:event][:flyer_url]
     flyer_buf = ''
     uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
 

@@ -22,10 +22,8 @@
     		<%= f.collection_select :organization_id, current_user.organizations, :id, :name  %>
   		</div>
 		<div class="field">
-  			<%= label_tag :flyer, 'Flyer/Poster' %>
-            <!--<input type="file" id="flyer-upload" />-->
-            <%= f.file_field :flyer %>
-            <!-- f.file_field :flyer -->
+  			<%= label_tag :flyer_url, 'Flyer/Poster' %>
+            <%= f.file_field :flyer_url %>
 		</div>
   		<div class="field">
     		<strong><%= f.label :name %></strong>

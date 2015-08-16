@@ -38,10 +38,6 @@ GEM
       multi_json (>= 1.0.0)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.2)
-      climate_control (>= 0.0.3, < 1.0)
     dropbox-sdk (1.6.5)
       json
     erubis (2.7.0)
@@ -93,11 +89,6 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    paperclip (2.8.0)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
-      mime-types
     polyglot (0.3.3)
     rack (1.3.10)
     rack-cache (1.0.3)
@@ -175,7 +166,6 @@ DEPENDENCIES
   google-api-client
   jquery-rails
   oa-pubcookie (~> 0.1.0)
-  paperclip (~> 2.4)
   rails (= 3.1.0)
   sass-rails (~> 3.1.0)
   shoulda

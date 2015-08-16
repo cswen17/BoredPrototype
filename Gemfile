@@ -15,7 +15,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'paperclip', '~>2.4'
+# gem 'paperclip', '~>2.4'
 #gem "oa-pubcookie", :git => 'git://github.com/alexcrichton/oa-pubcookie.git'
 gem "oa-pubcookie", "~> 0.1.0"
 

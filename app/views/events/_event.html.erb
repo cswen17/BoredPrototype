@@ -28,5 +28,5 @@
 	<% end %>
   </div>
   <p class="event-category"><%= event.categories.join(', ') %></p>
-  <div style="background-image: url(<%= event.flyer %>);" class="thumbnail"></div>
+  <div style="background-image: url(<%= dropbox_url_for(event.flyer_url) %>);" class="thumbnail"></div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150729231808) do
+ActiveRecord::Schema.define(:version => 20150815204412) do
 
   create_table "categories", :force => true do |t|
     t.datetime "created_at"
@@ -25,26 +25,22 @@ ActiveRecord::Schema.define(:version => 20150729231808) do
   end
 
   create_table "events", :force => true do |t|
-    t.string   "name",                                  :null => false
-    t.text     "description",                           :null => false
-    t.string   "location",                              :null => false
+    t.string   "name",                               :null => false
+    t.text     "description",                        :null => false
+    t.string   "location",                           :null => false
     t.datetime "event_start"
     t.datetime "event_end"
-    t.string   "flyer"
     t.integer  "pattern"
-    t.integer  "approval_rating",    :default => 100
+    t.integer  "approval_rating", :default => 100
     t.string   "approver_id"
-    t.string   "flyer_file_name"
-    t.string   "flyer_content_type"
-    t.integer  "flyer_file_size"
-    t.datetime "flyer_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "summary"
-    t.boolean  "cancelled",          :default => false
+    t.boolean  "cancelled",       :default => false
     t.integer  "organization_id"
     t.integer  "user_id"
     t.string   "url"
+    t.string   "flyer_url"
   end
 
   create_table "organization_users", :id => false, :force => true do |t|
