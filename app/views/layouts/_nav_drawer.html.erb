@@ -1,0 +1,77 @@
+<div class="core-drawer-base">
+
+  <!-- logo drawer header -->
+  <div class="core-drawer-logo">
+    <a href="/" class="link-no-decoration">
+      <img src="/images/logo.png" alt="Teudu" id="teudu-logo">
+    </a>
+  </div>
+
+  <hr class="core-drawer-menu-divider" />
+
+  <!-- Events -->
+  <div class="core-drawer-menu-subsection">
+      <!--<h4 class="core-drawer-menu-subheading">Events</h4>-->
+    <ul>
+      <li class="core-drawer-menu-item" id="create-event-teudu">
+        <div class="core-drawer-menu-item-icon">&#10133;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "New Event", new_event_url %>
+        </span>
+      </li>
+      <li class="core-drawer-menu-item" id="my-events-teudu">
+        <div class="core-drawer-menu-item-icon">&#10084;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "My Events", events_my_url %>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!--<hr class="core-drawer-menu-divider" />-->
+
+  <!-- Organizations -->
+  <div class="core-drawer-menu-subsection">
+      <!--<h4 class="core-drawer-menu-subheading">Organizations</h4>-->
+    <ul>
+      <li class="core-drawer-menu-item" id="browse-organizations-teudu">
+        <div class="core-drawer-menu-item-icon">&#9730;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "Organizations", organizations_url %>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!--<hr class="core-drawer-menu-divider" />-->
+
+  <!-- Categories -->
+  <div class="core-drawer-menu-subsection">
+      <!--<h4 class="core-drawer-menu-subheading">Categories</h4>-->
+    <ul>
+      <li class="core-drawer-menu-item" id="manage-categories-teudu">
+        <div class="core-drawer-menu-item-icon">&#9733;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "Categories", categories_url %>
+        </span>
+      <li>
+    </ul>
+  </div>
+
+  <hr class="core-drawer-menu-divider" />
+
+  <!-- About -->
+  <div class="core-drawer-menu-subsection">
+      <!--<h4 class="core-drawer-menu-subheading">About</h4>-->
+    <ul>
+      <li class="core-drawer-menu-item" id="about-teudu">
+        <div class="core-drawer-menu-item-icon">&#65311;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "About", about_url %>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+
+</div>

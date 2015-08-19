@@ -1,0 +1,90 @@
+@import "variables";
+
+.event-card-base {
+  // height, width, border-radius
+  height: 360px;
+  width: 320px;
+  border-radius: 2px;
+  box-shadow: 0 4px 4px 0 $divider;
+  margin-top: 16px;
+  margin-left: 16px;
+  background-color: $white;
+  display: inline-block;
+  vertical-align: top;
+
+      &:hover {
+        // make it look like it's floating
+        margin-top: 14px;
+        margin-left: 14px;
+        box-shadow: 2px 6px 6px 0 $divider;
+      }
+}
+
+.event-card-flyer-hero {
+  height: 240px;
+  width: 100%;
+  border-radius: 2px;
+/*  box-shadow: 0 1px 1px 0 $divider;*/
+}
+
+.event-card-shim {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+  height: 100%;
+  width: 100%;
+}
+
+.text-event-title {
+  // whitespace, font size
+  margin: 0;
+  padding-left: 16px;
+  padding-top: 206px;
+  color: $primary-text;
+  font-family: 'Roboto-Regular', sans-serif;
+  font-size: $heading;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 296px;
+}
+
+.event-card-label-strip {
+  // height, background-color
+  background-color: $white;
+  height: 94px;
+}
+
+.event-card-info-label {
+  // width, maybe whitespace
+  height: 60%;
+  width: 306px;
+  font-family: 'Roboto-Regular', sans-serif;
+  padding-left: 16px;
+  box-shadow: 0 1px 1px 0 $divider;
+}
+
+.event-card-categories-container {
+  // width, maybe whitespace
+  margin: 0;
+  height: 20%;
+  width: 100%;
+  padding: 8px;
+  padding-left: 16px;
+}
+
+.text-event-subtitle {
+  // whitespace, font size, font color
+  margin: 0;
+  margin-top: 24px;
+  color: $body-text;
+  font-size: $body-size;
+  padding-bottom: 8px;
+  width: 296px;
+}
+
+.event-card-category-label {
+  // border-radius, background-color
+  display: inline;
+  color: $primary;
+  margin-right: 8px;
+  font-size: $button-size;
+  text-transform: uppercase;
+}

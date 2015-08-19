@@ -1,0 +1,52 @@
+@import "variables";
+
+.core-header {
+  // Should just be background color, height, width
+  background-color: $primary;
+  color: $primary-text;
+  font-family: 'Roboto-Regular', sans-serif;
+  margin-bottom: 4px;
+  height: 64px;
+  width: 100%;
+  box-shadow: 0px 4px 4px 0px rgba(182, 182, 182, 1);
+}
+
+.core-header-title {
+  // Delete those webkit margin defaults, then set an explicit font size
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+  padding: 18px 16px;
+  font-weight: normal;
+  font-size: $heading;
+}
+
+.core-footer {
+  // bgcolor, height, width
+  font-family: 'Robot-Regular', sans-serif;
+  width: 100%;
+  padding-left: 16px;
+}
+
+.core-base-sheet {
+  width: 100%;
+  background-color: $tertiary;
+  padding-bottom: 16px;
+}
+
+.core-subheading {
+    // font size, text decoration, whitespace
+    width: 100%;
+    color: $caption-text;
+    font-weight: normal;
+    font-size: $subheading;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+
+

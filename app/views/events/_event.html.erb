@@ -1,32 +1,71 @@
+<div class="event-card-base" id="event-<%= event.id %>"
+     data-event-categories="<%= event.category_ids_as_class %>">
 
-<div id="event-<%= event.id %>" class="event <%= event.categories.join(' ') %>">
-  <div class="event-info hidden">
-    <h4 class="event-title"><%= event.name %></h4>
-    <p class="event-date"><%= event.event_start.strftime('%B %e, %l:%M %P') %> - <br/><%= event.event_end.strftime('%B %e, %l:%M %P') %></p>
-    <p class="event-location"><%= event.location %></p>
-    <p class="event-desc"><%= event.description %></p>
-	<p class="event-organization">
-	  <% if !event.organization.url.nil? && !event.organization.url.empty? %>
-	  <!-- Sorry for this awful inline style. There's no css rule for anchor tags
-	       that are children of .event-info, so if we have a url here then
-           it shows up as underlined black text. But the rest of the text is
-           white, so we need to blend in. todo: fix the stylesheet later -->
-	  <a href=<%= event.organization.url%> style="color:white; text-decoration:none;">
-        <%= event.organization.name %>
-      </a>
-	  <% end %>
-	</p>
-	
-	<% if !event.url.nil? && !event.url.empty?%>
-		<%if event.url.start_with?('http://') || event.url.start_with?('https://')%>
-			<p class="event-url">Click <a href=<%= event.url %> >here</a> for event link.</p>
-		<% else %>
-			<p class="event-url">Click <a href=<%='http://' + event.url %> >here</a> for event link.</p>
-		<% end %>
-	<% else %>
-	<p class="event-url"></p>
-	<% end %>
+    <div class="event-card-flyer-hero"
+         style="background-image: url(
+           <%= dropbox_url_for(event.flyer_url) %>
+         );">
+      <div class="event-card-shim">
+        <p class="text-event-title">
+          <%= event.name %>
+        </p>
+      </div>
+    </div>
+
+    <div class="event-card-label-strip">
+      <!-- event info -->
+      <div class="event-card-info-label">
+        <p class="text-event-subtitle">
+          <% start_day = event.event_start.strftime('%B %e') %>
+          <% end_day = event.event_end.strftime('%B %e') %>
+          <% start_time = event.event_start.strftime('%l:%M%P') %>
+          <% end_time = event.event_end.strftime('%l:%M%P') %>
+          <% if start_day == end_day %>
+            <%= start_day %>,
+          <% else %>
+            <%= start_day %>-<%= event.event_end.strftime('%e') %>,
+          <% end %>
+          <%= start_time %>-<%= end_time %> at <%= event.location %>
+        </p>
+      </div>
+
+      <!-- categories -->
+      <div class="event-card-categories-container">
+        <% event.categories.each do |c| %>
+          <div class="event-card-category-label"><%= c.name %></div>
+        <% end %>
+      </div>
   </div>
-  <p class="event-category"><%= event.categories.join(', ') %></p>
-  <div style="background-image: url(<%= dropbox_url_for(event.flyer_url) %>);" class="thumbnail"></div>
+
 </div>
+
+<!-- hidden event modal for when user clicks on an event card -->
+<div class="event-modal-base" id="modal-event-<%= event.id %>">
+  <div class="event-modal-hero-image" 
+       style="background-image: url(<%= dropbox_url_for(event.flyer_url)%>);">
+  </div>
+  <div class="event-modal-info-base">
+    <div class="event-modal-info-label">
+      <p class="event-modal-text-heading" id="event-name">
+        <%= event.name %>
+      </p>
+      <p class="event-modal-text-muted" id="event-times">
+        <%= event.event_start.strftime('%B %e %l:%M%P')%> -
+        <%= event.event_end.strftime('%B %e %l:%M%P')%>
+      </p>
+      <p class="event-modal-text-muted" id="event-location">
+        <%= event.location %>
+      </p>
+      <p class="event-modal-text-muted" id="event-organization">
+        <%= event.organization.name %>
+      </p>
+      <p class="event-modal-text-muted" id="event-url">
+        <a href="<%= event.url %>"><%= event.url %></a>
+      </p>
+      <p class="event-modal-text-regular" id="event-description">
+        <%= event.description %>
+      </p>
+    </div>
+  </div>
+</div>
+

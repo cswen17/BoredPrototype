@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Teudu | Hands-on Event Discovery</title>
-  <link href='http://fonts.googleapis.com/css?family=News+Cycle' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Teudu | Hands-on Event Discovery</title>
+    <%= stylesheet_link_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render "layouts/nav_drawer" %>
+    <!-- placeholder class has no associated styles -->
+    <div class="placeholder-everything-else-container"> 
+      <div class="core-header">
+        <h1 class="core-header-title"><%= yield(:title) %></h1>
+      </div>
 
-<% flash.each do |name, msg| %>
+      <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
-<% end %>
-<%= render "shared/header" %>
+      <% end %>
 
-<%= yield %>
+      <%= render "layouts/header" %>
+      <%= yield %>
+      <%= render "layouts/footer" %>
 
-<%= render "shared/footer" %>
-<%= javascript_include_tag "application" %>
-
-</body>
+    </div>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

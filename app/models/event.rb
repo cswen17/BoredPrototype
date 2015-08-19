@@ -28,16 +28,6 @@ class Event < ActiveRecord::Base
                                   Time.current.strftime("%Y-%m-%d %H:%M"))
                               .where("approval_rating = ?", 100)
 
-
-  #### PAPERCLIP ####
-  # has_attached_file :flyer
-  
-  # validates_attachment_content_type :flyer, :content_type => /^image\/(jpg|jpeg|pjpeg|png|x-png|gif)$/, :message => 'must be of the following formats: jpeg, png, or gif '
-  # validates_attachment_size :flyer, :in => 0..500.kilobytes , :message => 'must be at maximum 500 kb'
-  
-  #### DATA ####
-  EVENT_TIMES = ["12:00 am", "00:00"], ["12:30 am", "00:30"], ["1:00 am", "1:00"], ["1:30 am", "1:30"], ["2:00 am", "2:00"], ["2:30 am", "2:30"], ["3:00 am", "3:00"], ["3:30 am", "3:30"], ["4:00 am", "4:00"], ["4:30 am", "4:30"], ["5:00 am", "5:00"], ["5:30 am", "5:30"], ["6:00 am", "6:00"], ["6:30 am", "6:30"], ["7:00 am", "7:00"], ["7:30 am", "7:30"], ["8:00 am", "8:00"], ["8:30 am", "8:30"], ["9:00 am", "9:00"], ["9:30 am", "9:30"], ["10:00 am", "10:00"], ["10:30 am", "10:30"], ["11:00 am", "11:00"], ["11:30 am", "11:30"], ["12:00 pm", "12:00"], ["12:30 pm", "12:30"], ["1:00 pm", "13:00"], ["1:30 pm", "13:30"], ["2:00 pm", "14:00"], ["2:30 pm", "14:30"], ["3:00 pm", "15:00"], ["3:30 pm", "15:30"], ["4:00 pm", "16:00"], ["4:30 pm", "16:30"], ["5:00 pm", "17:00"], ["5:30 pm", "17:30"], ["6:00 pm", "18:00"], ["6:30 pm", "18:30"], ["7:00 pm", "19:00"], ["7:30 pm", "19:30"], ["8:00 pm", "20:00"], ["8:30 pm", "20:30"], ["9:00 pm", "21:00"], ["9:30 pm", "21:30"], ["10:00 pm", "22:00"], ["10:30 pm", "22:30"], ["11:00 pm", "23:00"], ["11:30 pm", "23:30"]
-
   include EventsHelper
   
   #### PUBLIC METHODS ####
@@ -124,4 +114,15 @@ class Event < ActiveRecord::Base
 	  end
 	  true
   end
+
+  def category_ids_as_class
+    # [view helper function]: wraps category ids in a list of css classes
+    # so that we can store them in an html attribute for the event
+    category_id_classes_array = []
+    self.categories.each do |c|
+      category_id_classes_array << "category-button-#{c.id}"
+    end
+    return category_id_classes_array.to_json
+  end
+
 end

@@ -1,0 +1,62 @@
+@import "variables";
+
+.event-modal-scrim {
+    // height, width, position, background color, display none
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $shadow;
+}
+
+.event-modal-base {
+    // height, width, position, border-radius, display none, background color
+    display: none;
+    height: 512px;
+    width: 512px;
+    border-radius: 2px;
+    background-color: $white;
+}
+
+.event-modal-hero-image {
+    // height and width?
+    height: 288px;
+    width: 100%;
+}
+
+.event-modal-info-base {
+    // background-color, start position, overflow-y auto
+    background-color: $white;
+    width: 100%; 
+}
+
+.event-modal-text-heading {
+    // color and size and font family
+    color: $primary;
+    font-size: $heading;
+    font-family: 'Roboto-Regular', sans-serif;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 24px;
+}
+
+.event-modal-text-muted {
+    // color and size and maybe font family
+    color: $caption-text;
+    font-size: $body-size;
+    font-family: 'Roboto-Regular', sans-serif;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 8px;
+}
+
+.event-modal-text-regular {
+    // color and size and maybe font family
+    color: $body-text;
+    font-size: $body-size;
+    font-family: 'Roboto-Regular', sans-serif;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 8px;
+}

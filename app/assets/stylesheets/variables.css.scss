@@ -1,0 +1,56 @@
+// ---------------------------------------------------------------
+// color palette - https://www.materialpalette.com/red/deep-orange
+// ---------------------------------------------------------------
+$primary: #f44336;
+$dark-primary: #d32f2f;
+$tertiary: #cfd8dc;
+$primary-text: #ffffff;
+$accent-text: #727272;
+$accent: #ff5722;
+$divider: rgba(182, 182, 182, 0.5); //#b6b6b6;
+
+// -------------
+// helper colors
+// -------------
+// for non-text situations. If you need white text use $primary-text
+$white: #ffffff; 
+$gray: #727272;
+$shadow: rgba(0, 0, 0, 0.54);
+// body text variations of black
+$caption-text: rgba(0, 0, 0, 0.54);
+$body-text: rgba(0, 0, 0, 0.87);
+$button-text: rgba(0, 0, 0, 0.87);
+
+// ----------
+// font sizes
+// ----------
+$heading: 24px;
+$subheading: 16px;
+$body-size: 14px;
+$button-size: 12px;
+
+// ------
+// widths
+// ------
+$core-drawer-width: 256px;
+
+/* 
+ * please ensure that there's a copy of Roboto-Medium.ttf
+ * in BoredPrototype/public/assets in order for fonts to work
+ */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/Roboto-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+ * same goes for Roboto-Regular.ttf
+ */
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('/assets/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

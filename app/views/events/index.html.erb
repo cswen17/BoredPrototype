@@ -1,36 +1,18 @@
-<div class="container">	
-    <% if Event.all.empty? then %>
-    <div class="paragraphtext">
-        Sorry, there are currently no events.
-        Make a new event by clicking "Create an event" 
-        in the menu.
-    </div>
-    <% else %>
-    <ul id="category-list" class="category-list">
-        <li class="catname-0">All</li>
-        <% @categories.each do |c| %>
-        <li class = <%= "catname-" + c.id.to_s %> ><%= c.name %></li>
-        <% end %>
-    </ul>
+<% content_for :title, "Events" %>
 
-    <div class="events-col-info">
-        <h2>Click an event to see details &rarr;</h2>
-        <div class="info-main">
-            <p id="info-organization"></p>
-            <h2 id="info-title"></h2>
-
-            <p id="info-date"></p>
-            <p id="info-location"></p>
-
-            <p id="info-desc"></p>
-            <p id="info-url"></p>
-        </div>
-    </div>
+<div class="core-base-sheet">
+  <h4 class="core-subheading">Categories</h4>
+  <div class="paper-button-group">
+    <% Category.all().each do |c| %>
+      <button class="paper-button clicked" data-toggle-class="not-clicked"
+              data-curr-class="clicked" id="category-button-<%= c.id%>">
+        <%= c.name %>
+      </button>
     <% end %>
-
-    <div id="eventscontainer">
-        <% @events.each do |event| %>
-            <div id ="event"><%= render event %></div>
-        <% end %>
-    </div>
+  </div>
+  <!--  <div class="paper-primary-raised-container">-->
+    <% @events.each do |event| %>
+      <%= render event %>
+    <% end %>
+   <!-- </div>-->
 </div>

@@ -52,6 +52,7 @@ class EventsController < ApplicationController
   def edit
     @categories = Category.all or []
     @event = Event.find(params[:id])
+
 	if !@event.can_modify?(current_user)
 		raise Exceptions::AccessDeniedException
 	end
@@ -87,13 +88,17 @@ class EventsController < ApplicationController
 	end
 
 	uploaded_flyer = params[:event][:flyer_url]
-    flyer_buf = ''
-    uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
+    if uploaded_flyer != nil
+      flyer_buf = ''
+      uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
 
-    original = uploaded_flyer.original_filename
-    response = dropbox_client().put_file(original, flyer_buf)
-    logger.info response
-    params[:event][:flyer_url] = original
+      original = uploaded_flyer.original_filename
+      response = dropbox_client().put_file(original, flyer_buf)
+      logger.info response
+      params[:event][:flyer_url] = original
+    else
+      params[:event][:flyer_url] = @event.flyer_url
+    end
 
     updated_categories = params[:event].delete("categories")
 	@event.update_attributes(params[:event])
@@ -155,6 +160,7 @@ class EventsController < ApplicationController
     # dashboard for moderators. It doesn't do anything but fetch
     # a template from the app/views/events/ directory
     @events = Event.all
+
     respond_to do |format|
       format.html
     end

@@ -1,215 +1,92 @@
-// Place all the behaviors and hooks related to the matching controller here.
+// Place all the behaviors and hooks related to the matching 
+// controller here.
 // All this logic will automatically be available in application.js.
 
-/* TEMPORARILY REMOVE ISOTOPE
-var $container = $('#events');
-
-// Set up isotope on .event
-$container.isotope({
-  itemSelector: '.event'
-});
-
-// Expand event when clicked
-$container.delegate('.event', 'click', function() {
-
-  $(this).toggleClass('expanded');
-  
-  // This causes severe performance issues.
-  $container.isotope('reLayout');
-});
-*/
-/*
-
-var App = {
-  Views: {},
-  Routers: {},
-  init: function() {
-    new App.Routers.Events();
-    Backbone.history.start();
-  }
-};
-*/
-
-var full = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // All categories
-
-function updateInfo(node) {
-  var infoBar = $('.info-main');
-  $('#info-title', infoBar).html($('.event-title', node).html());
-  $('#info-desc', infoBar).html($('.event-desc', node).html());
-  $('#info-location', infoBar).html($('.event-location', node).html());
-  $('#info-date', infoBar).html($('.event-date', node).html());
-  $('#info-organization', infoBar).html($('.event-organization', node).html());
-  $('#info-url', infoBar).html($('.event-url', node).html());
-}
-
-$(function() {
-  $('.datepicker').datepicker();
-  $('.event').click(function(){
-    updateInfo(this);
-	$('html, body').animate({ scrollTop: 0 }, "fast", "swing");
-  });
-
-  var $flyerUpload = $('#flyer-upload')
-
-  var onFlyerUpload = function onFlyerUpload(fileList) {
-    // TODO: Finish this
+$(document).ready(function() {
+  eventCards = $('.event-card-base');
+  // this code will make events clickable
+  for (var i = 0; i < eventCards.length; i++) {
+    cardId = $(eventCards[i]).attr('id').toString();
+    attachClickableClass(cardId); 
   }
 
+  // this code listens for clicked events
+  $('.event-clickable').on('click', function(clickEvent) {
+    clickEvent.stopPropagation();
 
-  var i = 1; 
+    // this code associates the event id of the clicked card to the modal
+    clickedEventId = $(clickEvent.target).data('event-id');
+    modalEventSelector = '#modal-' + clickedEventId;
+    $eventModal = $(modalEventSelector);
+    $eventModal.wrap('<div class="event-modal-scrim"></div>');
 
-  init();
-  $('li.catname-0').click(function(e){
-	toggleAll();
+    // this code brings up the scrim
+    $scrim = $('.event-modal-scrim');
+    $scrim.show();
+    $eventModal.css({
+      'z-index': '100',
+      'position': 'fixed',
+      'top': (($(window).height() / 2) - ($eventModal.height() / 2)) + 'px',
+      'left': (($(window).width() / 2) - ($eventModal.width() / 2)) + 'px'
+    });
+    $eventModal.show();
+
+    $scrim.click(function(scrimEvent) {
+        $eventModal.unwrap();
+        $scrim.detach();
+        $('.event-modal-base').hide();
+    });
+  }); // end event card on click handler
+
+  // this code is supposed to set up category filtering
+  // but we really need to find a way to distinguish any
+  // old paper-button from a category paper button
+  $('.paper-button').click(function(categoryEvent) {
+    categoryEvent.preventDefault();
+    $categoryButton = $(categoryEvent.target);
+
+    curr = $categoryButton.data('curr-class');
+    toggle = $categoryButton.data('toggle-class');
+
+    $categoryButton.removeClass(curr);
+    $categoryButton.addClass(toggle);
+
+    $categoryButton.data('curr-class', toggle);
+    $categoryButton.data('toggle-class', curr);
+
+    // this code will filter the events
+    filterCategories($categoryButton, (curr === 'clicked'));
   });
 
-  $('li.catname-1').click(function(e){
-	  toggleonClick(1);
-      });
+  var filterCategories = function($categoryButton, shouldHide) {
+    // so slow...
+    categoryId = $categoryButton.attr('id');
+    $events = $('.event-card-base');
+    for (var i = 0; i < $events.length; i++) {
+      $candidateEvent = $($events[i]);
+      dataCategoryIds = $candidateEvent.data('event-categories');
+      for (var j = 0; j < dataCategoryIds.length; j++) {
+        if (dataCategoryIds[j] == categoryId) {
+          if (shouldHide) {
+            $candidateEvent.hide();
+          } else {
+            $candidateEvent.show();
+          }
+          break;
+        }
+      }
+    }
+  };
 
-  $('li.catname-2').click(function(e){
-	  toggleonClick(2);
-      });
-
-  $('li.catname-3').click(function(e){
-	  toggleonClick(3);
-      });
-
-  $('li.catname-4').click(function(e){
-	  toggleonClick(4);
-      });
-
-  $('li.catname-5').click(function(e){
-	  toggleonClick(5);
-      });
-
-  $('li.catname-6').click(function(e){
-	  toggleonClick(6);
-      });
-
-  $('li.catname-7').click(function(e){
-	  toggleonClick(7);
-      });
-
-  $('li.catname-8').click(function(e){
-	  toggleonClick(8);
-      });
-
-  $('li.catname-9').click(function(e){
-	  toggleonClick(9);
-      });
 });
 
-$('.field input').focus(function(){
-  $(this).parent().addClass('form-focus');
-});
-$('.field input').blur(function(){
-  $(this).parent().removeClass('form-focus');
-});
-
-function buttonoff(i) {
-    $(".catname-" + (i).toString()).css('background-color', '');
-    $(".catname-" + (i).toString()).css('color', 'inherit');
+var attachClickableClass = function (idName) {
+  // this function will help make events clickable
+  $children = $('#' + idName + ' *');
+  for (var i = 0; i < $children.length; i++) {
+    $child = $($children[i]);
+    $child.addClass('event-clickable');
+    $child.attr('data-event-id', idName);
+  }
 }
 
-function buttonon(i) {
-    $(".catname-" + (i).toString()).css('background-color', '#8C0F2E');
-    $(".catname-" + (i).toString()).css('color', 'white');
-}
-
-
-// Initialize the page
-function init() {
-    buttonon(0);
-    show_only_cats(full);
-    var i = 1; 
-    for(i = 1; i <= hashCategories.length; i++) {
-    	buttonoff(i);
-    }
-
-}
-
-// Toggle button i 
-function toggleonClick(i){
-    buttonoff(0);
-    refresh_cat();
-    cat = '.cat-' + (i).toString();
-    if ( $(cat).css('display') == "none" 
-	|| $(".catname-" + (i).toString()).css('color') != 'rgb(255, 255, 255)'){
-	buttonon(i);
-	show_cat(i);
-    } 
-    else{
-	buttonoff(i);
-	hide_cat(i);
-	refresh_cat();
-    }
-}
-
-
-// Toggling function for all events
-function toggleAll() {	
-	var empty = new Array();
-	if($(".catname-0").css('color') == 'rgb(255, 255, 255)') {
-		buttonoff(0);
-        	show_only_cats(empty);
-	}
-	else {
-		buttonon(0);
-		init();
-		show_only_cats(full);
-	}
-
-}
-
-function refresh_cat() {
-    var i = 1; 
-    hide_all();
-    for(i = 1; i <= hashCategories.length; i++) {
-	if($(".catname-" + (i).toString()).css('color') == "rgb(255, 255, 255)") {
-		show_cat(i);
-	}
-    }
-}
-
-function hide_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','none');
-}
-
-function show_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','inline');
-}
-
-//hide all events that have a category
-function hide_all() {	
-
-	for(var cur_cat in hashCategories)
-	{
-		hide_cat(hashCategories[cur_cat][1]);
-	}
-}
-
-var show_categores = new Array(); //DELETE ME
-show_categories = [1,2,3,4]; //DELETE ME
-
-//Takes an array of categories, cats. Displays only events with those categories,
-//  and hides all others.
-function show_only_cats(cats){
-	hide_all();
-	
-	for(var x in cats){
-		show_cat(x);
-	}
-}
-
-function hide_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','none');
-}
-
-function show_cat(n){
-	cat_string = ".cat-"+n;
-	$(cat_string).css('display','inline');
-}
