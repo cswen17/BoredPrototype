@@ -29,10 +29,13 @@
   padding-left: 16px;
 }
 
-.core-base-sheet {
-  width: 100%;
-  background-color: $tertiary;
-  padding-bottom: 16px;
+.core-heading {
+    // font-size
+    width: 100%;
+    color: $body-text;
+    font-size: $heading;
+    padding-top: 16px;
+    padding-left: 16px;
 }
 
 .core-subheading {
@@ -49,4 +52,162 @@
     padding-left: 16px;
 }
 
+.core-base-sheet {
+  width: 100%;
+  background-color: $tertiary;
+  padding-bottom: 16px;
+}
 
+.core-right-primary-raised-sheet {
+  // background color, width, position
+  padding: 16px;
+  margin-top: -4px;
+  background-color: $dark-primary; 
+  box-shadow: -2px 0 2px 0 $divider;
+  display: inline-block;
+  vertical-align: top;
+  height: 530px;
+  width: 50%;
+  overflow-y: auto;
+}
+
+.core-input-and-label-pair {
+  color: $white;
+  font-family: 'Roboto-Regular', sans-serif;
+  position: relative;
+  height: 48px;
+  width: 256px;
+}
+
+.core-date-and-label-pair {
+  height: 48px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.core-text-field-and-label-pair {
+  // width and height
+  color: $white;
+  font-family: 'Roboto-Regular', sans-serif;
+  position: relative;
+  height: 48px;
+  width: 256px;
+}
+
+.core-floating-label {
+  // careful positioning. font color, size
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  font-size: $subheading;
+}
+
+.core-floating-textarea-label {
+  // careful positioning. font color, size
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  font-size: $subheading;
+}
+
+.core-form-label {
+  // font size 
+  font-size: $subheading;
+  padding-left: 8px;
+}
+
+.core-form-small-label {
+  font-size: 12px;
+  padding-left: 8px;
+}
+
+.core-form-time-label {
+  // font size
+  display: block;
+  font-size: 12px;
+  color: $white;
+  margin-left: 8px;
+}
+
+.core-form-file-input-label {
+  // font color
+  color: $body-text;
+  font-size: $body-size;
+}
+
+.core-form-text-input {
+  // height, border-bottom, has a focus pseudo class
+  background: none;
+  position: absolute;
+  height: 24px;
+  width: 354px;
+  top: 8px;
+  left: 8px;
+  padding-top: 8px;
+  padding-left: 4px;
+  outline: 0;
+  color: $white;
+  font-size: $subheading;
+  border-width: 0 0 2px 0;
+  border-bottom-style: solid;
+  border-bottom-color: $divider;
+  transition: border-bottom-color 1s;
+
+  &:focus {
+    border-bottom-color: $primary;
+  }
+}
+
+.core-form-textarea {
+  // height, border-bottom, has a focus pseudo class
+  background: none;
+  position: absolute;
+  height: 20px;
+  width: 354px;
+  top: 8px;
+  left: 8px;
+  padding-top: 12px;
+  padding-left: 4px;
+  outline: 0;
+  font-size: $subheading;
+  color: $white;
+  font-family: 'Roboto-Regular', sans-serif;
+  border-width: 0 0 2px 0;
+  border-bottom-style: solid;
+  border-bottom-color: $divider;
+  transition: border-bottom-color 1s;
+
+  &:focus {
+    border-bottom-color: $primary;
+  }
+}
+
+.core-date-select {
+  background: none;
+  border: none;
+  border-bottom: 2px solid $divider;
+  height: 32px;
+  color: $white;
+  font-size: $subheading;
+  margin-left: 8px;
+
+  option {
+    color: $body-text;
+    padding-left: 0;
+  }
+}
+
+.core-form-select {
+  background: none;
+  border: none;
+  border-bottom: 2px solid $divider;
+  height: 32px;
+  color: $white;
+  font-size: $subheading;
+  margin-left: 8px;
+  width: 354px;
+
+  option {
+    color: $body-text;
+  }
+}

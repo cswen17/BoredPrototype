@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
     def create
         @category = Category.new(params[:category])
         result = @category.save()
-        redirect_to categories_url
+        redirect_to categories_path
     end
 
     def destroy

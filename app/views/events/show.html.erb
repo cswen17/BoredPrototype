@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-
+<% content_for :title, @event.name %>
 <%= render 'event' , :event => @event %>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

@@ -16,16 +16,8 @@
       <!-- event info -->
       <div class="event-card-info-label">
         <p class="text-event-subtitle">
-          <% start_day = event.event_start.strftime('%B %e') %>
-          <% end_day = event.event_end.strftime('%B %e') %>
-          <% start_time = event.event_start.strftime('%l:%M%P') %>
-          <% end_time = event.event_end.strftime('%l:%M%P') %>
-          <% if start_day == end_day %>
-            <%= start_day %>,
-          <% else %>
-            <%= start_day %>-<%= event.event_end.strftime('%e') %>,
-          <% end %>
-          <%= start_time %>-<%= end_time %> at <%= event.location %>
+          <%= event.formatted_start_and_end_times %>
+          at <%= event.location %>
         </p>
       </div>
 

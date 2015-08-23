@@ -1,20 +1,37 @@
-<div class="container">
-	<h1>My Events</h1>
-	<ul class="simple-list">
-        <% @events = Event.find(:all, :conditions => ['user_id = ?', current_user.id])%>
-        <% @events.each do |e| %>
-            <li class="simple-row">
-                <p class="info-label inline"><%= e.name %></p>
-                <p class="action-link inline">
-                <%= link_to 'edit', controller: 'events', action: 'edit', id: e.id %>
-                </p>
-                <p class="action-link inline">
-                <%= button_to 'delete', event_path(e), method: :delete %>
-                </p>
-                <p class="action-link inline">
-                <%= link_to 'view', controller: 'events', action: 'show', id: e.id %>
-                </p>
-            </li>
-        <% end %>
-    </ul>
-</div>
+<% content_for :title, "My Events" %>
+<ul class="events-grid-card-list">
+  <% @events = Event.find(
+    :all, 
+    :conditions => ['user_id = ?', current_user.id]
+  ) %>
+  <% @events.each do |e| %>
+  <li class="paper-grid-card-base">
+    <div class="paper-grid-card-main-content">
+      <p class="paper-grid-card-title"><%= e.name %></p>
+      <p class="paper-grid-card-subtitle">
+        <%= e.formatted_start_and_end_times %>
+      </p>
+      <p class="paper-grid-card-subtitle"><%= e.location %></p>
+    </div>
+    <div class="paper-grid-card-action-area">
+      <%= button_to(
+          'view',
+          event_path(e),
+          method: :get,
+          class: 'paper-flat-button'
+      )%>
+      <%= button_to('edit', 
+          edit_event_path(e),
+          method: :get,
+          class: 'paper-flat-button'
+      )%>
+      <%= button_to(
+          'delete',
+          event_path(e),
+          method: :delete,
+          class: 'paper-flat-button'
+      )%>
+    </div>
+  </li>
+  <% end %>
+</ul>

@@ -125,4 +125,28 @@ class Event < ActiveRecord::Base
     return category_id_classes_array.to_json
   end
 
+  def formatted_start_and_end_times
+    # [view helper function]: displays start and end times in a consolidated
+    # way, the date comes first and then the times
+    start_day = self.event_start.strftime('%B %e')
+    end_day = self.event_end.strftime('%B %e')
+    start_time = self.event_start.strftime('%l:%M')
+    end_time = self.event_end.strftime('%l:%M')
+    start_am_pm = self.event_start.strftime('%P')
+    end_am_pm = self.event_end.strftime('%P')
+    result = ''
+    if start_day == end_day
+      result = "#{start_day}, "
+    else
+      result = "#{start_day}-#{end_day}, "
+    end
+
+    if start_am_pm == end_am_pm
+      result += "#{start_time}-#{end_time}#{start_am_pm}"
+    else
+      result += "#{start_time}#{start_am_pm}-#{end_time}#{end_am_pm}"
+    end
+    return result
+  end
+
 end

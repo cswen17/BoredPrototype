@@ -62,9 +62,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     categories = params[:event].delete("categories")
-    @event = Event.new(params[:event])
-	@event.user = current_user
-
+    
     uploaded_flyer = params[:event].delete(:flyer_url)
     flyer_buf = ''
     uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
@@ -73,6 +71,10 @@ class EventsController < ApplicationController
     response = dropbox_client().put_file(original, flyer_buf)
     logger.info response
     params[:event][:flyer_url] = original
+
+    @event = Event.new(params[:event])
+
+	@event.user = current_user
 
 
     editEvent(@event, params, categories)
@@ -125,7 +127,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       # event.errors.empty?
       if event.save 
-		flash[:notice] = "Successfully updated #{event.name}."
+		flash[:notice] = "Successfully created/updated #{event.name}."
         format.html { redirect_to :action => 'my' }
         format.json { render json: event, status: :created, location: event }
       else

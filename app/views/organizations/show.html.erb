@@ -1,6 +1,6 @@
+<% content_for :title, @organization.name %>
 <div class="container" id="approval">
 <p id="notice"><%= notice %></p>
-<h1><%= @organization.name %></h1>
 <h2>Members</h2>
 <% if !@organization.users.empty? %>
 <ul>
@@ -21,7 +21,7 @@
 </fieldset>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "paper-flat-button" %>
   </div>
 <% end %>
 

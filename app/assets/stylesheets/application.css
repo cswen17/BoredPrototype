@@ -46,3 +46,7 @@ ul {
   width: 100%;
   overflow-y: auto;
 }
+
+.float-right {
+  float: right;
+}

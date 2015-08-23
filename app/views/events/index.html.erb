@@ -10,9 +10,7 @@
       </button>
     <% end %>
   </div>
-  <!--  <div class="paper-primary-raised-container">-->
-    <% @events.each do |event| %>
-      <%= render event %>
-    <% end %>
-   <!-- </div>-->
+  <% @events.each do |event| %>
+    <%= render event %>
+  <% end %>
 </div>

@@ -3,10 +3,11 @@
 // ---------------------------------------------------------------
 $primary: #f44336;
 $dark-primary: #d32f2f;
+$light-primary: #ffcdd2;
 $tertiary: #cfd8dc;
 $primary-text: #ffffff;
 $accent-text: #727272;
-$accent: #ff5722;
+$accent: #ffeb3b;
 $divider: rgba(182, 182, 182, 0.5); //#b6b6b6;
 
 // -------------
@@ -15,6 +16,7 @@ $divider: rgba(182, 182, 182, 0.5); //#b6b6b6;
 // for non-text situations. If you need white text use $primary-text
 $white: #ffffff; 
 $gray: #727272;
+$black: rgba(0, 0, 0, 0.87);
 $shadow: rgba(0, 0, 0, 0.54);
 // body text variations of black
 $caption-text: rgba(0, 0, 0, 0.54);

@@ -1,0 +1,39 @@
+@import "variables";
+
+.event-form-flyer-preview {
+  // height width whitespace
+  height: 288px;
+  width: 512px;
+  margin: auto;
+  margin-top: 16px;
+  border: 1px dashed $gray;
+  background: none;
+  overflow: hidden;
+}
+
+.event-form-input-group {
+  // height width whitespace
+  display: inline-block;
+  vertical-align: top;
+  height: 538px;
+  width: 600px;
+  margin-top: -4px;
+  margin-right: -4px;
+  overflow-y: scroll;
+}
+
+.event-form-action-group {
+  // height width positioning?
+  position: fixed;
+  top: 500px;
+  left: 856px;
+  z-index: 200;
+  height: 56px;
+  background-color: $dark-primary;
+}
+
+.flyer-upload {
+  padding: 0;
+  padding-top: 16px;
+  padding-left: 16px;
+}

@@ -17,9 +17,7 @@
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
 
-      <%= render "layouts/header" %>
       <%= yield %>
-      <%= render "layouts/footer" %>
 
     </div>
     <%= javascript_include_tag "application" %>

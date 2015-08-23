@@ -1,76 +1,121 @@
+<%= form_for @event, :html => { :multipart => true } do |f| %>
 <div class="core-base-sheet">
-  <div class="event-preview">
-    <!-- Need to figure out this one -->
-  </div>
-  <div class="core-right-primary-raised-sheet">
-    <%= form_for @event, :html => { :multipart => true } do |f| %>
-        
-      <%= f.label :organization, class: "core-form-label" %>
-      <%= f.collection_select :organization_id, current_user.organizations, :id, :name %>
+  <div class="event-form-input-group">
 
-      <%= label_tag :flyer_url, 'Flyer/Poster', class: "core-form-label" %>
-      <%= f.file_field :flyer_url %>
-
-      <%= f.label :name, class: "core-form-label" %>
-      <%= f.text_field :name, class: "core-form-text-input" %>
-
-      <%= f.label :summary, class: "core-form-label" %>
-      <%= f.text_area :summary, :rows => 2, :class => "core-form-textarea" %>
-
-      <%= f.label :description, class: "core-form-label" %>
-      <%= f.text_area :description, :class => "core-form-textarea" %>
-
-      <%= f.label :location, class: "core-form-label" %>
-      <%= f.text_field :location, class: "core-form-text-input" %>
-
-      <%= f.label :url, class: "core-form-label" %>
-      <%= f.text_field :url, class: "core-form-text-input" %>
-
-      <%= f.label :event_start, "Start time (EST)", class: "core-form-label" %>
-      <%= f.datetime_select :event_start %>
-
-      <%= f.label :event_end, "End time (EST)", class: "core-form-label" %>
-      <%= f.datetime_select :event_end %>
-
-      <!-- todo: categories -->
-      <% Category.all().each do |c| %>
-        <%= label_tag c.name, c.name, class: "core-form-label" %>
-        <%= check_box_tag "event[categories][]", c.name, @event.categories.exists?(:name => c.name), {:class => "core-checkbox", :id => c.name} %>
-      <% end %>
+    <div class="event-form-flyer-preview">
     </div>
 
-    <div class="core-form-action-group-strip">
-      <%= f.submit %>
-    </div>
-
-  <% end %>
-</div>
-<!-- form_for @event, :html => { :multipart => true } do |f| %>
-
-			<p>(Something quick and informative to draw people in!)</p>
-  		
-			<p>(A longer, more detailed plan for the event.)</p>
-
-<div class="field event-categories">
-	<strong>Categories</strong><br/>
-	<ul>
-         @categories.each do |c| %>
-          label_tag c.name, c.name, class: "cat-button" %>
-          check_box_tag "event[categories][]", c.name, @event.categories.exists?(:name => c.name), {:class => 'cat-check', :id => c.name } %>
-         end %>
-	</ul>
-</div>
-
-   if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2>Could not add event because the following information is required:</h2>
+    <% if @event.errors.any? %>
+    <div class="paper-toast">
+      <!-- todo: remind me to turn the ul into a .each loop that
+           makes a separate paper toast for each error message, not
+           a list of errors all on one paper toast.
+      -->
+      <p>
+        <%= pluralize(@event.errors.count, "error") %> 
+        prohibited this event from being saved:
+      </p>
 
       <ul>
-       @event.errors.full_messages.each do |msg| %>
-        <li> msg %></li>
-       end %>
+        <% @event.errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
-   end %>
-	
- end %>-->
+    <% end %>
+
+    <div class="core-input-and-label-pair flyer-upload">
+      <%= label_tag(
+            :flyer_url,
+            'Flyer/Poster',
+            class: "core-form-file-input-label",
+            style: "font-family: 'Roboto', sans-serif;"
+          ) %>
+      <%= f.file_field :flyer_url %>
+    </div>
+
+    <!-- Need to figure out this one -->
+    <% Category.all().each do |c| %>
+        <div class="core-checkbox-and-label-pair">
+          <div class="checkbox-wrapper-for-ripple">
+            <%= check_box_tag(
+                "event[categories][]",
+                c.name,
+                @event.categories.exists?(:name => c.name),
+                {:class => "core-checkbox", :id => c.name} 
+            )%>
+          </div>
+          <%= label_tag c.name, c.name, class: "core-checkbox-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="core-right-primary-raised-sheet">
+        
+      <div class="core-text-field-and-label-pair">
+        <%= f.label :name, class: "core-floating-label" %>
+        <%= f.text_field :name, class: "core-form-text-input" %>
+      </div>
+
+      <div class="core-text-field-and-label-pair">
+        <%= f.label :location, class: "core-floating-label" %>
+        <%= f.text_field :location, class: "core-form-text-input" %>
+      </div>
+
+      <div class="core-date-and-label-pair">
+        <%= f.label(
+              :event_start,
+              "Start time (EST)",
+              class: "core-form-time-label"
+        ) %>
+        <%= f.datetime_select :event_start, {}, class: "core-date-select" %>
+      </div>
+
+      <div class="core-date-and-label-pair">
+        <%= f.label(
+              :event_end,
+              "End time (EST)",
+              class: "core-form-time-label"
+        )%>
+        <%= f.datetime_select :event_end, {}, class: "core-date-select" %>
+      </div>
+
+      <div class="core-text-field-and-label-pair">
+        <%= f.label :summary, class: "core-floating-textarea-label" %>
+        <%= f.text_area :summary, {
+            :rows => 1,
+            :class => "core-form-textarea"
+        } %>
+      </div>
+
+      <div class="core-text-field-and-label-pair">
+        <%= f.label :description, class: "core-floating-textarea-label" %>
+        <%= f.text_area :description, {
+            :rows => 1,
+            :class => "core-form-textarea" 
+        } %>
+      </div>
+
+      <div class="core-text-field-and-label-pair">
+        <%= f.label :url, class: "core-floating-label" %>
+        <%= f.text_field :url, class: "core-form-text-input" %>
+      </div>
+
+      <div class="core-input-and-label-pair">
+        <%= f.label :organization, class: "core-form-small-label" %>
+        <%= f.collection_select(
+              :organization_id,
+              current_user.organizations,
+              :id,
+              :name,
+              {},
+              class: "core-form-select"
+            ) %>
+      </div>
+      <div class="event-form-action-group">
+        <%= f.submit(nil, class: "paper-raised-button float-right") %>
+      </div>
+
+    </div>
+  <% end %>
+</div>
