@@ -22,6 +22,12 @@
   overflow-y: scroll;
 }
 
+.event-form-raised-input-group {
+  // overflow-y
+  overflow-y: auto;
+  margin-right: -16px;
+}
+
 .event-form-action-group {
   // height width positioning?
   position: fixed;
@@ -36,4 +42,11 @@
   padding: 0;
   padding-top: 16px;
   padding-left: 16px;
+}
+
+.event-form-image-preview {
+  // these styles are for the [alt] attribute's text: flyer preview
+  color: $white;
+  font-size: $heading;
+  font-family: 'Roboto', sans-serif;
 }

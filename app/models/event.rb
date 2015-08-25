@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
 		return false
 	end
 	
-	if in_user.moderator == true
+	if in_user.is_admin == true or in_user.is_developer == true
 		return true
 	end
 

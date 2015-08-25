@@ -104,7 +104,12 @@ $(document).ready(function() {
     'height': ($eventFormHeight - 64)  + 'px',
     'width': ($eventFormWidth - 32) + 'px'
   });
-  $('.core-base-sheet').css({
+
+  $('.core-fixed-height-base-sheet').css({
+    'width': ($windowWidth - $drawerWidth) + 'px'
+  });
+
+  $('.core-contents-height-base-sheet').css({
     'width': ($windowWidth - $drawerWidth) + 'px'
   });
 
@@ -131,13 +136,13 @@ $(document).ready(function() {
     $fileFieldTarget = changeEvent.target;
     file = $fileFieldTarget.files[0];
 
-    $preview = $('.event-form-flyer-preview');
+    $preview = $('.event-form-image-preview');
 
     reader = new FileReader();
     reader.onload = (function(unusedParameter) {
       return function(evt) {
         $preview.empty();
-        $preview.append('<img src="' + evt.target.result + '" class="event-image-preview"></img>');
+        $preview.attr('src', evt.target.result);
       };
     }($preview));
     reader.readAsDataURL(file);
@@ -166,6 +171,39 @@ $(document).ready(function() {
   // floating label effects for text fields and text areas
   // -----------------------------------------------------
 
+  // on document init:
+  floatingLabels = $('.core-floating-label, .core-floating-textarea-label');
+  for (var i = 0; i < floatingLabels.length; i++) {
+    $label = $(floatingLabels[i]);
+    $textInput = $label.siblings('.core-form-text-input');
+    $textArea = $label.siblings('.core-form-textarea');
+
+    // check which one we're dealing with
+    $matchedTextParent = null;
+    if ($textInput.length > 0) {
+      $matchedTextParent = $textInput;
+    } else if ($textArea.length > 0) {
+      $matchedTextParent = $textArea;
+    } else {
+      continue;
+    }
+
+    // check if the input is empty
+    if ($matchedTextParent.text().length > 0 || $matchedTextParent.val().length > 0) {
+      // if it is we change our css to top: 0, font-size: 12px
+      $label.css({
+        'font-size': '12px',
+        'top': 0,
+      });
+    } else {
+      $label.css({
+        'font-size': '16px',
+        'top': '10px',
+      });
+    }
+  }
+
+  // event listeners
   $('.core-form-text-input').click(function(textFieldClick) {
     $textFieldInput = $(textFieldClick.target);
     $floatingLabel = $textFieldInput.siblings('.core-floating-label');
@@ -250,6 +288,18 @@ $(document).ready(function() {
   $('.create-event-errors-dismiss-button').click(function(dismissEvent) {
     whoToDismiss = $(dismissEvent.target).data('dismiss-target-id');
     $('#' + whoToDismiss).slideUp();
+  });
+
+  // this code shows a tooltip for flyer uploads
+  $('.flyer-upload').mouseenter(function(mouseEnterEvent) {
+    $('#tooltip-flyer-upload').css({
+      'position': 'fixed',
+      'top': (mouseEnterEvent.pageY) + 'px',
+      'left': (mouseEnterEvent.pageX) + 'px',
+      'z-index': '150'
+    }).show();
+  }).mouseleave(function(mouseLeaveEvent) {
+    $('#tooltip-flyer-upload').hide();
   });
 
 });

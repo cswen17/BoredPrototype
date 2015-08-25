@@ -1,6 +1,6 @@
 <% @events.each do |event| %>
 	<li>
-		<img src="<%= event.flyer %>" alt="" />
+		<img src="<%= dropbox_url_for(event.flyer_url) %>" alt="" />
 		<div class="leftBox <%= event.approval_status %>">
 			<h1 title="<%= event.name %>"><%= truncate(event.name, :length => 39) %></h1>
 			<p><%= event.description %></p>

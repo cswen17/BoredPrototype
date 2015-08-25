@@ -1,72 +1,67 @@
 <% content_for :title, "Categories" %>
 
-<div class="paper-flat-primary-container"
-    style="margin-top: -4px;
-           background-color: #727272;
-           padding-left: 8px;
-           min-height: 100%;
-           width: 85%">
+<div class="core-contents-height-base-sheet core-base-sheet-dark-theme pull-up">
 
-<p class="core-heading" style="padding-left: 8px;">New Category</p>
+  <p class="core-heading" style="padding-left: 8px;">New Category</p>
 
-<%= form_for :category, url: categories_path do |f| %>
+  <%= form_for :category, url: categories_path do |f| %>
 
-  <div class="core-input-and-label-pair">
-    <%= f.label :name, class: "core-floating-label" %>
-    <%= f.text_field :name, class: "core-form-text-input" %>
-  </div>
+    <div class="core-input-and-label-pair">
+      <%= f.label :name, class: "core-floating-label" %>
+      <%= f.text_field :name, class: "core-form-text-input" %>
+    </div>
 
-  <%= f.submit class: 'paper-raised-button' %>
+    <%= f.submit class: 'paper-raised-button' %>
 
-<% end %>
+  <% end %>
 
-<p class="core-heading" style="padding-left: 8px;">Existing categories</p>
-<% @categories.each do |c| %>
-    <p class="core-subheading" style="padding-left: 8px;">
-    <%= c.name %>
-    <%= button_to(
-        'Delete',
-        category_path(c),
-        method: :delete,
-        class: "paper-raised-button"
-    )%>
-    <% c.events.each do |e| %>
-        <div class="paper-grid-card-base" style="margin-left: 8px;">
+  <p class="core-heading" style="padding-left: 8px;">Existing categories</p>
+  <% @categories.each do |c| %>
+      <p class="core-subheading" style="padding-left: 8px;">
+      <%= c.name %>
+      <%= button_to(
+          'Delete',
+          category_path(c),
+          method: :delete,
+          class: "paper-raised-button"
+      )%>
+      <% c.events.each do |e| %>
+          <div class="paper-grid-card-base" style="margin-left: 8px;">
 
-          <div class="paper-grid-card-main-content">
-            <p class="paper-grid-card-title">
-              <%= e.name %>
-            </p>
-            <p class="paper-grid-card-subtitle">
-              <%= e.formatted_start_and_end_times %>
-            </p>
-            <p class="paper-grid-card-subtitle">
-              <%= e.location %>
-            </p>
+            <div class="paper-grid-card-main-content">
+              <p class="paper-grid-card-title">
+                <%= e.name %>
+              </p>
+              <p class="paper-grid-card-subtitle">
+                <%= e.formatted_start_and_end_times %>
+              </p>
+              <p class="paper-grid-card-subtitle">
+                <%= e.location %>
+              </p>
+            </div>
+
+            <div class="paper-grid-card-action-area">
+              <%= button_to(
+                  'view',
+                  event_path(e),
+                  method: :get,
+                  class: 'paper-flat-button'
+              )%>
+              <%= button_to('edit', 
+                  edit_event_path(e),
+                  method: :get,
+                  class: 'paper-flat-button'
+              )%>
+              <%= button_to(
+                  'delete',
+                  event_path(e),
+                  method: :delete,
+                  class: 'paper-flat-button'
+              )%>
+            </div>
+
           </div>
-
-          <div class="paper-grid-card-action-area">
-            <%= button_to(
-                'view',
-                event_path(e),
-                method: :get,
-                class: 'paper-flat-button'
-            )%>
-            <%= button_to('edit', 
-                edit_event_path(e),
-                method: :get,
-                class: 'paper-flat-button'
-            )%>
-            <%= button_to(
-                'delete',
-                event_path(e),
-                method: :delete,
-                class: 'paper-flat-button'
-            )%>
-          </div>
-
-        </div>
-    <% end %>
-    </p>
-<% end %>
+      <% end %>
+      </p>
+  <% end %>
 </div>

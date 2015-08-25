@@ -64,13 +64,19 @@ class EventsController < ApplicationController
     categories = params[:event].delete("categories")
     
     uploaded_flyer = params[:event].delete(:flyer_url)
-    flyer_buf = ''
-    uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
 
-    original = uploaded_flyer.original_filename
-    response = dropbox_client().put_file(original, flyer_buf)
-    logger.info response
-    params[:event][:flyer_url] = original
+    if uploaded_flyer != nil
+      flyer_buf = ''
+      uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
+
+      original = uploaded_flyer.original_filename
+      response = dropbox_client().put_file(original, flyer_buf)
+      logger.info response
+      params[:event][:flyer_url] = original
+    else
+      params[:event][:flyer_url] = ''
+    end
+
 
     @event = Event.new(params[:event])
 
@@ -171,7 +177,7 @@ class EventsController < ApplicationController
   def approve
     @event = Event.find(params[:id])
 	
-	if current_user.moderator == false
+	if current_user.is_admin == false
 		raise Exceptions::AccessDeniedException
 	end
 	
@@ -186,7 +192,7 @@ class EventsController < ApplicationController
   def decline
     @event = Event.find(params[:id])
 	
-	if current_user.moderator == false
+	if current_user.is_admin == false
 		raise Exceptions::AccessDeniedException
 	end
 	

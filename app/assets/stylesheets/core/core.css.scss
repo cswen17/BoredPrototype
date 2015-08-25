@@ -52,11 +52,26 @@
     padding-left: 16px;
 }
 
-.core-base-sheet {
+.core-fixed-height-base-sheet {
+  height: 100%;
+  width: 100%;
+}
+
+.core-contents-height-base-sheet {
   min-height: 90%;
   width: 100%;
+}
+
+.core-base-sheet-light-theme {
   background-color: $tertiary;
-  padding-bottom: 16px;
+}
+
+.core-base-sheet-dark-theme {
+  background-color: $dark-primary;
+}
+
+.pull-up {
+  margin-top: -4px;
 }
 
 .core-right-primary-raised-sheet {
@@ -69,7 +84,6 @@
   vertical-align: top;
   height: 530px;
   width: 50%;
-  overflow-y: auto;
 }
 
 .core-input-and-label-pair {
@@ -100,7 +114,7 @@
   position: absolute;
   top: 10px;
   left: 8px;
-  font-size: $subheading;
+  font-size: 16px;
 }
 
 .core-floating-textarea-label {

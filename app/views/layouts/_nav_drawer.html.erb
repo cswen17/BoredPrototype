@@ -46,6 +46,7 @@
   <!--<hr class="core-drawer-menu-divider" />-->
 
   <!-- Categories -->
+  <% if current_user.is_org_leader or current_user.is_admin or current_user.is_developer %>
   <div class="core-drawer-menu-subsection">
       <!--<h4 class="core-drawer-menu-subheading">Categories</h4>-->
     <ul>
@@ -57,6 +58,35 @@
       </li>
     </ul>
   </div>
+  <% end %>
+
+  <!-- Event Approval -->
+  <% if current_user.is_org_leader or current_user.is_admin or current_user.is_developer %>
+  <div class="core-drawer-menu-subsection">
+    <ul>
+      <li class="core-drawer-menu-item" id="approve-events-teudu">
+        <div class="core-drawer-menu-item-icon">&#10003;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "Approval", approval_url %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <% end %>
+
+  <!-- User Listings -->
+  <% if current_user.is_org_leader or current_user.is_admin or current_user.is_developer %>
+  <div class="core-drawer-menu-subsection">
+    <ul>
+      <li class="core-drawer-menu-item" id="list-users-teudu">
+        <div class="core-drawer-menu-item-icon">&#10047;</div>
+        <span class="core-drawer-menu-item-label">
+          <%= link_to "Users", users_url %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <% end %>
 
   <hr class="core-drawer-menu-divider" />
 

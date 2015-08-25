@@ -1,10 +1,6 @@
 <%= form_for @event, :html => { :multipart => true } do |f| %>
-<div class="core-base-sheet">
+<div class="core-fixed-height-base-sheet core-base-sheet-light-theme">
   <div class="event-form-input-group">
-
-    <div class="event-form-flyer-preview">
-    </div>
-
     <% if @event.errors.any? %>
     <div class="paper-toast-container">
       <!-- todo: remind me to turn the ul into a .each loop that
@@ -29,7 +25,18 @@
     </div>
     <% end %>
 
+    <!-- flyer upload preview -->
+    <div class="event-form-flyer-preview">
+      <img src="<%= dropbox_url_for(@event.flyer_url) %>" 
+           class="event-form-image-preview" alt="flyer preview">
+    </div>
+
     <div class="core-input-and-label-pair flyer-upload">
+      <div class="paper-tooltip" id="tooltip-flyer-upload">
+        <p class="paper-tooltip-text">
+          Upload a 512 x 288 image
+        </p>
+      </div>
       <%= label_tag(
             :flyer_url,
             'Flyer/Poster',
@@ -38,8 +45,7 @@
           ) %>
       <%= f.file_field :flyer_url %>
     </div>
-
-    <!-- Need to figure out this one -->
+    <!-- Category Selection -->
     <% Category.all().each do |c| %>
         <div class="core-checkbox-and-label-pair">
           <div class="checkbox-wrapper-for-ripple">
@@ -56,7 +62,8 @@
   </div>
 
   <div class="core-right-primary-raised-sheet">
-        
+    <div class="event-form-raised-input-group">
+      <!-- Event info --> 
       <div class="core-text-field-and-label-pair">
         <%= f.label :name, class: "core-floating-label" %>
         <%= f.text_field :name, class: "core-form-text-input" %>
@@ -117,10 +124,10 @@
               class: "core-form-select"
             ) %>
       </div>
-      <div class="event-form-action-group">
-        <%= f.submit(nil, class: "paper-raised-button float-right") %>
-      </div>
-
+    </div> <!-- /end of event-form-raised-input-group -->
+    <div class="event-form-action-group">
+      <%= f.submit(nil, class: "paper-raised-button float-right") %>
     </div>
   <% end %>
+  </div> <!-- /end of core-primary-raised-sheet -->
 </div>

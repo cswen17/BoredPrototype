@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
         # find the documentation for .media here:
         # dropbox.github.io/dropbox-sdk-ruby/api-docs/v1.6.4/DropboxClient.html
         if flyer_path == nil or flyer_path == ''
-            return '/public/flyers/original/missing.png'
+            return '/flyers/original/cmuthemall.jpg'
         end
         response = dropbox_client().media(flyer_path)
         if response == nil or response["url"] == nil

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150815204412) do
+ActiveRecord::Schema.define(:version => 20150825010047) do
 
   create_table "categories", :force => true do |t|
     t.datetime "created_at"
@@ -58,12 +58,14 @@ ActiveRecord::Schema.define(:version => 20150815204412) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "first_name",                    :null => false
-    t.string   "last_name",                     :null => false
-    t.string   "andrew_id",                     :null => false
+    t.string   "first_name",                       :null => false
+    t.string   "last_name",                        :null => false
+    t.string   "andrew_id",                        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "moderator",  :default => false
+    t.boolean  "is_admin",      :default => false
+    t.boolean  "is_org_leader", :default => false
+    t.boolean  "is_developer",  :default => false
   end
 
 end

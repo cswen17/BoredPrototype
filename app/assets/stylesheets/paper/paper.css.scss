@@ -25,13 +25,19 @@
   display: inline;
 }
 
-.paper-primary-raised-container {
-  // this is the white raised paper
-  // background, height, width, box-shadow, whitespace
-  height: 90%;
-  width: 82%;
-  border: 1px solid $divider;
-  box-shadow: -5px -5px 5px 0 $divider;
-  margin: 16px;
-  background-color: $white;
+.paper-tooltip {
+  height: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: $white;
+  background-color: $gray;
+  border-radius: 2px;
+  display: none;
+}
+
+.paper-tooltip-text {
+  padding-top: 6px;
+  color: $white;
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
 }
