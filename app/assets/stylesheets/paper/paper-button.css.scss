@@ -1,0 +1,96 @@
+@import "variables";
+
+.paper-button-group {
+  // width
+  width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.paper-category-button {
+  // this button is implicitly flat.
+  // height, font-color, background-color
+  // these properties clear the default button properties
+  font-family: 'Roboto', sans-serif;
+  font-size: $button-size;
+  padding: 0;
+  border: none;
+  text-transform: uppercase;
+  color: $primary;
+  height: 36px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 8px;
+  margin-left: 8px;
+  border-radius: 2px;
+  min-width: 88px;
+
+  &:hover {
+    // background-color, font-color
+    background-color: rgba(163, 163, 163, 0.2);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.paper-raised-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: $button-size;
+  padding: 0;
+  border: none;
+  text-transform: uppercase;
+  color: $white;
+  height: 36px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 8px;
+  margin-left: 8px;
+  border-radius: 2px;
+  min-width: 88px;
+  box-shadow: 0 0 4px 0 $shadow;
+  background-color: $primary;
+
+  &:hover {
+      // background-color, font-color
+    background-color: rgba(163, 163, 163, 0.2);
+  }
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.paper-flat-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: $button-size;
+  padding: 0;
+  border: none;
+  text-transform: uppercase;
+  color: $primary;
+  height: 36px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 8px;
+  margin-left: 8px;
+  border-radius: 2px;
+  min-width: 88px;
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+      // background-color, font-color
+    background-color: rgba(163, 163, 163, 0.2);
+  }
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.clicked {
+  background-color: rgba(163, 163, 163, 0.4);
+}
+
+.not-clicked {
+  background-color: $tertiary;
+}

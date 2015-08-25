@@ -6,19 +6,24 @@
     </div>
 
     <% if @event.errors.any? %>
-    <div class="paper-toast">
+    <div class="paper-toast-container">
       <!-- todo: remind me to turn the ul into a .each loop that
            makes a separate paper toast for each error message, not
            a list of errors all on one paper toast.
       -->
-      <p>
-        <%= pluralize(@event.errors.count, "error") %> 
-        prohibited this event from being saved:
-      </p>
-
       <ul>
-        <% @event.errors.each do |msg| %>
-          <li><%= msg %></li>
+        <% @event.create_event_errors_hash.each do |msg, msgstr| %>
+          <li class="paper-toast-base" id="dismiss-<%= msg %>">
+            <div class="paper-toast-message">
+              <%= msgstr %>
+            </div>
+            <button type="button"
+                    class="paper-flat-button 
+                           create-event-errors-dismiss-button"
+                    data-dismiss-target-id="dismiss-<%= msg %>">
+              Dismiss
+            </button>
+          </li>
         <% end %>
       </ul>
     </div>

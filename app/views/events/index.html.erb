@@ -4,7 +4,7 @@
   <h4 class="core-subheading">Categories</h4>
   <div class="paper-button-group">
     <% Category.all().each do |c| %>
-      <button class="paper-button clicked" data-toggle-class="not-clicked"
+      <button class="paper-category-button clicked" data-toggle-class="not-clicked"
               data-curr-class="clicked" id="category-button-<%= c.id%>">
         <%= c.name %>
       </button>

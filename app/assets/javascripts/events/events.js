@@ -50,10 +50,8 @@ $(document).ready(function() {
     });
   }); // end event card on click handler
 
-  // this code is supposed to set up category filtering
-  // but we really need to find a way to distinguish any
-  // old paper-button from a category paper button
-  $('.paper-button').click(function(categoryEvent) {
+  // this code sets up category filtering
+  $('.paper-category-button').click(function(categoryEvent) {
     categoryEvent.preventDefault();
     $categoryButton = $(categoryEvent.target);
 
@@ -107,8 +105,7 @@ $(document).ready(function() {
     'width': ($eventFormWidth - 32) + 'px'
   });
   $('.core-base-sheet').css({
-    'width': ($windowWidth - $drawerWidth) + 'px',
-    'height': ($windowHeight - $headerHeight - 16) + 'px'
+    'width': ($windowWidth - $drawerWidth) + 'px'
   });
 
   $('.core-header').css('width', ($windowWidth - $drawerWidth) + 'px');
@@ -249,6 +246,11 @@ $(document).ready(function() {
     });
   });
 
+  // this code dismisses error messages
+  $('.create-event-errors-dismiss-button').click(function(dismissEvent) {
+    whoToDismiss = $(dismissEvent.target).data('dismiss-target-id');
+    $('#' + whoToDismiss).slideUp();
+  });
 
 });
 

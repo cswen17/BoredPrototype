@@ -54,38 +54,6 @@ class Event < ActiveRecord::Base
 	!in_user.organizations.where('id = ?', self.organization.id).empty?
   end
 
-  def option_event_start
-    default_time_option(self.event_start, 1)
-  end
-
-  def option_event_end
-    default_time_option(self.event_end, 3)
-  end
-
-  def default_time_option(optional_hour_minute, offset)
-    if optional_hour_minute.nil?
-      return closest_half_hour(minute_offset=offset)
-    else
-      return optional_hour_minute.strftime('%H:%M')
-    end
-  end
-
-  def edit_event_start
-    default_date_text(self.event_start)
-  end
-
-  def edit_event_end
-    default_date_text(self.event_end)
-  end
-
-  def default_date_text(optional_datetime)
-    if optional_datetime.nil?
-      return Time.now.strftime('%m/%d/%Y')
-    else
-      return optional_datetime.strftime('%m/%d/%Y')
-    end
-  end
-
   def approve_event
     self.approval_rating = 100
 	self.save!
@@ -96,7 +64,8 @@ class Event < ActiveRecord::Base
 	self.save!
   end
   
-  # We can probably get away with letting the user upload something crappy...it is their choice after all
+  # We can probably get away with letting the user upload something
+  # crappy...it is their choice after all
   def dimensions_fine?
 	  temp_file = flyer.queued_for_write[:original]
 	  unless temp_file.nil?
@@ -116,8 +85,9 @@ class Event < ActiveRecord::Base
   end
 
   def category_ids_as_class
-    # [view helper function]: wraps category ids in a list of css classes
-    # so that we can store them in an html attribute for the event
+    # [view helper function]: wraps category ids in a list of
+    # css classes so that we can store them in an html attribute
+    # for the event
     category_id_classes_array = []
     self.categories.each do |c|
       category_id_classes_array << "category-button-#{c.id}"
@@ -126,8 +96,8 @@ class Event < ActiveRecord::Base
   end
 
   def formatted_start_and_end_times
-    # [view helper function]: displays start and end times in a consolidated
-    # way, the date comes first and then the times
+    # [view helper function]: displays start and end times in
+    # a consolidated way, the date comes first and then the times
     start_day = self.event_start.strftime('%B %e')
     end_day = self.event_end.strftime('%B %e')
     start_time = self.event_start.strftime('%l:%M')
@@ -147,6 +117,32 @@ class Event < ActiveRecord::Base
       result += "#{start_time}#{start_am_pm}-#{end_time}#{end_am_pm}"
     end
     return result
+  end
+
+  # when adding an error message, try to follow any examples you see here:
+  # google.com/design/spec/patterns/errors.html#errors-user-input-errors
+  @@CREATE_EVENT_ERRORS = {
+    :name            => 'A name is required',
+    :location        => 'A location is required',
+    :description     => 'A description is required',
+    :day_time_range => 'An event\'s start is required to be before its end'
+  }
+
+  def create_event_errors_hash
+    # this function will go through our errors hash and return a new
+    # hash that contains error messages that follow material design
+    create_event_errors = {}
+
+    self.errors.each do |validation_key, err_msg|
+      pretty_err_msg = @@CREATE_EVENT_ERRORS[validation_key] 
+      if pretty_err_msg == nil
+        create_event_errors[validation_key] = err_msg
+      else
+        create_event_errors[validation_key] = pretty_err_msg
+      end
+    end
+
+    return create_event_errors
   end
 
 end

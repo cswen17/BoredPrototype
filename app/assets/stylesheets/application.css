@@ -38,6 +38,10 @@ ul {
   -webkit-margin-end: 0;
 }
 
+li {
+  list-style-type: none;
+}
+
 .placeholder-everything-else-container {
   position: fixed;
   top: 0;
