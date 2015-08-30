@@ -61,11 +61,16 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    is_facebook_event = params.delete("is_facebook_event")
+    facebook_cover_url = params.delete("facebook_cover_url")
+
     categories = params[:event].delete("categories")
     
     uploaded_flyer = params[:event].delete(:flyer_url)
 
-    if uploaded_flyer != nil
+    if is_facebook_event == "true" and facebook_cover_url != nil
+      params[:event][:flyer_url] = facebook_cover_url
+    elsif uploaded_flyer != nil
       flyer_buf = ''
       uploaded_flyer.read(uploaded_flyer.size(), flyer_buf)
 
@@ -77,11 +82,8 @@ class EventsController < ApplicationController
       params[:event][:flyer_url] = ''
     end
 
-
     @event = Event.new(params[:event])
-
 	@event.user = current_user
-
 
     editEvent(@event, params, categories)
   end
@@ -95,6 +97,9 @@ class EventsController < ApplicationController
 		raise Exceptions::AccessDeniedException
 	end
 
+    is_facebook_event = params.delete("is_facebook_event")
+    facebook_cover_url = params.delete("facebook_cover_url")
+
 	uploaded_flyer = params[:event][:flyer_url]
     if uploaded_flyer != nil
       flyer_buf = ''
@@ -104,6 +109,8 @@ class EventsController < ApplicationController
       response = dropbox_client().put_file(original, flyer_buf)
       logger.info response
       params[:event][:flyer_url] = original
+    elsif is_facebook_event and facebook_cover_url != nil
+      params[:event][:flyer_url] = facebook_cover_url
     else
       params[:event][:flyer_url] = @event.flyer_url
     end
@@ -115,9 +122,9 @@ class EventsController < ApplicationController
 	
   end
 
-  # This event takes in an initialized event (event) and a list of parameters (params),
-  # checks the invariants of the event, and then either creates it if it is
-  # valid or returns an error if it is not.
+  # This function takes in an initialized event (event) and a list of parameters
+  # (params), checks the invariants of the event, and then either creates it
+  # if it is valid or returns an error if it is not.
   def editEvent(event, params, category_names)
     # this category stuff is ratchet and makes a lot of database queries
     # which is bad for performance. We need to figure out the right way

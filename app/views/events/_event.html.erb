@@ -1,5 +1,6 @@
 <div class="event-card-base" id="event-<%= event.id %>"
-     data-event-categories="<%= event.category_ids_as_class %>">
+    data-event-categories="<%= event.category_ids_as_class %>"
+    data-event-time-categories="<%= event.date_class_array %>">
 
     <div class="event-card-flyer-hero"
          style="background-image: url(
@@ -54,6 +55,13 @@
       <p class="event-modal-text-muted" id="event-url">
         <a href="<%= event.url %>"><%= event.url %></a>
       </p>
+
+      <!--facebook "like" button -->
+      <div class="fb-like" style="margin-left: 16px"
+           data-href="<%= event.url %>"
+           data-layout="standard" data-action="like" data-show-faces="true"
+           data-share="true"></div>
+
       <p class="event-modal-text-regular" id="event-description">
         <%= event.description %>
       </p>

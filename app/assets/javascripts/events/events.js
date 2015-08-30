@@ -15,6 +15,7 @@ var attachClickableClass = function(idName) {
 }
 
 $(document).ready(function() {
+  $('.placeholder-everything-else-container').focus();
   eventCards = $('.event-card-base');
   // this code will make events clickable
   for (var i = 0; i < eventCards.length; i++) {
@@ -50,6 +51,17 @@ $(document).ready(function() {
     });
   }); // end event card on click handler
 
+  // this code sets up the tabs for category and time filtering
+  $('.paper-tab-base').click(function(tabEvent) {
+    $('.paper-tab-base').removeClass('paper-tab-base-clicked');
+    $targetTab = $(tabEvent.target);
+    $targetTab.addClass('paper-tab-base-clicked');
+    targetedButtonsSelector = '.' + $targetTab.data('target-buttons'); 
+    targetedHideButtonsSelector = '.' + $targetTab.data('hide-buttons');
+    $(targetedButtonsSelector).show();
+    $(targetedHideButtonsSelector).hide();
+  });
+
   // this code sets up category filtering
   $('.paper-category-button').click(function(categoryEvent) {
     categoryEvent.preventDefault();
@@ -77,6 +89,44 @@ $(document).ready(function() {
       dataCategoryIds = $candidateEvent.data('event-categories');
       for (var j = 0; j < dataCategoryIds.length; j++) {
         if (dataCategoryIds[j] == categoryId) {
+          if (shouldHide) {
+            $candidateEvent.hide();
+          } else {
+            $candidateEvent.show();
+          }
+          break;
+        }
+      }
+    }
+  };
+
+  // this code sets up time category filtering. I'm sorry for the redundancy :'(
+  $('.paper-time-category-button').click(function(timeEvent) {
+    timeEvent.preventDefault();
+    $timeButton = $(timeEvent.target);
+
+    curr = $timeButton.data('curr-class');
+    toggle = $timeButton.data('toggle-class');
+
+    $timeButton.removeClass(curr);
+    $timeButton.addClass(toggle);
+
+    $timeButton.data('curr-class', toggle);
+    $timeButton.data('toggle-class', curr);
+
+    // this code will filter the events
+    filterTimeCategories($timeButton, (curr === 'clicked'));
+  });
+
+  var filterTimeCategories = function($timeButton, shouldHide) {
+    // so slow...
+    timeId = $timeButton.attr('id');
+    $events = $('.event-card-base');
+    for (var i = 0; i < $events.length; i++) {
+      $candidateEvent = $($events[i]);
+      dataTimeIds = $candidateEvent.data('event-time-categories');
+      for (var j = 0; j < dataTimeIds.length; j++) {
+        if (dataTimeIds[j] == timeId) {
           if (shouldHide) {
             $candidateEvent.hide();
           } else {
@@ -189,7 +239,8 @@ $(document).ready(function() {
     }
 
     // check if the input is empty
-    if ($matchedTextParent.text().length > 0 || $matchedTextParent.val().length > 0) {
+    if ($matchedTextParent.text().length > 0 || 
+          $matchedTextParent.val().length > 0) {
       // if it is we change our css to top: 0, font-size: 12px
       $label.css({
         'font-size': '12px',
@@ -204,7 +255,7 @@ $(document).ready(function() {
   }
 
   // event listeners
-  $('.core-form-text-input').click(function(textFieldClick) {
+  $('.core-form-text-input').on('click focus', function(textFieldClick) {
     $textFieldInput = $(textFieldClick.target);
     $floatingLabel = $textFieldInput.siblings('.core-floating-label');
 
@@ -253,7 +304,7 @@ $(document).ready(function() {
     });
   });
 
-  $('.core-form-textarea').click(function(textareaClick) {
+  $('.core-form-textarea').on('click focus', function(textareaClick) {
     $textareaInput = $(textareaClick.target);
     $floatingLabel = $textareaInput.siblings(
       '.core-floating-textarea-label');
@@ -302,6 +353,246 @@ $(document).ready(function() {
     $('#tooltip-flyer-upload').hide();
   });
 
+  var transformEventsDataList = function(listEventsData) {
+    // this function will take the result of calling the FB
+    // API's <user_id>/events endpoint, which is a list of
+    // objects that contain event IDs, and returns a list of
+    // Event objects that contain relevant fields to Teudu:
+    // name, location, start, end, description, and cover pic!
+    if (!listEventsData) {
+      return listEventsData;
+    }
+
+    // this loop will extract event IDs which we use to fetch
+    // event data from the FB API
+    var eventIdsList = [];
+    for (var i = 0; i < listEventsData.length; i++) {
+      currEvent = listEventsData[i];
+      if (currEvent && currEvent.id) {
+        eventIdsList.push(currEvent.id);
+      }
+    }
+
+    $('body').append('<div class="core-modal-scrim"></div>')
+             .append(
+      '<div class="core-modal-base" id="facebook-events-list"></div>');
+    fbEventsList = $('#facebook-events-list');
+
+    $coreModalBaseWidth = $('.core-modal-base').width();
+    $('.core-modal-base').css({
+      'top': '56px',
+      'left': ($windowWidth - $coreModalBaseWidth) / 2 + 'px'
+    });
+
+    $('.core-modal-scrim').click(function(scrimClickEvent) {
+      $(scrimClickEvent.target).remove();
+      $('#facebook-events-list').remove();
+    });
+
+    // this loop will collect FB API results for each ID from earlier
+    eventsList = [];
+    eventsList = eventIdsList.map(function(currentValue, index, array) {
+      // currentValue is the same as listEventsData[index]
+      fbEventId = currentValue;
+      fieldsQueryString = '?fields=cover,description,start_time,' +
+        'end_time,name,id,location';
+      FB.api(
+        '/' + fbEventId + fieldsQueryString,
+        function(fbEventNodeResponse) {
+          renderFacebookEvent(fbEventNodeResponse);
+        }
+      );
+    });
+  };
+
+  var renderFacebookEvent = function(eventData) {
+      eventDataId = 'fb-event-' + eventData.id;
+      $listBase = $(document.createElement('button'));
+      $listBase.addClass('paper-list-base');
+      $listBase.attr('id', eventDataId);
+
+      var locationName = '(No Location Specified)';
+      if (eventData.place) {
+        locationName = eventData.place.name;
+      }
+      if (eventData.location) {
+        locationName = eventData.location;
+      }
+
+      coverImageSourceUrl = '/flyers/original/cmuthemall.jpg';
+      if (eventData.cover && eventData.cover.source) {
+        coverImageSourceUrl = eventData.cover.source;
+      }
+
+      listIcon = '<div class="paper-list-icon-area fb-click" data-fb-id="'
+        + eventDataId
+        + '"><img src="'
+        + coverImageSourceUrl
+        + '" class="paper-list-icon fb-click" /></div>';
+      nameSubtitle = '<p class="paper-list-title fb-click" data-fb-id="'
+        + eventDataId
+        + '">'
+        + eventData.name
+        + ' at '
+        + locationName;
+        + '</p>';
+      timeSubtitle = '<p class="paper-list-subtitle fb-click" data-fb-id="'
+        + eventDataId
+        + '">' 
+        + formatDateAsMMDDYYSlashes(eventData.start_time)
+        + ' to '
+        + formatDateAsMMDDYYSlashes(eventData.end_time)
+        + '</p>';
+      descSubtitle = '<p class="paper-list-subtitle fb-click" data-fb-id="' 
+        + eventDataId
+        + '">'
+        + eventData.description
+        + '</p>';
+
+      $listBase.append(listIcon);
+
+      $listContentArea = $(
+        '<div class="paper-list-content-area fb-click" data-fb-id="'
+        + eventDataId
+        + '"></div>'
+      );
+      $listContentArea.append(
+        nameSubtitle,
+        timeSubtitle,
+        descSubtitle
+      );
+
+      $listBase.append($listContentArea);
+
+
+      $listBase.attr('data-fb-raw-event-data', JSON.stringify(eventData));
+
+      fbEventsList.append($listBase);
+  };
+
+  var retrieveFacebookEvents = function(loginResponse) {
+    // Get the user's id
+    fbCurrentUserId = loginResponse.authResponse.userID;
+
+    // Get the user's events
+    fbUserEventsEndpoint = '/' + fbCurrentUserId + '/events';
+    FB.api(fbUserEventsEndpoint, function(userEventsResponse) {
+      if (userEventsResponse && !userEventsResponse.error) {
+        transformEventsDataList(userEventsResponse["data"]);
+      } else {
+        console.log('could not fetch facebook user events');
+      }
+    });
+  };
+
+  $('#import-facebook-event').click(function(facebookEvent) {
+    FB.getLoginStatus(function (loginResponse) {
+      if (!loginResponse) {
+        console.log('fetched an empty login response from facebook');
+        return;
+      }
+      if (loginResponse.status != 'connected') {
+        FB.login(function(loginResponse) {
+          if (loginResponse && loginResponse.status === 'connected') {
+            retrieveFacebookEvents(loginResponse);
+          }
+        }, {scope: 'user_events'});
+      }
+      retrieveFacebookEvents(loginResponse);
+    });
+  });
+
+  // this handler will prefill our Create an Event form with facebook
+  // event data if someone is using the Import Facebook Event feature
+  $('body').on('click', '.fb-click', function(listEvent) {
+    $clickTarget = $(listEvent.target);
+    $listBase = $('#' + $clickTarget.data('fb-id'));
+    eventData = $listBase.data('fb-raw-event-data');
+    if (!eventData) {
+      return;
+    }
+
+    eventLocation = '(No Location Specified)';
+    if (eventData && eventData.location) {
+      eventLocation = eventData.location;
+    }
+    eventStart = new Date(eventData.start_time);
+    eventEnd = eventStart;
+    if (eventData.end_time) {
+      eventEnd = new Date(eventData.end_time);
+    }
+    eventStartHours = "" + eventStart.getHours();
+    if (eventStart.getHours() < 10) {
+      eventStartHours = "0" + eventStartHours;
+    }
+    eventStartMinutes = "" + eventStart.getMinutes();
+    if (eventStart.getMinutes() < 10) {
+      eventStartMinutes = "0" + eventStartMinutes;
+    }
+    eventEndHours = "" + eventEnd.getHours();
+    if (eventEnd.getHours() < 10) {
+      eventEndHours = "0" + eventEndHours;
+    }
+    eventEndMinutes = "" + eventEnd.getMinutes();
+    if (eventEnd.getMinutes() < 10) {
+      eventEndMinutes = "0" + eventEndMinutes;
+    }
+
+    // name
+    $('#event_name').val(eventData.name);
+    $('[for*="event_name"]').css({
+      'top': 0,
+      'font-size': '12px'
+    });
+
+    // location
+    $('#event_location').val(eventLocation);
+    $('[for*="event_location"]').css({
+      'top': 0,
+      'font-size': '12px'
+    });
+
+    // start time
+    $('#event_event_start_1i').val(eventStart.getFullYear());
+    $('#event_event_start_2i').val(eventStart.getMonth() + 1);
+    $('#event_event_start_3i').val(eventStart.getDate());
+    $('#event_event_start_4i').val(eventStartHours);
+    $('#event_event_start_5i').val(eventStartMinutes);
+
+    // end time
+    $('#event_event_end_1i').val(eventEnd.getFullYear());
+    $('#event_event_end_2i').val(eventEnd.getMonth() + 1);
+    $('#event_event_end_3i').val(eventEnd.getDate());
+    $('#event_event_end_4i').val(eventEndHours);
+    $('#event_event_end_5i').val(eventEndMinutes);
+
+    // description
+    $('#event_description').val(eventData.description);
+    $('[for*="event_description"]').css({
+      'top': 0,
+      'font-size': '12px'
+    });
+
+    // url
+    $('#event_url').val('https://www.facebook.com/events/' + eventData.id);
+    $('[for*="event_url"]').css({
+      'top': 0,
+      'font-size': '12px'
+    });
+
+    // loose ends
+    $('.event-form-image-preview').attr('src', eventData.cover.source);
+    $('.core-modal-base').remove();
+    $('.event-modal-scrim').remove();
+    $('#is-facebook-event').val('true');
+    $('#facebook-cover-url').val(eventData.cover.source);
+  });
+
+  $('#fb-logout').click(function(clickEvent) {
+    clickEvent.preventDefault();
+    FB.logout(function(response) {
+      alert('You have been logged out of facebook');
+    });
+  });
+
 });
-
-

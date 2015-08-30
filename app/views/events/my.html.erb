@@ -8,7 +8,9 @@
     <% @events.each do |e| %>
     <li class="reduce-margin paper-grid-card-base">
       <div class="paper-grid-card-main-content">
-        <p class="paper-grid-card-title"><%= e.name %></p>
+        <p class="paper-grid-card-title">
+          <%= truncate(e.name, :length => 19) %>
+        </p>
         <p class="paper-grid-card-subtitle">
           <%= e.formatted_start_and_end_times %>
         </p>

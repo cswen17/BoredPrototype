@@ -6,13 +6,39 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <!-- facebook setup -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '439402509595844',
+          xfbml      : true,
+          version    : 'v2.4'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- end facebook setup -->
+
+    <!-- this code draws the menu that we always see on the left side -->
     <%= render "layouts/nav_drawer" %>
-    <!-- placeholder class has no associated styles -->
-    <div class="placeholder-everything-else-container"> 
+
+    <!-- this code draws the rest of the page -->
+    <div class="placeholder-everything-else-container" tabindex=1> 
       <div class="core-header">
+        <!--
+          whenever you make a new page for teudu, include a title for the
+          top header bar by using the content_for function on the argument
+          :title. See views/events/index.html.erb for an example.
+         -->
         <h1 class="core-header-title"><%= yield(:title) %></h1>
       </div>
-
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>

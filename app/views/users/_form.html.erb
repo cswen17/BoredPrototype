@@ -27,8 +27,23 @@
     		<%= f.text_field :andrew_id %>
   		</div>
 
+        <div class="field">
+            <%= f.label :is_admin %>
+            <%= f.check_box :is_admin %>
+        </div>
+
+        <div class="field">
+            <%= f.label :is_org_leader %>
+            <%= f.check_box :is_org_leader %>
+        </div>
+
+        <div class="field">
+            <%= f.label :is_developer %>
+            <%= f.check_box :is_developer %>
+        </div>
+
 </fieldset>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "paper-raised-button" %>
   </div>
 <% end %>

@@ -21,8 +21,48 @@
 </fieldset>
 
   <div class="actions">
-    <%= f.submit class: "paper-flat-button" %>
+    <%= f.submit class: "paper-raised-button" %>
   </div>
+<% end %>
+
+<p class="core-heading">Events</p>
+
+<% @organization.events.each do |e| %>
+  <div class="paper-grid-card-base" style="margin-left: 8px;">
+
+  <div class="paper-grid-card-main-content">
+    <p class="paper-grid-card-title">
+      <%= e.name %>
+    </p>
+    <p class="paper-grid-card-subtitle">
+      <%= e.formatted_start_and_end_times %>
+    </p>
+    <p class="paper-grid-card-subtitle">
+      <%= e.location %>
+    </p>
+  </div>
+
+  <div class="paper-grid-card-action-area">
+    <%= button_to(
+        'view',
+        event_path(e),
+        method: :get,
+        class: 'paper-flat-button'
+    )%>
+    <%= button_to('edit', 
+        edit_event_path(e),
+        method: :get,
+        class: 'paper-flat-button'
+    )%>
+    <%= button_to(
+        'delete',
+        event_path(e),
+        method: :delete,
+        class: 'paper-flat-button'
+    )%>
+  </div>
+
+</div>
 <% end %>
 
 

@@ -1,30 +1,56 @@
-<div class="container" id="approval">
-<h1>Approved users</h1>
+<% content_for :title, "Approved Users" %>
+<div class="core-contents-height-base-sheet
+            core-base-sheet-dark-theme
+            pull-up" id="approval">
 
-<table>
-	<thead>
-  <tr>
-	<th>Name</th>
-	<th>Andrew ID</th>
-	<th>Orgs</th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-<tbody>
-<% @users.each do |user| %>
-  <tr>
-	<td><%= link_to user.name, user %></td>
-	<td><%= link_to user.andrew_id, user %></td>
-	<td><%= user.organizations_string %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Remove', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
+  <%= button_to(
+      'Create a New User',
+      new_user_path,
+      method: :get,
+      class: "paper-raised-button"
+  )%>
 
-<br />
+  <ul class="events-grid-card-list">
+  <% @users.each do |user| %>
+    <li class="reduce-margin paper-grid-card-base">
+      <div class="paper-grid-card-main-content">
+        <p class="paper-grid-card-title">
+          <%= user.name %>
+        </p>
+        <p class="paper-grid-card-subtitle">
+          <%= user.andrew_id %>
+        </p>
+        <p class="paper-grid-card-subtitle">
+          <% if user.organizations_string.length > 0 %>
+            <%= user.organizations_string %>
+          <% else %>
+            (No Organizational Affiliations)
+          <% end %>
+        </p>
+      </div>
+      <div class="paper-grid-card-action-area">
+        <%= button_to(
+            'View',
+            user,
+            method: :get,
+            class: "paper-flat-button"
+        ) %>
+        <%= button_to(
+            'Edit',
+            edit_user_path(user),
+            method: :get,
+            class: "paper-flat-button"
+        ) %>
+        <%= button_to(
+            'Remove',
+            user,
+            confirm: 'Are you sure?',
+            method: :delete,
+            class: "paper-flat-button"
+        ) %>
+      </div>
+    </li>
+  <% end %>
+  </ul>
 
-<%= link_to 'New User', new_user_path %>
 </div>

@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
         if flyer_path == nil or flyer_path == ''
             return '/flyers/original/cmuthemall.jpg'
         end
+        if flyer_path == '/flyers/original/cmuthemall.jpg'
+            return flyer_path
+        end
+        if flyer_path.include? "http"
+            return flyer_path 
+        end
         response = dropbox_client().media(flyer_path)
         if response == nil or response["url"] == nil
             logger.debug response

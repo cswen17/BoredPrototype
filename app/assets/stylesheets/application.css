@@ -51,6 +51,11 @@ li {
   overflow-y: auto;
 }
 
+.placeholder-everything-else-container:focus {
+  outline: 0;
+  border: none;
+}
+
 .float-right {
   float: right;
 }

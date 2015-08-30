@@ -127,6 +127,14 @@
     </div> <!-- /end of event-form-raised-input-group -->
     <div class="event-form-action-group">
       <%= f.submit(nil, class: "paper-raised-button float-right") %>
+      <input type="hidden" id="is-facebook-event" name="is_facebook_event"
+             value="false" />
+      <input type="hidden" id="facebook-cover-url" name="facebook_cover_url"
+             value="/flyers/original/cmuthemall.jpg" />
+      <button type="button" class="paper-raised-button float-right"
+              id="import-facebook-event">
+        Import Facebook Event 
+      </button>
     </div>
   <% end %>
   </div> <!-- /end of core-primary-raised-sheet -->

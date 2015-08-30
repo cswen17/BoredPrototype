@@ -1,7 +1,47 @@
 <% content_for :title, "Approval Dashboard" %>
-<div class="container" id = "approval">
-	<h1>Moderator View</h1>
-	<ul id="events">
-		<%= render :partial => 'event_approval' %>
+<div class="core-contents-height-base-sheet 
+            core-base-sheet-dark-theme pull-up">
+	<ul class="events-grid-card-list">
+      <% @events.each do |event| %>
+      <li class="paper-grid-card-base reduce-margin">
+
+        <!-- event info -->
+        <div class="paper-grid-card-main-content">
+          <p class="paper-grid-card-title">
+            <%= truncate(event.name, :length => 19) %>
+          </p>
+          <p class="paper-grid-card-subtitle">
+            <%= truncate(event.location, :length => 39) %>
+          </p>
+          <p class="paper-grid-card-subtitle">
+            <%= truncate(event.description, :length => 39) %>
+          </p>
+        </div>
+
+        <!-- edit, approve, or decline buttons -->
+        <div class="paper-grid-card-action-area">
+            <%= button_to 'Edit', edit_event_path(event), {
+                class: "paper-flat-button" 
+            } %>
+          <% if event.approval_rating == -1 %>
+              <%= button_to 'Approve', {
+                  controller: "events", action: "approve", id: event.id
+              }, class: "paper-flat-button" %>
+          <% elsif event.approval_rating == 0 %>
+              <%= button_to 'Approve', {
+                  controller: "events", action: "approve", id: event.id
+              }, class: "paper-flat-button" %>
+              <%= button_to 'Decline', {
+                  controller: "events", action: "decline", id: event.id
+              }, class: "paper-flat-button" %>
+          <% else %>
+              <%= button_to 'Decline', {
+                  controller: "events", action: "decline", id: event.id
+              }, class: "paper-flat-button" %>
+          <% end %>
+        </div>
+
+      </li>
+      <% end %>
 	</ul>
 </div>

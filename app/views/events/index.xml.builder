@@ -1,5 +1,4 @@
 xml.events do
-  xml.categories('Thursday, Friday, Saturday, Sunday')
   @events.each do |event_obj|
     xml.event(:id => event_obj.id) do
       xml.name(event_obj.name)
@@ -11,21 +10,14 @@ xml.events do
       xml.endtime(event_obj.event_end)
 
       xml.location(event_obj.location)
-      xml.image(event_obj.flyer)
+      xml.image(dropbox_url_for(event_obj.flyer_url))
 
-      mycat = Array.new
-      count = 0
-
-      EventsHelper::all_categories.each	do |c|
-      	event_obj.categories.split(",").each do |cat|
-           if c.second.to_s == cat	     
-              mycat.insert(count, c.first)
-	      count += 1
-	   end
-        end
+      categories = []
+      event_obj.categories.each do |c|
+        categories << c.name
       end
-
-      xml.categories(mycat.join(","));
+      
+      xml.categories(categories.join(","));
       xml.cancelled(event_obj.cancelled)
     end
   end

@@ -34,11 +34,11 @@ class Event < ActiveRecord::Base
 
   def approval_status
     if self.approval_rating == 0
-      "needs_approval"
+      return "needs_approval"
     elsif self.approval_rating == -1
-      "declined"
+      return "declined"
     else
-      "approved"
+      return "approved"
     end
   end
   
@@ -63,7 +63,61 @@ class Event < ActiveRecord::Base
     self.approval_rating = -1
 	self.save!
   end
-  
+
+  # event timebins
+  def is_today?
+    self.event_start.day === (Date.today.day) and is_this_week? and is_this_year?
+  end
+
+  def is_tomorrow?
+    self.event_start.day === (Date.today.day + 1)
+  end
+
+  def is_this_week?
+    self.event_start.to_date.cweek === Date.today.cweek
+  end
+
+  def is_next_week?
+    self.event_start.to_date.cweek === (Date.today.cweek + 1)
+  end
+
+  def is_this_month?
+    self.event_start.month == Date.today.month and is_this_year?
+  end
+
+  def is_next_month?
+    self.event_start.month == (Date.today.month + 1) and is_this_year?
+  end
+
+  def is_this_year?
+    self.event_start.year == Date.today.year
+  end
+
+  def date_class_array
+    event_timebins = []
+    event_timebins << "today" if is_today?
+    event_timebins << "tomorrow" if is_tomorrow?
+    event_timebins << "this_week" if is_this_week?
+    event_timebins << "next_week" if is_next_week?
+    event_timebins << "this_month" if is_this_month?
+    event_timebins << "next_month" if is_next_month?
+    event_timebins << "this_year" if is_this_year?
+    return event_timebins.to_json
+  end
+
+  # we use this array to draw the event time category buttons
+  def self.event_timebins 
+    return {
+      :today      => "Today",
+      :tomorrow   => "Tomorrow",
+      :this_week  => "This Week",
+      :next_week  => "Next Week",
+      :this_month => "This Month",
+      :next_month => "Next Month",
+      :this_year  => "This Year"
+    }
+  end
+
   # We can probably get away with letting the user upload something
   # crappy...it is their choice after all
   def dimensions_fine?
@@ -121,20 +175,20 @@ class Event < ActiveRecord::Base
 
   # when adding an error message, try to follow any examples you see here:
   # google.com/design/spec/patterns/errors.html#errors-user-input-errors
-  @@CREATE_EVENT_ERRORS = {
-    :name            => 'A name is required',
-    :location        => 'A location is required',
-    :description     => 'A description is required',
-    :day_time_range => 'An event\'s start is required to be before its end'
+  CREATE_EVENT_ERRORS = {
+    :name           => 'A name is required',
+    :location       => 'A location is required',
+    :description    => 'A description is required',
   }
 
   def create_event_errors_hash
+    # [view helper function]
     # this function will go through our errors hash and return a new
     # hash that contains error messages that follow material design
     create_event_errors = {}
 
     self.errors.each do |validation_key, err_msg|
-      pretty_err_msg = @@CREATE_EVENT_ERRORS[validation_key] 
+      pretty_err_msg = CREATE_EVENT_ERRORS[validation_key] 
       if pretty_err_msg == nil
         create_event_errors[validation_key] = err_msg
       else
@@ -144,5 +198,4 @@ class Event < ActiveRecord::Base
 
     return create_event_errors
   end
-
 end

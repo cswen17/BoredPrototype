@@ -1,27 +1,48 @@
 <% content_for :title, "Organizations" %>
-<div class="container" id="approval">
-	<h1>Listing organizations</h1>
+<div class="core-contents-height-base-sheet 
+            core-base-sheet-dark-theme
+            pull-up" id="approval">
 
-	<table>
-		<thead>
-	  <tr>
-		<th>Name</th>
-		<th></th>
-		<th></th>
-	  </tr>
-	</thead>
-	<tbody>
+  <%= button_to(
+    'New Organization',
+    new_organization_path,
+    method: :get,
+    class: "paper-raised-button"
+  )%>
+
+  <ul class="events-card-grid-list">
 	<% @organizations.each do |organization| %>
-	  <tr>
-		<td><%= link_to organization.name, organization %></td>
-		<td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-		<td><%= link_to 'Remove', organization, confirm: 'Are you sure?', method: :delete %></td>
-	  </tr>
+      <li class="reduce-margin paper-grid-card-base">
+        <div class="paper-grid-card-main-content">
+          <p class="paper-grid-card-title">
+            <%= organization.name %>
+          </p>
+          <p class="paper-grid-card-subtitle">
+            <%= organization.url %>
+          </p>
+        </div>
+        <div class="paper-grid-card-action-area">
+          <%= button_to(
+              'View',
+              organization_path(organization),
+              method: :get,
+              class: "paper-flat-button"
+          )%>
+          <%= button_to(
+              'Edit',
+              edit_organization_path(organization),
+              method: :get,
+              class: "paper-flat-button"
+          )%>
+          <%= button_to(
+              'Delete',
+              organization,
+              confirm: 'Are you sure?',
+              method: :delete,
+              class: "paper-flat-button"
+          )%>
+        </div>
+      </li>
 	<% end %>
-	</tbody>
-	</table>
-
-	<br />
-
-	<%= link_to 'New Organization', new_organization_path %>
+  </ul>
 </div>
