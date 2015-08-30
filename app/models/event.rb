@@ -28,8 +28,6 @@ class Event < ActiveRecord::Base
                                   Time.current.strftime("%Y-%m-%d %H:%M"))
                               .where("approval_rating = ?", 100)
 
-  include EventsHelper
-  
   #### PUBLIC METHODS ####
 
   def approval_status

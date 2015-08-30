@@ -7,7 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 
-//= require events/events
+//= require_tree . 
 
 var formatDateAsMMDDYYSlashes = function(dateString) {
   // formats a datetime as MM/DD/YY, HH:NN (24 hr clock) (date- no padding)
