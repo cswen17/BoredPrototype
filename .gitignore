@@ -13,3 +13,4 @@ db/schema.rb
 gem/*
 *~
 vendor/*
+script/*
