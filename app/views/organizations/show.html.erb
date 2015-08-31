@@ -1,73 +1,89 @@
 <% content_for :title, @organization.name %>
-<div class="container" id="approval">
-<p id="notice"><%= notice %></p>
-<h2>Members</h2>
-<% if !@organization.users.empty? %>
-<ul>
-	<% @organization.users.each do |user| %>
-	<li><%= link_to user.name, user %></li>
-	<% end %>
-</ul>
-<% end %>
-<h3>Update members</h3>
-<%= form_for(@organization) do |f| %>
-	<fieldset class="form-info">
+<div class="core-contents-height-base-sheet
+            core-base-sheet-light-theme
+            pull-up">
 
-  		<div class="field">
-    		<%= f.label :users %>
-    		<%= collection_select :organization, :user_ids, User.all, :id, :name, {:include_blank => ''},{ :multiple => true}%>
-  		</div>
+  <p class="paper-grid-card-title reduce-margin">Members</p>
 
-</fieldset>
+  <% if !@organization.users.empty? %>
+    <ul>
+      <% @organization.users.each do |user| %>
+	    <li class="core-form-label"><%= link_to user.name, user %></li>
+	  <% end %>
+    </ul>
+  <% else %>
+    (No Members)
+  <% end %>
 
-  <div class="actions">
-    <%= f.submit class: "paper-raised-button" %>
-  </div>
-<% end %>
+  <% if current_user.is_admin or (
+       current_user.is_org_leader and (
+         Organization.for_user(current_user).include?(@organization)
+       )
+     ) %>
+    <p class="paper-grid-card-title reduce-margin">Update members</p>
+    <p class="paper-grid-card-subtitle reduce-margin">
+      Select all the members of your organization.
+    </p>
 
-<p class="core-heading">Events</p>
+    <%= form_for(@organization) do |f| %>
+
+      <div class="paper-button-group">
+        <%= collection_select(
+            :organization,
+            :user_ids,
+            User.all,
+            :id,
+            :name,
+            { :include_blank => '' },
+            { :multiple => true },
+        ) %>
+      </div>
+
+
+    <div class="actions">
+      <%= f.submit class: "paper-raised-button" %>
+    </div>
+    <% end %>
+
+  <% end %>
+
+<p class="paper-grid-card-title reduce-margin">Events</p>
 
 <% @organization.events.each do |e| %>
   <div class="paper-grid-card-base" style="margin-left: 8px;">
 
-  <div class="paper-grid-card-main-content">
-    <p class="paper-grid-card-title">
-      <%= e.name %>
-    </p>
-    <p class="paper-grid-card-subtitle">
-      <%= e.formatted_start_and_end_times %>
-    </p>
-    <p class="paper-grid-card-subtitle">
-      <%= e.location %>
-    </p>
-  </div>
+    <div class="paper-grid-card-main-content">
+      <p class="paper-grid-card-title">
+        <%= e.name %>
+      </p>
+      <p class="paper-grid-card-subtitle">
+        <%= e.formatted_start_and_end_times %>
+      </p>
+      <p class="paper-grid-card-subtitle">
+        <%= e.location %>
+      </p>
+    </div>
 
-  <div class="paper-grid-card-action-area">
-    <%= button_to(
-        'view',
-        event_path(e),
-        method: :get,
-        class: 'paper-flat-button'
-    )%>
-    <%= button_to('edit', 
-        edit_event_path(e),
-        method: :get,
-        class: 'paper-flat-button'
-    )%>
-    <%= button_to(
-        'delete',
-        event_path(e),
-        method: :delete,
-        class: 'paper-flat-button'
-    )%>
-  </div>
+    <div class="paper-grid-card-action-area">
+      <%= button_to(
+          'view',
+          event_path(e),
+          method: :get,
+          class: 'paper-flat-button'
+      )%>
+      <%= button_to('edit', 
+          edit_event_path(e),
+          method: :get,
+          class: 'paper-flat-button'
+      )%>
+      <%= button_to(
+          'delete',
+          event_path(e),
+          method: :delete,
+          class: 'paper-flat-button'
+      )%>
+    </div>
 
-</div>
+  </div>
 <% end %>
-
-
-
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
-
 </div>

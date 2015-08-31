@@ -9,14 +9,13 @@ one:
   first_name: Joe
   last_name: User
   andrew_id: joeuser
-  moderator: true
+  is_admin: true
 
 two: 
   id: 2
   first_name: Andrew
   last_name: Carnegie
   andrew_id: acarnegie
-  moderator: false
 
 # Include fixtures :users wherever you're testing a method
 # that checks against current_user, so that the helper method
@@ -25,4 +24,4 @@ admin:
   first_name: Joe
   last_name: User
   andrew_id: admin
-  moderator: true
+  is_admin: true

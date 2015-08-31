@@ -11,7 +11,6 @@
 
   <!-- Events -->
   <div class="core-drawer-menu-subsection">
-      <!--<h4 class="core-drawer-menu-subheading">Events</h4>-->
     <ul>
       <li class="core-drawer-menu-item" id="create-event-teudu">
         <div class="core-drawer-menu-item-icon">&#10133;</div>
@@ -28,11 +27,29 @@
     </ul>
   </div>
 
-  <!--<hr class="core-drawer-menu-divider" />-->
+  <!-- User Listings -->
+  <div class="core-drawer-menu-subsection">
+    <ul>
+      <% if current_user.is_admin %>
+        <li class="core-drawer-menu-item" id="list-users-teudu">
+          <div class="core-drawer-menu-item-icon">&#10047;</div>
+          <span class="core-drawer-menu-item-label">
+            <%= link_to "Manage Users", users_url %>
+          </span>
+        </li>
+      <% else %>
+        <li class="core-drawer-menu-item" id="list-users-teudu">
+          <div class="core-drawer-menu-item-icon">&#10047;</div>
+          <span class="core-drawer-menu-item-label">
+            <%= link_to "My Profile", user_url(current_user) %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
   <!-- Organizations -->
   <div class="core-drawer-menu-subsection">
-      <!--<h4 class="core-drawer-menu-subheading">Organizations</h4>-->
     <ul>
       <li class="core-drawer-menu-item" id="browse-organizations-teudu">
         <div class="core-drawer-menu-item-icon">&#9730;</div>
@@ -43,12 +60,9 @@
     </ul>
   </div>
 
-  <!--<hr class="core-drawer-menu-divider" />-->
-
   <!-- Categories -->
   <% if current_user.is_org_leader or current_user.is_admin or current_user.is_developer %>
   <div class="core-drawer-menu-subsection">
-      <!--<h4 class="core-drawer-menu-subheading">Categories</h4>-->
     <ul>
       <li class="core-drawer-menu-item" id="manage-categories-teudu">
         <div class="core-drawer-menu-item-icon">&#9733;</div>
@@ -74,25 +88,10 @@
   </div>
   <% end %>
 
-  <!-- User Listings -->
-  <% if current_user.is_org_leader or current_user.is_admin or current_user.is_developer %>
-  <div class="core-drawer-menu-subsection">
-    <ul>
-      <li class="core-drawer-menu-item" id="list-users-teudu">
-        <div class="core-drawer-menu-item-icon">&#10047;</div>
-        <span class="core-drawer-menu-item-label">
-          <%= link_to "Users", users_url %>
-        </span>
-      </li>
-    </ul>
-  </div>
-  <% end %>
-
   <hr class="core-drawer-menu-divider" />
 
   <!-- About -->
   <div class="core-drawer-menu-subsection">
-      <!--<h4 class="core-drawer-menu-subheading">About</h4>-->
     <ul>
       <li class="core-drawer-menu-item" id="about-teudu">
         <div class="core-drawer-menu-item-icon">&#65311;</div>

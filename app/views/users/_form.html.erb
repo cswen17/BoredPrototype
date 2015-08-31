@@ -27,6 +27,26 @@
     		<%= f.text_field :andrew_id %>
   		</div>
 
+        <!-- todo: add instructions to this form so that
+               admin can choose wisely when manually creating
+               or editing a user. 
+             
+             admins > org_leaders > developers
+             developers can see [New Event] [My Events]
+               [Organizations] [About]
+             org leaderes can see [New Event] [My Events]
+               [Organizations] [Categories] [Approval]
+               [About]
+             admins can see [New Event] [My Events]
+               [Organizations] [Categories] [Approval]
+               [Users] [About]
+
+             admins should be able to promote users.
+             org leaders should be able to add new categories
+               if they want to promote certain events.
+             developers will get a [Developer] portal when
+               I finish implementing it.
+          -->
         <div class="field">
             <%= f.label :is_admin %>
             <%= f.check_box :is_admin %>

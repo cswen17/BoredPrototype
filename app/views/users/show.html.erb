@@ -1,5 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title, "#{@user.first_name}'s Profile" %>
+<p class="core-heading"><%= @user.name %></p>
+<p class="core-subheading"><%= @user.andrew_id %></p>
+<p class="core-subheading"><%= @user.organizations_string %></p>
+<%= button_to(
+    "Browse Organizations to Join",
+    organizations_path,
+    method: :get,
+    class: "paper-raised-button"
+) %>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if current_user.is_admin %>
+  <p class="core-heading">Admin Actions</p>
+  <%= button_to(
+      'Edit this User',
+      edit_user_path(@user),
+      method: :get,
+      class: "paper-raised-button"
+  ) %>
+  <%= button_to(
+      'View all Users',
+      users_path,
+      method: :get,
+      class: "paper-raised-button"
+  ) %>
+<% end %>

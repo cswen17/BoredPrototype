@@ -10,7 +10,7 @@
     <script>
       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '439402509595844',
+          appId      : <%= Secrets.get_facebook %>,
           xfbml      : true,
           version    : 'v2.4'
         });

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :andrew_id, :case_sensitive => false
 	
 	def can_moderate?
-		self.moderator
+		self.is_admin or self.is_org_leader
 	end
 	
 	def name

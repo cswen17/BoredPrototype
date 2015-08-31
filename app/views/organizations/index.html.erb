@@ -3,12 +3,14 @@
             core-base-sheet-dark-theme
             pull-up" id="approval">
 
-  <%= button_to(
-    'New Organization',
-    new_organization_path,
-    method: :get,
-    class: "paper-raised-button"
-  )%>
+  <% if current_user.is_admin %>
+    <%= button_to(
+      'New Organization',
+      new_organization_path,
+      method: :get,
+      class: "paper-raised-button"
+    )%>
+  <% end %>
 
   <ul class="events-card-grid-list">
 	<% @organizations.each do |organization| %>
@@ -28,12 +30,20 @@
               method: :get,
               class: "paper-flat-button"
           )%>
-          <%= button_to(
-              'Edit',
-              edit_organization_path(organization),
-              method: :get,
-              class: "paper-flat-button"
-          )%>
+
+          <% if current_user.is_admin or (
+               current_user.is_org_leader and (
+                 Organization.for_user(current_user).include?(organization))
+          ) %>
+            <%= button_to(
+                'Edit',
+                edit_organization_path(organization),
+                method: :get,
+                class: "paper-flat-button"
+            )%>
+          <% end %>
+
+          <% if current_user.is_admin %>
           <%= button_to(
               'Delete',
               organization,
@@ -41,6 +51,7 @@
               method: :delete,
               class: "paper-flat-button"
           )%>
+          <% end %>
         </div>
       </li>
 	<% end %>

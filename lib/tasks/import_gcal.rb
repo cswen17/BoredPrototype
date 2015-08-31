@@ -4,6 +4,8 @@ require 'yaml'
 require 'google/api_client'
 require 'time'
 
+include Secrets
+
 # This file grabs data from Google Calendars and adds it to Teudu. The input calendars are defined in the calendars array.
 # Instructions to run:
 
@@ -48,7 +50,7 @@ ROBOT_ORGID = Organization.where(:name => 'Robot').first.id
 def import_gcal(cal)
   #  calendar_id = '64usuav4123o6ea6gptm75efdc@group.calendar.google.com'
 
-  oauth_yaml = YAML.load_file('/var/www/teudu/.google-api.yaml')
+  oauth_yaml = Secrets.get_google
   client = Google::APIClient.new
   client.authorization.client_id = oauth_yaml["client_id"]
   client.authorization.client_secret = oauth_yaml["client_secret"]

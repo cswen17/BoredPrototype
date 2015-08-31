@@ -16,7 +16,9 @@ class EventsController < ApplicationController
   end
   
   def my
-	@events = Event.find(:all, :conditions => ['user_id = ?', current_user.id])
+	@events = Event.find(:all, :conditions => [
+        'user_id = ?', current_user.id
+    ])
 
 	respond_to do |format|
       format.html # index.html.erb
@@ -174,7 +176,11 @@ class EventsController < ApplicationController
     # This controller action is only for rendering the APPROVAL
     # dashboard for moderators. It doesn't do anything but fetch
     # a template from the app/views/events/ directory
-    @events = Event.all
+    ids = []
+    Organization.for_user(current_user).each do |org|
+      ids << org.id
+    end
+    @events = Event.where(organization_id: ids)
 
     respond_to do |format|
       format.html
