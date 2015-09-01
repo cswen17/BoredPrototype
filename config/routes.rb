@@ -1,13 +1,14 @@
 Teudu::Application.routes.draw do
   # See how all your routes lay out with "rake routes"
 
-  match 'about',         :to => 'pages#about'
-  match 'developer',     :to => 'pages#developer'
-  match 'deploy',        :to => 'pages#deploy', via: :post
-  match 'approval'           => 'events#approval'
-  match 'events/:id/decline' => 'events#decline'
-  match 'events/:id/approve' => 'events#approve'
-  match 'events/my'          => 'events#my'
+  match 'about',          :to => 'pages#about'
+  match 'developer',      :to => 'pages#developer'
+  match 'approval'            => 'events#approval'
+  match 'events/:id/decline'  => 'events#decline'
+  match 'events/:id/approve'  => 'events#approve'
+  match 'events/my'           => 'events#my'
+
+  post 'deploy/:branch' => 'pages#deploy', as: :deploy
 
   resources :categories
   resources :events
