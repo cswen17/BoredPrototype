@@ -1,0 +1,8 @@
+<% content_for :title, "Developer Portal" %>
+<div class="core-contents-height-base-sheet
+    core-base-sheet-light-theme">
+  <p class="core-subheading">Which branch do you want to deploy?</p>
+  <% @branches.each do |branch| %>
+      <%= button_to "#{branch}", deploy_path, class: "paper-flat-button" %>
+  <% end %>
+</div>
