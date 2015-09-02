@@ -4,11 +4,14 @@
 
 # this script should not be run in production
 
-restart_webrick() {
+call_restart_webrick() {
+  echo "My PID is $$"
+  echo "My PPID is $PPID"
   sleep 3
-  kill -2 $(ps aux | grep rails | grep -v grep | awk '//{print $2}')
-  git pull $1
-  rails s
+  ./lib/script/inner.sh $1
+  # kill -2 $(ps aux | grep rails | grep -v grep | awk '//{print $2}')
+  # git pull origin $1
+  # rails s
 }
 
-restart_webrick &
+call_restart_webrick $1 &

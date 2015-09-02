@@ -8,7 +8,7 @@ Teudu::Application.routes.draw do
   match 'events/:id/approve'  => 'events#approve'
   match 'events/my'           => 'events#my'
 
-  post 'deploy/:branch' => 'pages#deploy', as: :deploy
+  post 'pages/:branch/deploy' => 'pages#deploy', as: :deploy
 
   resources :categories
   resources :events
