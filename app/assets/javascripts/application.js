@@ -24,3 +24,8 @@ var formatDateAsMMDDYYSlashes = function(dateString) {
 
   return month + " " + day + ", " + year + " " + hour + ":" + minute;
 };
+
+$('.flash-dismiss-button').click(function(flashEvent) {
+  whoToDismiss = $(flashEvent.target).data('dismiss-target-id');
+  $('#' + whoToDismiss).hide();
+});

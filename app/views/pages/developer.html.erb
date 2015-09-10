@@ -3,8 +3,12 @@
     core-base-sheet-light-theme">
   <p class="core-subheading">Which branch do you want to deploy?</p>
   <% @branches.each do |branch| %>
-      <% if not "#{branch}".empty? %>
-        <%= button_to "#{branch}", {controller: "pages", action: "deploy", branch: "#{branch}"}, class: "paper-flat-button" %>
-      <% end %>
+    <% if not "#{branch}".empty? %>
+      <%= button_to(
+          "#{branch}",
+          {controller: "pages", action: "deploy", branch: "#{branch}"},
+          class: "paper-flat-button deploy-branch"
+      ) %>
+    <% end %>
   <% end %>
 </div>

@@ -40,6 +40,11 @@ class PagesController < ApplicationController
   def deploy
     branch = params[:branch]
     system("#{Rails.root.to_s}/lib/script/restart_#{Rails.env}.sh #{branch}")
+    flash[:deploy] = "Thanks for deploying branch #{branch}!
+                      We can't wait to see your changes to Teudu.
+                      Wait about 3-4 seconds for the server to restart,
+                      then click around to review the site for your
+                      changes."
     redirect_to root_path
   end
 end

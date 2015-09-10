@@ -1,0 +1,77 @@
+body {
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+
+ul {
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.placeholder-everything-else-container {
+  position: fixed;
+  top: 0;
+  left: 256px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.placeholder-everything-else-container:focus {
+  outline: 0;
+  border: none;
+}
+
+.float-right {
+  float: right;
+}
+
+.reduce-margin {
+  margin-top: 8px !important;
+  margin-left: 8px !important;
+}
+
+.flash-container {
+  position: fixed !important;
+  top: 106px !important;
+  left: 300px !important;
+  width: 512px;
+}
+
+.flash-toast-base {
+  min-height: 126px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+}
+
+.flash-toast-message {
+  display: block !important;
+  height: auto !important;
+}
+
+.flash-dismiss-button {
+  display: block;
+  height: 48px;
+}
