@@ -39,7 +39,6 @@
          -->
         <h1 class="core-header-title"><%= yield(:title) %></h1>
       </div>
-      <h1 class="core-header-title">IT WORKS!</h1>
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>

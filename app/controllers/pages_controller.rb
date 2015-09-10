@@ -39,8 +39,7 @@ class PagesController < ApplicationController
   # POST /deploy
   def deploy
     branch = params[:branch]
-    result = `#{Rails.root.to_s}/lib/script/restart_#{Rails.env}.sh #{branch}`
-    puts result
-    redirect_to developer_path
+    `#{Rails.root.to_s}/lib/script/restart_#{Rails.env}.sh #{branch}`
+    redirect_to root_path
   end
 end
