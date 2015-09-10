@@ -14,5 +14,4 @@ db/schema.rb
 gem/*
 *~
 vendor/*
-script/*
 config/secrets.yaml
