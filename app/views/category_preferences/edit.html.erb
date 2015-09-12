@@ -1,0 +1,42 @@
+<% content_for :title, @category_preference.name %>
+  <%= form_for @category_preference do |f| %>
+  <div class="paper-grid-card-dark-theme-base">
+    <div class="core-input-and-label-pair">
+      <%= f.label :name, class: "core-floating-label" %>
+      <%= f.text_field :name, class: "core-form-text-input" %>
+    </div>
+
+    <div class="core-input-and-label-pair">
+      <%= f.label :description, class: "core-floating-label" %>
+      <%= f.text_field :description, class: "core-form-text-input" %>
+    </div>
+  </div>
+
+  <div class="core-helpers-invisible-container">
+    <p class="paper-grid-card-subtitle expand-margin">
+      Edit which categories are in this category preference set:
+    </p>
+    <!-- Category Selection -->
+    <% Category.all().each do |c| %>
+      <div class="core-checkbox-and-label-pair">
+        <div class="checkbox-wrapper-for-ripple">
+          <%= check_box_tag(
+              "category_preference[categories][]",
+              c.name,
+              false,
+              {:class => "core-checkbox", :id => c.name} 
+          )%>
+        </div>
+          <%= label_tag(
+            c.name,
+            truncate(c.name, :length => 20),
+            class: "core-checkbox-label"
+          ) %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit class: "paper-raised-button" %>
+<% end %>
+
+

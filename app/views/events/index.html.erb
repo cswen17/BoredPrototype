@@ -3,30 +3,59 @@
 <div class="core-contents-height-base-sheet core-base-sheet-light-theme">
   <div class="paper-tab-group">
     <div class="paper-tab-base paper-tab-base-clicked"
-         data-target-buttons="paper-category-button"
-         data-hide-buttons="paper-time-category-button">
+         data-target-buttons="paper-original-category-button">
       Categories
     </div>
     <div class="paper-tab-base"
-         data-target-buttons="paper-time-category-button"
-         data-hide-buttons="paper-category-button">
+         data-target-buttons="paper-time-category-button">
       Times
+    </div>
+    <% current_user.category_preferences.each do |cat_pref| %>
+      <div class="paper-tab-base"
+          data-target-buttons="paper-<%= (
+            cat_pref.identifier) %>-category-button">
+        <%= cat_pref.name %>
+      </div>
+    <% end %>
+    <div class="paper-tab-base" id="paper-fake-tab">
+      <%= link_to(
+        "+",
+        category_preferences_path,
+        class: "paper-tab-base-icon"
+      ) %>
     </div>
   </div>
   <div class="paper-button-group">
     <% Category.all().each do |c| %>
-      <button class="paper-category-button clicked"
-              data-toggle-class="not-clicked"
-              data-curr-class="clicked" id="category-button-<%= c.id %>">
+        <button class="paper-category-button
+                       paper-original-category-button
+                       clicked"
+                data-toggle-class="not-clicked"
+                data-curr-class="clicked" id="category-button-<%= c.id %>">
         <%= c.name %>
       </button>
     <% end %>
     <% Event.event_timebins().each do |time_symbol, display_name| %>
-       <button class="paper-time-category-button clicked"
-              data-toggle-class="not-clicked"
-              data-curr-class="clicked" id="<%= time_symbol %>">
+        <button class="paper-category-button
+                       paper-time-category-button
+                       clicked"
+                data-toggle-class="not-clicked"
+                data-curr-class="clicked" id="<%= time_symbol %>">
         <%= display_name %>
       </button>
+    <% end %>
+    <% current_user.category_preferences.each do |cat_pref| %>
+      <% cat_pref.categories.each do |category| %>
+        <button class="paper-category-button
+                       paper-<%= cat_pref.identifier %>-category-button
+                       clicked
+                       hidden"
+                data-toggle-class="not-clicked"
+                data-curr-class="clicked"
+                id="category-button-<%= category.id %>">
+          <%= category.name %>
+        </button>
+      <% end %>
     <% end %>
   </div>
   <% @events.each do |event| %>

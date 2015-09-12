@@ -12,6 +12,20 @@
   margin-left: 16px;
 }
 
+.paper-grid-card-dark-theme-base {
+  // height, width, background color, display, vertical-align
+  background-color: $dark-primary;
+  display: inline-block;
+  vertical-align: top;
+  box-shadow: 0 0 4px 0 $shadow;
+  border-radius: 2px;
+  margin-top: 16px;
+  margin-left: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 8px;
+}
+
 .paper-grid-card-main-content {
   // height, padding, border-bottom
   padding-left: 16px;

@@ -51,13 +51,20 @@ $(document).ready(function() {
     });
   }); // end event card on click handler
 
+  $('#paper-fake-tab').click(function(fakeEvent) {
+    fakeEvent.stopImmediatePropagation();
+    fakeTabHref = $(fakeEvent.target).attr('href');
+    window.location = fakeTabHref;
+  });
+
   // this code sets up the tabs for category and time filtering
   $('.paper-tab-base').click(function(tabEvent) {
     $('.paper-tab-base').removeClass('paper-tab-base-clicked');
     $targetTab = $(tabEvent.target);
     $targetTab.addClass('paper-tab-base-clicked');
     targetedButtonsSelector = '.' + $targetTab.data('target-buttons'); 
-    targetedHideButtonsSelector = '.' + $targetTab.data('hide-buttons');
+    targetedHideButtonsSelector = 'button:not('
+      + targetedButtonsSelector + ')';
     $(targetedButtonsSelector).show();
     $(targetedHideButtonsSelector).hide();
   });

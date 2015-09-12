@@ -1,0 +1,30 @@
+<div class="paper-grid-card-base">
+
+  <div class="event-card-info-label">
+    <p class="text-event-subtitle"><%= cat_pref.name %></p>
+    <div class="reduce-margin">
+      <% cat_pref.categories.each do |c| %>
+        <div class="event-card-category-label"><%= c.name %></div>
+      <% end %>
+    </div>
+    <p class="text-event-subtitle">
+      <%= cat_pref.description %>
+    </p>
+  </div>
+
+  <div class="paper-grid-card-action-area">
+      <%= button_to(
+          'edit',
+          edit_category_preference_path(cat_pref),
+          method: :get,
+          class: 'paper-flat-button'
+      ) %>
+      <%= button_to(
+        'delete',
+        category_preference_path(cat_pref),
+        method: :delete,
+        class: 'paper-flat-button'
+      ) %>
+  </div>
+
+</div>

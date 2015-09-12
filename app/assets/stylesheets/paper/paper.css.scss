@@ -60,6 +60,12 @@
   border-bottom: 2px solid $primary;
 }
 
+.paper-tab-base-icon {
+  font-size: $body-size;
+  color: $caption-text;
+  font-weight: bold;
+}
+
 .paper-list-base {
   border: 1px solid $divider;
   background-color: $white;

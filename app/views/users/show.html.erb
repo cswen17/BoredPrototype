@@ -1,26 +1,45 @@
 <% content_for :title, "#{@user.first_name}'s Profile" %>
-<p class="core-heading"><%= @user.name %></p>
-<p class="core-subheading"><%= @user.andrew_id %></p>
-<p class="core-subheading"><%= @user.organizations_string %></p>
-<%= button_to(
+<div class="core-helpers-invisible-container">
+  <p class="core-heading"><%= @user.name %></p>
+  <p class="core-subheading"><%= @user.andrew_id %></p>
+  <p class="core-subheading"><%= @user.organizations_string %></p>
+  <%= button_to(
     "Browse Organizations to Join",
     organizations_path,
     method: :get,
-    class: "paper-raised-button"
-) %>
+    class: "paper-raised-button expand-margin"
+  ) %>
 
-<% if current_user.is_admin %>
-  <p class="core-heading">Admin Actions</p>
+  <!-- category preferences -->
+  <p class="core-subheading">My Category Preferences</p>
   <%= button_to(
+    'Manage my Category Preferences',
+    category_preferences_path,
+    method: :get,
+    class: "paper-raised-button expand-margin"
+  ) %>
+
+  <% @user.category_preferences.each do |cp| %>
+    <%= render(
+      'category_preferences/category_preference',
+      :cat_pref => cp
+    ) %> 
+  <% end %>
+
+  <!-- admin controls -->
+  <% if current_user.is_admin %>
+    <p class="core-heading">Admin Actions</p>
+    <%= button_to(
       'Edit this User',
       edit_user_path(@user),
       method: :get,
       class: "paper-raised-button"
-  ) %>
-  <%= button_to(
+    ) %>
+    <%= button_to(
       'View all Users',
       users_path,
       method: :get,
       class: "paper-raised-button"
-  ) %>
-<% end %>
+    ) %>
+  <% end %>
+</div>

@@ -11,6 +11,7 @@ Teudu::Application.routes.draw do
   post 'pages/:branch/deploy' => 'pages#deploy', as: :deploy
 
   resources :categories
+  resources :category_preferences
   resources :events
   resources :organizations
   resources :users

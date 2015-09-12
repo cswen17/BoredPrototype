@@ -34,34 +34,6 @@
   }
 }
 
-.paper-time-category-button {
-  // this button is implicitly flat.
-  // height, font-color, background-color
-  // these properties clear the default button properties
-  font-family: 'Roboto', sans-serif;
-  font-size: $button-size;
-  padding: 0;
-  border: none;
-  text-transform: uppercase;
-  color: $primary;
-  height: 36px;
-  padding-left: 8px;
-  padding-right: 8px;
-  margin-top: 8px;
-  margin-left: 8px;
-  border-radius: 2px;
-  min-width: 88px;
-  display: none;
-
-  &:hover {
-    // background-color, font-color
-    background-color: rgba(163, 163, 163, 0.2);
-  }
-  &:focus {
-    outline: none;
-  }
-}
-
 .paper-raised-button {
   font-family: 'Roboto', sans-serif;
   font-size: $button-size;

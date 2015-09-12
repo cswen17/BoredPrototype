@@ -51,6 +51,11 @@ li {
   margin-left: 8px !important;
 }
 
+.expand-margin {
+  margin-top: 16px !important;
+  margin-left: 16px !important;
+}
+
 .flash-container {
   position: fixed !important;
   top: 106px !important;
@@ -74,4 +79,16 @@ li {
 .flash-dismiss-button {
   display: block;
   height: 48px;
+}
+
+.medium-width {
+  width: 512px;
+}
+
+.small-medium-width {
+  width: 400px;
+}
+
+.hidden {
+  display: none;
 }
