@@ -56,8 +56,40 @@
         <a href="<%= event.url %>"><%= event.url %></a>
       </p>
 
+      <!-- Place this tag where you want the +1 button to render. -->
+      <div class="expand-left-margin">
+        <div class="g-plusone"
+             data-annotation="inline"
+             data-width="300"></div>
+      </div>
+
+      <!-- twitter "tweet" button -->
+      <div class="expand-left-margin">
+        <a href="https://twitter.com/share"
+           style="margin-left: 16px"
+           class="twitter-share-button"
+           data-text="Check out this event!"
+           data-hashtags="teudu">
+           Tweet
+        </a>
+      </div>
+      <!-- generated @ https://about.twitter.com/resources/buttons#tweet -->
+      <script>
+        !function(d,s,id){
+            var js,
+                fjs=d.getElementsByTagName(s)[0],
+                p=/^http:/.test(d.location)?'http':'https';
+            if(!d.getElementById(id)){
+                js=d.createElement(s);
+                js.id=id;
+                js.src=p+'://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js,fjs);
+            }
+        }(document, 'script', 'twitter-wjs');
+      </script>
+
       <!--facebook "like" button -->
-      <div class="fb-like" style="margin-left: 16px"
+      <div class="fb-like" style="margin-left: 16px;"
            data-href="<%= event.url %>"
            data-layout="standard" data-action="like" data-show-faces="true"
            data-share="true"></div>

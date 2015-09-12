@@ -38,7 +38,8 @@
     <% Event.event_timebins().each do |time_symbol, display_name| %>
         <button class="paper-category-button
                        paper-time-category-button
-                       clicked"
+                       clicked
+                       hidden"
                 data-toggle-class="not-clicked"
                 data-curr-class="clicked" id="<%= time_symbol %>">
         <%= display_name %>
