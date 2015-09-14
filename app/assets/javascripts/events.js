@@ -360,6 +360,10 @@ $(document).ready(function() {
     $('#tooltip-flyer-upload').hide();
   });
 
+  // ------------------------------------------
+  // facebook events and their helper functions
+  // ------------------------------------------
+
   var transformEventsDataList = function(listEventsData) {
     // this function will take the result of calling the FB
     // API's <user_id>/events endpoint, which is a list of
@@ -599,6 +603,178 @@ $(document).ready(function() {
     clickEvent.preventDefault();
     FB.logout(function(response) {
       alert('You have been logged out of facebook');
+    });
+  });
+
+  // ----------------------
+  // google calendar events
+  // ----------------------
+  $('#import-google-calendar-event').click(function (gCalEvent){
+    gapi.auth.authorize({
+      client_id:'17631357467-8u7ssihjghp93r2kr0n7rfnv1veedsaf.apps.googleusercontent.com',
+      scope: ['https://www.googleapis.com/auth/calendar.readonly'],
+      immediate: false
+    }, function(authResult){
+      if (authResult && !authResult.error) {
+        // load calendar events
+        gapi.client.load('calendar', 'v3', function(){
+          var request = gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'orderBy': 'startTime'
+          });
+
+          request.execute(function (resp){
+            $('body').append('<div class="core-modal-scrim"></div>')
+                     .append(
+              '<div class="core-modal-base" id="gcal-events-list"></div>');
+            gCalEventsList = $('#gcal-events-list');
+
+            $coreModalBaseWidth = $('.core-modal-base').width();
+            $('.core-modal-base').css({
+              'top': '56px',
+              'left': ($windowWidth - $coreModalBaseWidth) / 2 + 'px'
+            });
+
+            $('.core-modal-scrim').click(function(scrimClickEvent) {
+              $(scrimClickEvent.target).remove();
+              $('#gcal-events-list').remove();
+            });
+
+            var events = resp.items;
+
+            if (events.length > 0) {
+              // Go through the process of rendering a clickable list
+              // and when you click on a list item then the event
+              // creation form automatically gets populated
+
+              eventsLen = events.length;
+              // gCalEventsList.append($gCalListBase);
+
+              for (var i = 0; i < eventsLen; i++) {
+                var gCalEventData = events[i];
+                var gCalEventId = gCalEventData.id;
+                var gCalEventName = gCalEventData.summary;
+                var gCalEventLocation = gCalEventData.location;
+                var gCalEventStart = gCalEventData.start.dateTime;
+                var gCalEventEnd = gCalEventData.end.dateTime;
+                var gCalEventDescription = gCalEventData.description;
+
+                $gCalListBase = $(document.createElement('button'));
+                $gCalListBase.addClass('paper-list-base');
+                $gCalListBase.attr('id', gCalEventId);
+
+                namePTag = '<p class="paper-list-title g-clickable">'
+                    + gCalEventName + '</p>';
+                timeLocPTag = '<p class="paper-list-subtitle g-clickable">'
+                    + formatDateAsMMDDYYSlashes(gCalEventStart)
+                    + ' to '
+                    + formatDateAsMMDDYYSlashes(gCalEventEnd)
+                    + ' at ' + gCalEventLocation + '</p>';
+                descPTag = '<p class="paper-list-subtitle g-clickable">'
+                    + gCalEventDescription + '</p>';
+
+                $contentArea = $('<div class="paper-list-content-area" '
+                    + ' data-gcal-id="' + gCalEventId + '"></div>');
+
+                $contentArea.append(namePTag, timeLocPTag, descPTag);
+                $gCalListBase.append($contentArea);
+                $gCalListBase.attr('data-gcal-raw-event-data',
+                  JSON.stringify(gCalEventData));
+
+                gCalEventsList.append($gCalListBase);
+
+                // Click listener for this event
+                $gCalListBase.click(function(gCalClickEvent) {
+                  gCalClickEvent.preventDefault();
+                  gCalEvent = $(gCalClickEvent.target);
+                  
+                  // remove the gCalEventsList modal
+                  gCalEventsList.remove();
+                  $('.core-modal-scrim').remove();
+
+                  // prefill the gcal event data
+                  gCalRawEventData = gCalEvent.data('gcal-raw-event-data');
+                  if (!gCalRawEventData) {
+                    gParent = gCalEvent.parent('.paper-list-content-area');
+                    gGrandParent = gParent.parent('.paper-list-base');
+
+                    gCalRawEventData = gGrandParent.data(
+                      'gcal-raw-event-data'
+                    );
+                  }
+                  gName = gCalRawEventData.summary;
+                  gLoc = gCalRawEventData.location;
+                  gStart = new Date(gCalRawEventData.start.dateTime);
+                  gEnd = new Date(gCalRawEventData.end.dateTime);
+                  gDesc = gCalRawEventData.description;
+
+                  gStartHours = "" + gStart.getHours();
+                  if (gStart.getHours() < 10) {
+                    gStartHours = "0" + gStartHours;
+                  }
+                  gStartMinutes = "" + gStart.getMinutes();
+                  if (gStart.getMinutes() < 10) {
+                    gStartMinutes = "0" + gStartMinutes;
+                  }
+                  gEndHours = "" + gEnd.getHours();
+                  if (gEnd.getHours() < 10) {
+                    gEndHours = "0" + gEndHours;
+                  }
+                  gEndMinutes = "" + gEnd.getMinutes();
+                  if (gEnd.getMinutes() < 10) {
+                    gEndMinutes = "0" + gEndMinutes;
+                  }
+
+
+                  // name
+                  $('#event_name').val(gName);
+                  $('[for*="event_name"]').css({
+                    'top': 0,
+                    'font-size': '12px'
+                  });
+
+                  // location
+                  $('#event_location').val(gLoc);
+                  $('[for*="event_location"]').css({
+                    'top': 0,
+                    'font-size': '12px'
+                  });
+
+                  // start time
+                  $('#event_event_start_1i').val(gStart.getFullYear());
+                  $('#event_event_start_2i').val(gStart.getMonth() + 1);
+                  $('#event_event_start_3i').val(gStart.getDate());
+                  $('#event_event_start_4i').val(gStartHours);
+                  $('#event_event_start_5i').val(gStartMinutes);
+
+                  // end time
+                  $('#event_event_end_1i').val(gEnd.getFullYear());
+                  $('#event_event_end_2i').val(gEnd.getMonth() + 1);
+                  $('#event_event_end_3i').val(gEnd.getDate());
+                  $('#event_event_end_4i').val(gEndHours);
+                  $('#event_event_end_5i').val(gEndMinutes);
+
+                  // description
+                  $('#event_description').val(gDesc);
+                  $('[for*="event_description"]').css({
+                    'top': 0,
+                    'font-size': '12px'
+                  });
+                  
+                });
+              }
+            }
+          });
+        });
+        
+      } else {
+        // 'I could not log you in to Google Calendar'
+        // crud, it says in the docs that we need to give the user
+        // a chance to log in. todo.
+      }
     });
   });
 
