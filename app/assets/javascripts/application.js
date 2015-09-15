@@ -9,6 +9,43 @@
 
 //= require_tree . 
 
+//-------------------------------------------------------------
+// global variables and initialization functions for other APIs
+// ------------------------------------------------------------
+
+var secrets = {};
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : secrets["facebook"],
+    xfbml      : true,
+    version    : 'v2.4'
+  });
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
+
+var getSecrets = function() {
+  $.get('/facebook_secret', function(data, textStatus, jqXHR) {
+    secrets["facebook"] = data;
+  });
+  $.get('/google_secret', function(data, textStatus, jqXHR) {
+    secrets["google"] = data;
+  });
+};
+
+getSecrets();
+
+// ----------------
+// helper functions
+// ----------------
+
 var formatDateAsMMDDYYSlashes = function(dateString) {
   // formats a datetime as MM/DD/YY, HH:NN (24 hr clock) (date- no padding)
   months = ["January", "February", "March", "April", "May", "June", "July",
@@ -29,3 +66,5 @@ $('.flash-dismiss-button').click(function(flashEvent) {
   whoToDismiss = $(flashEvent.target).data('dismiss-target-id');
   $('#' + whoToDismiss).hide();
 });
+
+

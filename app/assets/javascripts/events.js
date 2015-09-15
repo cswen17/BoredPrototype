@@ -3,7 +3,6 @@
 // All this logic will automatically be available in application.js.
 var currRowMaxChars = 48;
 var currRow = 1;
-var secrets = {};
 
 var attachClickableClass = function(idName) {
   // this function will help make events clickable
@@ -14,34 +13,6 @@ var attachClickableClass = function(idName) {
     $child.attr('data-event-id', idName);
   }
 }
-
-var getSecrets = function() {
-  $.get('/facebook_secret', function(data, textStatus, jqXHR) {
-    secrets["facebook"] = data;
-  });
-  $.get('/google_secret', function(data, textStatus, jqXHR) {
-    secrets["google"] = data;
-  });
-};
-
-getSecrets();
-
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : secrets["facebook"],
-    xfbml      : true,
-    version    : 'v2.4'
-  });
-};
-
-(function(d, s, id){
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) {return;}
-   js = d.createElement(s); js.id = id;
-   js.src = "//connect.facebook.net/en_US/sdk.js";
-   fjs.parentNode.insertBefore(js, fjs);
- }(document, 'script', 'facebook-jssdk'));
-
 
 $(document).ready(function() {
   $('.placeholder-everything-else-container').focus();
@@ -136,7 +107,8 @@ $(document).ready(function() {
     }
   };
 
-  // this code sets up time category filtering. I'm sorry for the redundancy :'(
+  // this code sets up time category filtering.
+  // I'm sorry for the redundancy :'(
   $('.paper-time-category-button').click(function(timeEvent) {
     timeEvent.preventDefault();
     $timeButton = $(timeEvent.target);
