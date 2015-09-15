@@ -1,77 +1,45 @@
-Teudu
-===
-
+### Teudu
 This is the teudu webservice. It's based off of RoR 3.1.
 
-Deploying
----
+#### Getting Started for Development
+Until we upgrade to the latest versions of Ruby and Ruby on Rails, we will use Docker (todo: link to docker)
+to facilitate getting a development version of Teudu's codebase up and running on any Windows, Linux, or Mac
+computer. When you have finished the steps below, you should have:
+1. A copy of Teudu's source code
+2. A browser window open to Teudu's homepage at address localhost:3000.
 
-To deploy, ssh into our server and restart Apache2, as follows:
+##### Mac
+1. Download Docker.
+2. Press Cmd + Space, then start typing in `docker quickstart terminal`. Press Enter when it shows up.
+3. Run docker pull cswen17/teudu:devel
+4. Run docker run -p 3000:3000 -i -t cswen17/teudu:devel
+5. Open up your favorite internet browser, such as Google Chrome, Safari, Mozilla Firefox, etc.
+6. Go to localhost:3000
 
-ssh root@teudu.andrew.cmu.edu
-- Ask Connie, Vilcya, Stephanie, or Avesh for password
+##### Windows
+1. Download Docker.
+2. Look for `docker quickstart terminal` in your start menu.
+3. Run docker pull cswen17/teudu:devel
+4. Run docker run -p 3000:3000 -i -t cswen17/teudu:devel
+5. Open up your favorite internet browser.
+6. Go to localhost:3000
 
-Go to web site directory (/var/www/teudu)
-- cd /var/www/teudu
+##### Linux
+1. Download Docker.
+2. Run docker pull cswen17/teudu:devel
+3. Run docker run -p 3000:3000 -i -t cswen17/teudu:devel
+4. Open up your favorite internet browser.
+5. Go to localhost:3000
 
-Pull from repo
-- git pull origin master
+#### Backend Design
+Teudu's main product or object is the Event.
 
-bundle install --path vendor/bundle  
-
- Clean all assets
-- bundle exec rake assets:clean
-- bundle exec rake assets:precompile
-
-Restart the server
-- sudo /etc/init.d apache2 restart
-
-
-Database
----
-
-We test online with the app deployed to Heroku. Since Heroku uses Postgres instead of sqlite, you should run bundle install with the development context.
-`bundle install --without production`
-
-Adding new moderators
----
-Open up rails console
-- rails console production
-
-If user does not already exist in system:
-Save new user record in database
-- c = User.new
-- c = first_name = <user's first name>
-- c = last_name = <user's last name>
-- c = andrew_id = <user's andrew id>
-- c = moderator = true
-- c.save!
-
-If user does already exist in system
-Modify user's record in database
-- c = User.find_by_andrew_id("<andrew id>")
-- c = moderator = true
-- c.save!
+#### Frontend Design
 
 
-Setup
----
-Certificate stuff
-http://www.cmu.edu/computing/web/authenticate/webiso/apache.html
-http://www.cmu.edu/computing/doc/web/ca/request-certs.html
+#### Deploying
+https://teudu.andrew.cmu.edu/developer
 
-Debian RubyOnRails/passenger/apache installation
-https://gist.github.com/1102852
-
-Set write permissions for key directories (from Rails root directory)
-- chmod -R 777 tmp/
-- chmod -R 777 public/
-
-Pubcookie setup
-(Read from step 7 onwards and stop after the command ./keyclient. 
-DO NOT execute ./keyclient -G keys/pubcookie_granting.cert)
-http://parsedout.com/2007/12/installing-pubcookie-33-on-ubuntu-710-with-apache-2/
-
-WebISO/pubcookie integration
-https://github.com/alexcrichton/rack-pubcookie
-https://github.com/alexcrichton/oa-pubcookie
+#### Adding new users, org leaders, admins, or developers
+You must have is_admin set to true on your Teudu account to do this:
+https://teudu.andrew.cmu.edu/users
