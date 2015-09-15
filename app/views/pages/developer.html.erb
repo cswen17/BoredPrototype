@@ -1,14 +1,119 @@
 <% content_for :title, "Developer Portal" %>
 <div class="core-contents-height-base-sheet
     core-base-sheet-light-theme">
-  <p class="core-subheading">Which branch do you want to deploy?</p>
-  <% @branches.each do |branch| %>
-    <% if not "#{branch}".empty? %>
-      <%= button_to(
-          "#{branch}",
-          {controller: "pages", action: "deploy", branch: "#{branch}"},
-          class: "paper-flat-button deploy-branch"
-      ) %>
+
+  <div class="paper-tab-group">
+
+    <div class="paper-tab-base paper-tab-base-clicked"
+         data-target-buttons="developer-about">
+      About
+    </div>
+    <div class="paper-tab-base"
+         data-target-buttons="developer-deploy">
+      Deploy Teudu
+    </div>
+    <div class="paper-tab-base"
+         data-target-buttons="developer-style">
+      Frontend Style Guide
+    </div>
+  </div>
+
+  <!-- about -->
+  <div class="developer-about teudu-page">
+    <div class="core-helpers-naive-column">
+      <p class="core-subheading">Welcome to Development at Teudu</p>
+      <p class="event-modal-text-regular">
+        Welcome to Teudu's Developer Portal! We hope this page will
+        host helpful tools related to developing the Teudu web app.
+        There isn't much to see right now, but we hope to refine this
+        page's design to be optimized for developer efficiency! For now,
+        let's get started by explaining what's available.
+      </p>
+      <p class="core-subheading">Deploying Teudu</p>
+      <p class="event-modal-text-regular">
+        You've worked hard on fixing Teudu's github issues, and you're
+        ready to release your code into the wild. We hope that Teudu's
+        self-service Deploy endpoint will speed up the process of
+        transporting your changes from your local computer to Teudu's
+        remote server in Cyert Hall! However, there are quite a few
+        cases that our deploy service doesn't account for at this stage,
+        so be prepared to ssh onto our remote server to clean things
+        up in the worst case. Anyway, in the best case here's what will
+        happen when you deploy any amount of code to Teudu:
+      </p>
+      <p class="event-modal-text-regular">
+        1. When you click on the 'Deploy Teudu' tab, it will show a list
+        of git branches tracked by Teudu's private Github repo. Your
+        branch should be on that list.
+      </p>
+      <p class="event-modal-text-regular">
+        2. Click on your branch and you will be redirected to Teudu's
+        home page and a confirmation message will show up. Wait at
+        least 3 seconds and then visit any page you want on Teudu.
+        Your next successful request to the server will fetch the
+        updated versions of whatever Teudu throws at you. If you get
+        error messages about cached pages, just refresh. For other
+        errors, look to Teudu's wiki for troubleshooting and be prepared
+        to ssh onto the remote server.
+      </p>
+    </div>
+    <div class="core-helpers-naive-column">
+      <p class="event-modal-text-regular">
+        Under the hood, Teudu's deploy service invokes 2 scripts,
+        lib/script/restart_production.sh and
+        lib/script/production_inner_restart.sh. We used 2 scripts
+        to ensure that the process running the server doesn't get
+        killed before the Deploy Teudu tab finishes redirecting
+        the user to Teudu's home page. With the way the 2 scripts
+        are set up, one script will run in the same process as Teudu's
+        server while the other script spawns in a separate process
+        and starts a new server. 
+      </p>
+      <p class="event-modal-text-regular">
+        If your branch is not showing up in the 'Deploy Teudu' list,
+        try the following commands to get your code into Teudu's
+        github repo:
+      </p>
+      <pre>
+        git clone https://github.com/acmcmu/BoredPrototype.git
+        git remote show origin
+        # if your branch isn't in that list, do the following:
+        git checkout -b YOUR_BRANCH_NAME
+        # copy and paste your changes into the appropriate files
+        git add .
+        git commit -m "your message here"
+        git push origin YOUR_BRANCH_NAME
+      </pre>
+      <p class="event-modal-text-regular">
+        Then refresh this page and look for your branch name again.
+      </p>
+      <p class="core-subheading">Style Guide</p>
+      <p class="event-modal-text-regular">
+        Use the Frontend Style Guide for inspiration on how to organize
+        the latest batch of data that you're serving up from Teudu! It's
+        not complete though, so you may have your work cut out for you
+        in the front end. Please try to adhere to 
+        <a href="https://www.google.com/design/spec/material-design/introduction.html">
+          Principles of Material Design
+        </a> when you're designing new components for Teudu.
+      </p>
+    </div>
+  </div>
+
+  <!-- deploy teudu -->
+  <div class="developer-deploy teudu-page" style="display: none;">
+    <p class="core-subheading">Which branch do you want to deploy?</p>
+    <% @branches.each do |branch| %>
+      <% if not "#{branch}".empty? and not "#{branch}" == "master" %>
+        <%= button_to(
+            "#{branch}",
+            {controller: "pages", action: "deploy", branch: "#{branch}"},
+            class: "paper-flat-button deploy-branch"
+        ) %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
+  <!-- frontend style guide -->
+  <%= render 'pages/frontend_style_guide' %>
 </div>

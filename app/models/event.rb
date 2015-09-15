@@ -7,12 +7,11 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many   :categories
 
   validates_presence_of(
-    :name, :description,  :summary, :location,
+    :name, :description, :location,
     :event_start, :event_end,
     :approval_rating, :user 
   )
   validates_size_of :location, :maximum => 100
-  validates_size_of :summary, :maximum => 300
 
   #### SCOPES ####
   scope :all, order("event_start ASC")
