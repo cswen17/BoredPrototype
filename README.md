@@ -4,6 +4,8 @@ on how to get started developing for Teudu, and how to submit your
 changes to Teudu's code base.
 
 ### Getting Started
+Note: It hopefully only takes about 1 hour to finish these steps.
+
 Until we upgrade to the latest versions of Ruby and Ruby on Rails,
 we will use [Docker](https://www.docker.com/whatisdocker) to download
 and install Ruby on Rails and clone a copy of Teudu's git repo. It's
