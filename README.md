@@ -25,6 +25,7 @@ When you have finished the steps below, you should have:
 2. A browser window open to Teudu's homepage at some host on port :3000.
 
 Select your Operating System to get started:
+
 [Mac](#mac)
 
 [Windows](#windows)
@@ -219,7 +220,9 @@ tool that can deploy Teudu's code by searching for remote branches.
 However, there are a couple of things you need to ensure about your
 remote branches, although we have commands in case you did your work on
 the master branch, or used a fork of the ACM@CMU repo for Teudu.
+
 Let's start with your branch requirement:
+
 Your branch should be a remote branch on
 github.com/ACMCMU/BoredPrototype. To check, run
 `git remote show origin`. Does the output look like the following?
