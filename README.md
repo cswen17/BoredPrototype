@@ -25,11 +25,11 @@ When you have finished the steps below, you should have:
 2. A browser window open to Teudu's homepage at some host on port :3000.
 
 Select your Operating System to get started:
-[Mac][MacSetup]
-[Windows][WindowsSetup]
-[Ubuntu][UbuntuSetup]
+[Mac](#####Mac)
+[Windows](######Windows)
+[Ubuntu](######Ubuntu-or-Linux)
 
-##### [MacSetup]Mac
+#####Mac
 1. Download [Docker](https://docs.docker.com/installation/mac).
    The installation instructions start under the section 'Installation',
    and the first step should say something like 'Go to the Docker
@@ -48,7 +48,7 @@ Select your Operating System to get started:
    number after the last ':' with 3000. An example address might look like
    '192.168.88.101:3000'. Now you should see the home page of Teudu.
 
-##### [WindowsSetup]Windows
+#####Windows
 1. Download [Docker](https://docs.docker.com/installation/windows).
    The installation instructions start under the section 'Installation',
    and the first step should say something like 'Go to the Docker
@@ -67,7 +67,7 @@ Select your Operating System to get started:
    number after the last ':' with 3000. An example address might look like
    '192.168.88.101:3000'. Now you should see the home page of Teudu.
 
-##### [UbuntuSetup]Ubuntu (yay! and possibly other flavors of Linux)
+#####Ubuntu-or-Linux
 1. Download [Docker](https://docs.docker.com/installation/ubuntulinux/).
    The first instruction where you're probably going to do anything is
    under the 'Installation' section and says something like 'Log into
