@@ -1,90 +1,90 @@
 ## Teudu
-This is the teudu webservice. It's based off of RoR 3.1.
+This is the teudu webservice. In this README, you'll find information
+on how to get started developing for Teudu, and how to submit your
+changes to Teudu's code base.
 
 ### Getting Started
 Until we upgrade to the latest versions of Ruby and Ruby on Rails,
 we will use [Docker](https://www.docker.com/whatisdocker) to download
 and install Ruby on Rails and clone a copy of Teudu's git repo. It's
-free, so don't follow any links that ask you for payment. You'll
-need at least 613 MB of free space on your computer to download our
-recommended Docker image of Teudu (the image contains Rails 3.1.0,
-ruby 1.9.2, and a clone of Teudu's repository, but you'll need to
-update the repo by running `git pull` yourself), plus about 50 MB
-to download Docker, so we recommend keeping at least 1 GB of space
-free on your computer for Teudu's development. However, it's totally
-okay to develop on Teudu without Docker, and there should be
-instructions to get started without Docker on the Teudu wiki.
+free, so don't follow any links that ask you for payment.
 
-When you have finished the steps
-below, you should have:
+You'll need at least 613 MB of free space on your computer to download
+our recommended Docker image of Teudu, plus about 50 MB of free space
+to download Docker.
 
-1. A copy of Teudu's source code
-2. A browser window open to Teudu's homepage at address localhost:3000.
+We recommend keeping at least 1 GB of space free on your computer for
+Teudu's development.
 
-Then you can start clicking around and exploring the Teudu web app!
+Having said that, it's totally okay to develop on Teudu without Docker.
+There are instructions to get started without Docker on the Teudu wiki.
 
-##### Mac
+When you have finished the steps below, you should have:
+
+1. An updated copy of Teudu's source code in the `BoredPrototype` directory
+2. A browser window open to Teudu's homepage at some host on port :3000.
+
+Select your Operating System to get started:
+[Mac][MacSetup]
+[Windows][WindowsSetup]
+[Ubuntu][UbuntuSetup]
+
+##### [MacSetup]Mac
 1. Download [Docker](https://docs.docker.com/installation/mac).
    The installation instructions start under the section 'Installation',
    and the first step should say something like 'Go to the Docker
    Toolbox page.' Follow the instructions up to the section titled
-   'From your shell', because docker quickstart terminal should be enough.
-2. Press Cmd + Space, then start typing in
-   `docker quickstart terminal`. Press Enter when it shows up. If
-   you're already in the quickstart terminal because of the step above,
-   then you don't need to start another quickstart terminal.
-3. Run `docker pull cswen17/teudu:devel`
-4. Run `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s'`
-5. Open up your favorite internet browser, such as Google Chrome,
-   Safari, Mozilla Firefox, etc.
-6. This step is a little tricky. Normally you can just go to
-   http://localhost:3000 in your browser at this point but we actually
-   need to find the ip address of our docker virtual machine for Mac and
-   Windows. Run `docker-machine ls`, then look for the 'tcp:' or 'http:'
-   address under the URL column. Copy and paste that address into
-   your browser, but replace the port number after the last ':' with 3000.
-   An example address might look like '192.168.88.101:3000'. Now you
-   should see the home page of Teudu.
+   'From your shell'.
+2. If you're already in the quickstart terminal then go on to the next
+   step. Otherwise, press &#8984; + Space, then start typing in
+   `docker quickstart terminal`. Press Enter.
+3. `docker pull cswen17/teudu:devel`
+4. `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s'`
+5. Open up your favorite browser.
+6. This step is a little tricky. We need to find the ip address of our
+   docker virtual machine. Run `docker-machine ls`, then look for the
+   'tcp:' or 'http:' address under the URL column.
+7. Copy and paste that address into your browser, but replace the port
+   number after the last ':' with 3000. An example address might look like
+   '192.168.88.101:3000'. Now you should see the home page of Teudu.
 
-##### Windows
+##### [WindowsSetup]Windows
 1. Download [Docker](https://docs.docker.com/installation/windows).
    The installation instructions start under the section 'Installation',
    and the first step should say something like 'Go to the Docker
    Toolbox page.' Follow the instructions up to the section titled
    'From your shell', because docker quickstart terminal should be enough.
-2. Look for `docker quickstart terminal` on your desktop. Open it if
+2. Look for `Docker Quickstart Terminal` on your desktop. Open it if
    you haven't already.
-3. Run `docker pull cswen17/teudu:devel`
-4. Run `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s'`
-5. Open up your favorite internet browser.
-6. This step is a little tricky. Normally you can just go to
-   http://localhost:3000 in your browser at this point but we actually
-   need to find the ip address of our docker virtual machine for Mac and
-   Windows. Run `docker-machine ls`, then look for the 'tcp:' or 'http:'
-   address under the URL column. Copy and paste that address into
-   your browser, but replace the port number after the last ':' with 3000.
-   An example address might look like '192.168.88.101:3000'. Now you
-   should see the home page of Teudu.
+3. `docker pull cswen17/teudu:devel`
+4. `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s'`
+5. Open up your favorite browser.
+6. This step is a little tricky. We need to find the ip address of our
+   docker virtual machine. Run `docker-machine ls` in the Docker
+   Quickstart Terminal, then look for the
+   'tcp:' or 'http:' address under the URL column.
+7. Copy and paste that address into your browser, but replace the port
+   number after the last ':' with 3000. An example address might look like
+   '192.168.88.101:3000'. Now you should see the home page of Teudu.
 
-##### Ubuntu (yay! and possibly other flavors of Linux)
+##### [UbuntuSetup]Ubuntu (yay! and possibly other flavors of Linux)
 1. Download [Docker](https://docs.docker.com/installation/ubuntulinux/).
    The first instruction where you're probably going to do anything is
    under the 'Installation' section and says something like 'Log into
    your Ubuntu installation as a user with `sudo` privileges'. Follow
    the instructions up to the section titled 'Enable UFW Forwarding'.
-2. Open up a terminal window with Ctrl + Alt + T
-3. Run `docker pull cswen17/teudu:devel` (add sudo at the beginning if
+2. Open up a terminal window with Ctrl + Alt + T.
+3. `docker pull cswen17/teudu:devel` (add sudo at the beginning if
    you didn't make a docker group yet)
-4. Run `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s`
+4. `docker run -p 3000:3000 -d -i -t cswen17/teudu:devel /bin/bash -c 'git config --global user.name "<your name>" && git config --global user.email "<the email address linked to your github account>" && cd /root/BoredPrototype && git pull && bundle install && bundle exec rake db:migrate && rails s`
 5. Open up your favorite internet browser.
 6. Go to http://localhost:3000. Now you should see the home page of Teudu.
 
-### Getting Started the second time onward
+### Viewing and Editing Teudu's Source Code
 Now that you have downloaded the Docker image for Teudu and launched
 a Docker container for it, you can do the following things in your
 new development environment:
 
-##### View and Edit Teudu's Source Code
 We're working on some stuff mentioned in
 [this blog post](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/)
 to see if we can run Sublime and Notepad++ from within Docker, but until
@@ -189,7 +189,7 @@ rails console
 ```
 
 #### Create an Event
-You should try to create an event from <localhostAddress>:3000/events/new
+You should try to create an event from localhost:3000/events/new
 in your development copy of Teudu's web app rather than through rails
 console, but here's a quick walkthrough of the process for the required
 event fields only:
@@ -261,9 +261,11 @@ Deploying is the process of publishing your code changes to Teudu's
 production machine, whose address is at `teudu.andrew.cmu.edu`. After
 you deploy your branch to Teudu, you'll be able to see the result of
 your changes at www.teudu.org.
+
 1. Go to https://www.teudu.org/developer
 2. Click on the 'Deploy Teudu' tab.
 3. Find your branch name in the list and click on it.
+
 If anything weird happens, go to https://www.teudu.org/developer
 and follow the instructions on the 'About' tab.
 
