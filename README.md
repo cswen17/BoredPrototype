@@ -25,9 +25,11 @@ When you have finished the steps below, you should have:
 2. A browser window open to Teudu's homepage at some host on port :3000.
 
 Select your Operating System to get started:
-[Mac](#####Mac)
-[Windows](######Windows)
-[Ubuntu](######Ubuntu-or-Linux)
+[Mac](#mac)
+
+[Windows](#windows)
+
+[Ubuntu](#ubuntu-or-linux)
 
 #####Mac
 1. Download [Docker](https://docs.docker.com/installation/mac).
